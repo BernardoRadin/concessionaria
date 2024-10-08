@@ -11,19 +11,28 @@
                 </div>
                 
                 <!-- Cards de Funcionário -->
+                @foreach($funcionarios as $funcionario)
+
                 <div class="employee-card">
-                    <div class="employee-photo" style="cursor: pointer;" onclick="abrirModalVisualizacao('Mateus Alves', 'Vendedor', 'email@exemplo.com', '(XX) XXXX-XXXX', 'Endereço do Funcionário')">
+                    <!-- <div class="employee-photo" style="cursor: pointer;" onclick="abrirModalVisualizacao('Mateus Alves', 'Vendedor', 'email@exemplo.com', '(XX) XXXX-XXXX', 'Endereço do Funcionário')">
                         <img src="carteira-de-identidade.png" alt="Foto do Funcionário">
-                    </div>
+                    </div> -->
                     <div class="employee-info">
-                        <h3 onclick="abrirModalVisualizacao('Mateus Alves', 'Vendedor', 'email@exemplo.com', '(XX) XXXX-XXXX', 'Endereço do Funcionário')" class="employee-name">Mateus Alves</h3>
-                        <p>Vendedor</p>
+                        <h3 onclick="abrirModalVisualizacao('Mateus Alves', 'Vendedor', 'email@exemplo.com', '(XX) XXXX-XXXX', 'Endereço do Funcionário')" class="employee-name">{{ $funcionario->Nome }}</h3>
+                        <p>{{ $funcionario->Email }}</p>
+                        <p>{{ $funcionario->Telefone }}</p>
+                        <p>{{ $funcionario->CPF }}</p>
                     </div>
                     <div class="employee-actions">
                         <i class="fas fa-edit" onclick="abrirModalEdicao()"></i>
-                        <i class="fas fa-times" onclick="abrirModalConfirmacaoExclusao(this)"></i>
+                        <form action="{{ route('funcionarios.delete', $funcionario->ID) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')    
+                        <button type='submit'><i class="fas fa-times" onclick="return confirm('Tem certeza que deseja deletar este funcionário?');"></i></button>
+                        </form>
                     </div>
                 </div>
+                @endforeach
         </div>
         </section>
 
@@ -48,27 +57,33 @@
                         </div>
                     </div>
                     <!-- Seção de Detalhes do Funcionário -->
-                    <div class="employee-details">
-                        <input type="text" id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
-                        <input type="text" id="telefone" placeholder="Telefone" maxlength="15" oninput="mascaraTelefone(this)" />
-                        <input type="text" id="cpf" placeholder="CPF" maxlength="14" oninput="mascaraCPF(this)" />
-                        <select id="sexo">
+                    <div class="employee-details" >
+                    <form action="{{ route('funcionarios.create') }}" method="POST">
+                        @csrf
+                        <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
+                        <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
+                        <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" oninput="mascaraCPF(this)" />
+                        <select id='sexo' name='sexo'>
                             <option value="" disabled selected>Sexo</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
                             <option value="NaoPrefiroResponder">Prefiro não Responder</option>
                         </select>
-                        <input type="text" id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" oninput="mascaraData(this)" />
-                        <input type="text" id="cargo" placeholder="Cargo" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
-                        <input type="email" id="email" placeholder="Email" />
+                        <input type="text" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" oninput="mascaraData(this)" />
+                        <select id='cargo' name='id_cargo'>
+                            <option value="" disabled selected>Selecione o cargo</option>
+                            <option value="1">Chefe</option>
+                        </select>
+                        <input type="email" name='email' id="email" placeholder="Email" />
                         <div class="password-field">
-                            <input type="password" placeholder="Senha" id="senha" />
+                            <input type="password" placeholder="Senha" name='senha' id="senha" />
                             <i class="fas fa-eye" id="toggleSenha"></i>
                         </div>
-                        <input type="text" placeholder="Endereço" class="address-full-width" />
+                        <!-- <input type="text" placeholder="Endereço" name='endereco' class="address-full-width" /> -->
                     </div>
                 </div>
-                <button id="cadastrarBtn" onclick="cadastrarFuncionario()">Cadastrar</button>
+                <button id="cadastrarBtn" type="submit">Cadastrar</button>
+                </form>
             </div>
         </div>
     <!-- Visualizar as informações do Funcionário -->
@@ -189,44 +204,6 @@ document.getElementById("toggleSenha").addEventListener("click", function() {
         this.classList.add("fa-eye");
     }
 });
-
-// Cadastro de funcionário
-function cadastrarFuncionario() {
-    const campos = document.querySelectorAll('#employeeModal input, #employeeModal select');
-    let valid = true;
-
-    campos.forEach(campo => {
-        if (!campo.value) {
-            campo.style.borderColor = 'red';
-            valid = false;
-        } else {
-            campo.style.borderColor = '#ccc';
-        }
-    });
-
-    if (valid) {
-        const nome = document.getElementById('nome').value;
-        const telefone = document.getElementById('telefone').value;
-        const cpf = document.getElementById('cpf').value;
-        const sexo = document.getElementById('sexo').value;
-        const dataNascimento = document.getElementById('dataNascimento').value;
-        const cargo = document.getElementById('cargo').value;
-        const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
-        const endereco = document.querySelector('.address-full-width').value;
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "cadastro.php", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.onload = function () {
-            alert(this.responseText);
-            closeEmployeeModal(); // Fecha o modal após o cadastro
-        };
-        xhr.send(`nome=${nome}&telefone=${telefone}&cpf=${cpf}&sexo=${sexo}&dataNascimento=${dataNascimento}&cargo=${cargo}&email=${email}&senha=${senha}&endereco=${endereco}`);
-    } else {
-        alert("Por favor, preencha todos os campos.");
-    }
-}
 
 // Função para abrir o modal de edição
 function abrirModalEdicao() {

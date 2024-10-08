@@ -31,7 +31,7 @@ class LoginController extends Controller
             return redirect()->route('login.index')->withErrors(['error' => 'Email inválido!']);
         }
 
-        if($credentials['password'] == $funcionario->SENHA){
+        if($credentials['password'] == $funcionario->Senha){
             Auth::login($funcionario);
             return redirect()->route('dashboard.index');
         }else{

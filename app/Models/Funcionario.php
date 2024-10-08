@@ -8,9 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Funcionario extends Authenticatable
 {
-    protected $table = 'FUNCIONARIOS';
+    protected $table = 'funcionarios';
 
-    protected $fillable = ['email', 'password'];
+    
+    protected $fillable = ['Nome',
+    'Senha',
+    'CPF',
+    'Email',
+    'Sexo',
+    'DataNasc',
+    'Telefone',
+    // 'Endereco',
+    'ID_Cargo'];
 
-    protected $hidden = ['password'];
+    protected $hidden = ['Senha'];
+
+    public $timestamps = false; 
 }

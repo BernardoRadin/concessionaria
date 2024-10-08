@@ -530,16 +530,16 @@ h2 {
     margin-top: 0px;
 }
 
-.employee-details input,
-.employee-details select {
+form input,
+form select {
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.employee-details input:focus,
-.employee-details select:focus {
+form input:focus,
+form select:focus {
     border-color: #0a0a23;
     outline: none;
 }
@@ -548,14 +548,14 @@ h2 {
     grid-column: span 2;
 }
 
-.employee-details input {
+form input {
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.employee-details input:focus {
+form input:focus {
     border-color: #0a0a23;
     outline: none;
 }

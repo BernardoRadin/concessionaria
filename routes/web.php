@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FuncionariosController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Funcionario;
 
 Route::get('/', [HomeController::class,'index']);
 
@@ -20,6 +21,8 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/dashboard', 'index')->name('dashboard.index');
     Route::get('/dashboard/funcionarios', 'funcionarios')->name('dashboard.funcionarios');
 });
+
+Route::put('/funcionarios/{id}', [FuncionariosController::class, 'update'])->name('funcionarios.update');
 
 Route::controller(FuncionariosController::class)->group(function(){
     Route::post('/dashboard/funcionarios/create', 'create')->name('funcionarios.create');

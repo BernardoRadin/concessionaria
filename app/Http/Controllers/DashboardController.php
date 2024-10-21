@@ -15,7 +15,7 @@ class DashboardController extends Controller
     
     public function funcionarios(){
 
-        $funcionarios = DB::table('funcionarios')->get();
+        $funcionarios = Funcionario::with('cargo')->get();
 
         return view('dashboard_funcionarios', compact('funcionarios'));
     }

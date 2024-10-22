@@ -29,6 +29,7 @@ class FuncionariosController extends Controller
             'DataNasc' => $dataFormatada,
             'Telefone' => $request->telefone,
             'ID_Cargo' => $request->id_cargo,
+            'Endereco' => $request->endereco,
         ]);
         
         return redirect()->back()->with('success', 'Funcionário cadastrado com sucesso!');

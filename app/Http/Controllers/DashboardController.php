@@ -15,8 +15,10 @@ class DashboardController extends Controller
     
     public function funcionarios(){
 
+        // Carrega todos os funcionários com os cargos
         $funcionarios = Funcionario::with('cargo')->get();
-
+        
+        // Retorna a view passando os funcionários
         return view('dashboard_funcionarios', compact('funcionarios'));
     }
 

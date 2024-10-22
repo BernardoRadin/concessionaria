@@ -9,7 +9,6 @@
             <i class="fas fa-plus-circle" onclick="openEmployeeModal()"></i>
             <p>Cadastre um funcionário</p>
         </div>
-
         <!-- Cards de Funcionário -->
     @foreach($funcionarios as $funcionario)
         <div class="employee-card" 
@@ -23,7 +22,7 @@
             </div>
             <div class="employee-info">
                 <h3 class="employee-name">{{ $funcionario->Nome }}</h3>
-                <p>{{ $funcionario->cargo->Nome }}</p>
+                <p> {{ $funcionario->cargo->Nome }}</p>
             </div>
             <div class="employee-actions">
                 <i class="fas fa-edit" onclick="abrirModalEdicao({ Nome: '{{ $funcionario->Nome }}', Email: '{{ $funcionario->Email }}', Telefone: '{{ $funcionario->Telefone }}' })"></i>
@@ -77,7 +76,7 @@
                         <input type="password" placeholder="Senha" name='senha' id="senha" />
                         <i class="fas fa-eye" id="toggleSenha"></i>
                     </div>
-                    <input type="text" placeholder="Endereço" class="address-full-width" />
+                    <input type="text" name='endereco' placeholder="Endereço" class="address-full-width" />
             </div> <!-- Fim do wrapper -->
             <!-- Botão fora do form e do wrapper -->
             <button id="cadastrarBtn" type="submit">Cadastrar</button>

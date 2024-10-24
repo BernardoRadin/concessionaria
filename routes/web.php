@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FuncionariosController;
+use App\Http\Controllers\MarcasController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Funcionario;
 

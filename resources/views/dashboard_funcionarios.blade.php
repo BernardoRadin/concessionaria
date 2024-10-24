@@ -7,7 +7,7 @@
     <div class="employee-section">
         <div class="add-employee">
             <i class="fas fa-plus-circle" onclick="openEmployeeModal()"></i>
-            <p>Cadastre Funcionário</p>
+            <p>Cadastrar Funcionário</p>
         </div>
         <!-- Cards de Funcionário -->
     @foreach($funcionarios as $funcionario)
@@ -48,7 +48,7 @@
 <div id="employeeModal" class="modal">
         <div class="modal-content">
         <span class="close" onclick="closeEmployeeModal()">&times;</span>
-        <h2>Cadastre o Funcionário</h2>
+        <h2>Cadastrar Funcionário</h2>
         <div class="modal-body">
             <div class="form-wrapper"> <!-- Wrapper para organizar o layout -->
                 <div class="photo-section">

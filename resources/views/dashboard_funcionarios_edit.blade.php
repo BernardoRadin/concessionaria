@@ -122,23 +122,6 @@
         }
     });
                      
-    $('.employee-card').each(function(index, card) {
-        const editIcon = $(card).find('.fas.fa-edit');
-        const deleteIcon = $(card).find('.fas.fa-times');
-    
-        const nome = $(card).find('.employee-name').text();
-        const cargo = $(card).find('p').text();
-        const email = $(card).data('email');
-        const telefone = $(card).data('telefone');
-        const cpf = $(card).data('cpf');
-        const endereco = $(card).data('endereco');
-    
-        $(card).on('click', function(event) {
-            if (event.target !== editIcon[0] && event.target !== deleteIcon[0]) {
-                abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco);
-            }
-        });
-    });
-    </script>
+</script>
         
 @endsection

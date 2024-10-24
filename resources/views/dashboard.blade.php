@@ -7,6 +7,8 @@
     <title>Painel Administrativo</title>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css')}} ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,8 +19,11 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{{ route('dashboard.index') }}">Inicio</a></li>
-                    <li><a href="dashboard_veiculos.html">Veiculos</a></li>
                     <li><a href="{{ route('dashboard.funcionarios') }}">Funcionarios</a></li>
+                    <li><a href="{{ route('dashboard.marcas') }}">Marcas</a></li>
+                    <li><a href="{{ route('dashboard.funcionarios') }}">Categorias</a></li>
+                    <li><a href="{{ route('dashboard.funcionarios') }}">Clientes</a></li>
+                    <li><a href="{{ route('dashboard.funcionarios') }}">Vericulos</a></li>
                     <li><a href="dashboard_vendas.html">Vendas</a></li>
                     <li><a href="#">Gestao</a></li>
                     <li><a href="index.html">Voltar ao Site</a></li>
@@ -52,6 +57,5 @@
         </main>
     </div>
 
-    <script src="https://kit.fontawesome.com/seu-codigo-fontawesome.js"></script>
 </body>
 </html>

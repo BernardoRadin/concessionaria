@@ -10,6 +10,8 @@ class Funcionario extends Authenticatable
 {
     protected $table = 'funcionarios';
     
+    protected $primaryKey = 'ID';
+
     protected $fillable = ['Nome',
     'Senha',
     'CPF',

@@ -3,11 +3,11 @@
 @section('content_dashboard')
 
 <section class="main-content">
-    <h2>Seus Funcionários</h2>
+    <h2>Funcionários</h2>
     <div class="employee-section">
         <div class="add-employee">
             <i class="fas fa-plus-circle" onclick="openEmployeeModal()"></i>
-            <p>Cadastre um funcionário</p>
+            <p>Cadastre Funcionário</p>
         </div>
         <!-- Cards de Funcionário -->
     @foreach($funcionarios as $funcionario)
@@ -25,7 +25,7 @@
                 <p> {{ $funcionario->cargo->Nome }}</p>
             </div>
             <div class="employee-actions">
-                <i class="fas fa-edit" onclick="abrirModalEdicao({ Nome: '{{ $funcionario->Nome }}', Email: '{{ $funcionario->Email }}', Telefone: '{{ $funcionario->Telefone }}' })"></i>
+                <a href='{{ route('funcionarios.edit', ['id' => $funcionario->ID]) }}'><i class="fas fa-edit" ></i></a>
                 <i class="fas fa-times" data-nome="{{ $funcionario->Nome }}" onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
                 <form action="{{ route('funcionarios.delete', $funcionario->ID) }}" method="POST" style="display:none;">
                     @csrf
@@ -43,9 +43,9 @@
     <a href="?page=3">3</a>
     <!-- Mais páginas podem ser adicionadas dinamicamente -->
 </div>
-    
-        <!-- Modal de Cadastro -->
-        <div id="employeeModal" class="modal">
+
+<!-- Modal de Cadastro -->
+<div id="employeeModal" class="modal">
         <div class="modal-content">
         <span class="close" onclick="closeEmployeeModal()">&times;</span>
         <h2>Cadastre o Funcionário</h2>
@@ -60,13 +60,13 @@
                     @csrf
                     <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
                     <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
-                    <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" oninput="mascaraCPF(this)" />
+                    <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" />
                     <select id='sexo' name='sexo'>
                         <option value="" disabled selected>Sexo</option>
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                     </select>
-                    <input type="text" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" oninput="mascaraData(this)" />
+                    <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
                     <select id='cargo' name='id_cargo'>
                         <option value="" disabled selected>Selecione o cargo</option>
                         <option value="1">Chefe</option>
@@ -77,65 +77,38 @@
                         <i class="fas fa-eye" id="toggleSenha"></i>
                     </div>
                     <input type="text" name='endereco' placeholder="Endereço" class="address-full-width" />
+                    <button id="cadastrarBtn" type="submit">Cadastrar</button>
             </div> <!-- Fim do wrapper -->
             <!-- Botão fora do form e do wrapper -->
-            <button id="cadastrarBtn" type="submit">Cadastrar</button>
             </form>
         </div>
     </div>
 </div>
 
-    <!-- Visualizar as informações do Funcionário -->
-    <div class="modal-view-funcionario" id="modalVisualizarFuncionario">
-        <div class="modal-content-view">
-            <span class="close-view" onclick="fecharModalVisualizarFuncionario()">&times;</span>
-            <div class="modal-header-view">
-                <h2 id="viewNomeFuncionario">Nome do Funcionário</h2>
-                <h3 id="viewCargoFuncionario">Cargo do Funcionário</h3>
+<!-- Visualizar as informações do Funcionário -->
+<div class="modal-view-funcionario" id="modalVisualizarFuncionario">
+    <div class="modal-content-view">
+        <span class="close-view" onclick="fecharModalVisualizarFuncionario()">&times;</span>
+        <div class="modal-header-view">
+            <h2 id="viewNomeFuncionario">Nome do Funcionário</h2>
+            <h3 id="viewCargoFuncionario">Cargo do Funcionário</h3>
+        </div>
+        <div class="modal-body-view">
+            <div class="foto-view">
+                <img src="{{ asset('imagens/funcionario.png') }}" alt="View Funcionário" class="view-funcionario">
             </div>
-            <div class="modal-body-view">
-                <div class="foto-view">
-                    <img src="{{ asset('imagens/funcionario.png') }}" alt="View Funcionário" class="view-funcionario">
-                </div>
-                <div class="detalhes-view">
-                    <p><strong>Telefone:</strong> <span id="viewTelefoneFuncionario">123-456-7890</span></p>
-                    <p><strong>Email:</strong> <span id="viewEmailFuncionario">exemplo@email.com</span></p>
-                    <p><strong>CPF:</strong> <span id="viewCpfFuncionario">123.456.789-00</span></p>
-                    <p><strong>Endereço:</strong> <span id="viewEnderecoFuncionario">Rua Exemplo, 123</span></p>
-                </div>
+            <div class="detalhes-view">
+                <p><strong>Telefone:</strong> <span id="viewTelefoneFuncionario">123-456-7890</span></p>
+                <p><strong>Email:</strong> <span id="viewEmailFuncionario">exemplo@email.com</span></p>
+                <p><strong>CPF:</strong> <span id="viewCpfFuncionario">123.456.789-00</span></p>
+                <p><strong>Endereço:</strong> <span id="viewEnderecoFuncionario">Rua Exemplo, 123</span></p>
             </div>
         </div>
     </div>
-
-<!-- Editar as informações do Funcionário -->
-<div id="modalEdicao" class="modal">
-    <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModal('modalEdicao')">&times;</span>
-        <h2>Editar Funcionário</h2>
-        <form id="formEditarFuncionario" onsubmit="enviarFormulario(event)">
-            @csrf
-            @method('PUT')
-
-            <div class="campo-formulario">
-                <label for="nomeEdicao">Nome:</label>
-                <input type="text" id="nomeEdicao" name="nome" required>
-            </div>
-            <div class="campo-formulario">
-                <label for="emailEdicao">E-mail:</label>
-                <input type="email" id="emailEdicao" name="email" required>
-            </div>
-            <div class="campo-formulario">
-                <label for="telefoneEdicao">Telefone:</label>
-                <input type="tel" id="telefoneEdicao" name="telefone" required>
-            </div>
-            <input type="hidden" id="idEdicao" name="id"> <!-- Campo oculto para armazenar o ID -->
-            <button type="submit" class="botao-salvar">Salvar Alterações</button>
-        </form>
-    </div>
 </div>
 
-    <!-- Modal de Confirmação de Exclusão -->
-    <div class="modal-confirmacao" id="modalConfirmacaoExclusao">
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal-confirmacao" id="modalConfirmacaoExclusao">
     <div class="modal-content-confirmacao">
         <span class="fechar" onclick="fecharModal('modalConfirmacaoExclusao')">&times;</span>
         <h2>Confirmação de Exclusão</h2>
@@ -149,194 +122,153 @@
 
 
 <script>
-// Abrir o modal de funcionário
-function openEmployeeModal() {
-    document.getElementById('employeeModal').style.display = 'flex';
-}
-
-// Fechar o modal de funcionário
-function closeEmployeeModal() {
-    document.getElementById('employeeModal').style.display = 'none';
-}
-
-// Máscara para telefone
-function mascaraTelefone(input) {
-    input.value = input.value.replace(/\D/g, '') // Remove tudo o que não for dígito
-        .replace(/^(\d{2})(\d)/, '($1) $2')      // Coloca parênteses nos dois primeiros dígitos
-        .replace(/(\d{5})(\d{4})$/, '$1-$2');    // Coloca um hífen no meio do número
-}
-
-// Máscara para CPF
-function mascaraCPF(input) {
-    input.value = input.value.replace(/\D/g, '')  // Remove tudo o que não for dígito
-        .replace(/(\d{3})(\d)/, '$1.$2')         // Coloca um ponto após os três primeiros dígitos
-        .replace(/(\d{3})(\d)/, '$1.$2')         // Outro ponto após os próximos três
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');  // Coloca um hífen no meio
-}
-
-// Máscara para data de nascimento
-function mascaraData(input) {
-    input.value = input.value.replace(/\D/g, '')  // Remove tudo o que não for dígito
-        .replace(/(\d{2})(\d)/, '$1/$2')         // Coloca uma barra após os dois primeiros dígitos (dia)
-        .replace(/(\d{2})(\d)/, '$1/$2');        // Outra barra após os dois dígitos do mês
-}
-
-// Alternar visualização de senha
-document.getElementById("toggleSenha").addEventListener("click", function() {
-    const senhaInput = document.getElementById("senha");
-    if (senhaInput.type === "password") {
-        senhaInput.type = "text";
-        this.classList.remove("fa-eye");
-        this.classList.add("fa-eye-slash");
-    } else {
-        senhaInput.type = "password";
-        this.classList.remove("fa-eye-slash");
-        this.classList.add("fa-eye");
+    // Abrir o modal de funcionário
+    function openEmployeeModal() {
+        $('#employeeModal').css('display', 'flex');
     }
-});
-
-function abrirModalEdicao(funcionario) {
-    document.getElementById('nomeEdicao').value = funcionario.Nome;
-    document.getElementById('emailEdicao').value = funcionario.Email;
-    document.getElementById('telefoneEdicao').value = funcionario.Telefone;
-
-    // Coloque o ID do funcionário no campo oculto
-    document.getElementById('idEdicao').value = funcionario.ID; 
-
-    // Abre o modal
-    document.getElementById('modalEdicao').style.display = 'block';  
-}
-
-async function enviarFormulario(event) {
-    event.preventDefault(); // Previna o comportamento padrão do formulário
-
-    const id = document.getElementById('idEdicao').value; // Obtenha o ID do campo oculto
-    const formData = new FormData(document.getElementById('formEditarFuncionario'));
-
-    try {
-        const response = await fetch(`/funcionarios/${id}`, {
-            method: 'PUT',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-
-        if (response.ok) {
-            fecharModal('modalEdicao');
-            alert('Funcionário atualizado com sucesso!');
-            // Opcional: atualize a tabela ou faça outras ações necessárias
-        } else {
-            const errorData = await response.json();
-            alert('Não foi possível atualizar os dados do funcionário: ' + errorData.error);
-        }
-    } catch (error) {
-        console.error('Erro:', error);
-        alert('Ocorreu um erro ao tentar atualizar os dados do funcionário.');
-    }
-}
-
-// Função para fechar modais
-function fecharModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
-
-// Fechar o modal ao clicar fora do conteúdo
-window.onclick = function(event) {
-    const modalEdicao = document.getElementById("modalEdicao");
-    const modalVisualizacao = document.getElementById("modalVisualizarFuncionario");
-
-    if (event.target === modalEdicao || event.target === modalVisualizacao) {
-        fecharModal(event.target.id);
-    }
-}
-
-// Fechar o modal ao pressionar a tecla "ESC"
-document.onkeydown = function(event) {
-    if (event.key === "Escape") {
-        fecharModal('modalEdicao');
-        fecharModal('modalVisualizarFuncionario');
-        fecharModal('modalConfirmacaoExclusao');
-    }
-}
-
-// Confirmar exclusão
-function abrirModalConfirmacaoExclusao(element, nomeFuncionario) {
-    const modal = document.getElementById("modalConfirmacaoExclusao");
-    modal.style.display = "block";
     
-    // Atualiza o texto com o nome do funcionário
-    document.getElementById('nomeFuncionario').innerText = nomeFuncionario;
-
-    // Obtém o ID do funcionário do card
-    const cardFuncionario = element.closest('.employee-card');
-    const cardId = cardFuncionario.dataset.cardId; // Armazena o ID no modal
-    modal.dataset.cardId = cardId; // Armazena o ID no modal
-}
-
-function confirmarExclusao() {
-    const modal = document.getElementById("modalConfirmacaoExclusao");
-    const cardId = modal.dataset.cardId;
-
-    // Seleciona o formulário correspondente ao funcionário
-    const form = document.querySelector(`.employee-card[data-card-id="${cardId}"] form`);
-
-    if (form) {
-        form.submit(); // Submete o formulário para excluir no backend
+    // Fechar o modal de funcionário
+    function closeEmployeeModal() {
+        $('#employeeModal').css('display', 'none');
     }
-
-    fecharModal('modalConfirmacaoExclusao');
-}
-
-// Visualizar dados do funcionário
-function abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco) {
-    // Abre o modal
-    document.getElementById('modalVisualizarFuncionario').style.display = 'flex';
-
-    // Preenche os campos do modal com os dados do funcionário
-    document.getElementById('viewNomeFuncionario').innerText = nome;
-    document.getElementById('viewCargoFuncionario').innerText = cargo;
-    document.getElementById('viewEmailFuncionario').innerText = email;
-    document.getElementById('viewEnderecoFuncionario').innerText = endereco;
-
-    // Aplica a máscara correta no telefone
-    const telefoneMascarado = telefone.replace(/\D/g, '') // Remove tudo o que não for dígito
-        .replace(/^(\d{2})(\d)/, '($1) $2')      // Coloca parênteses nos dois primeiros dígitos
-        .replace(/(\d{5})(\d{4})$/, '$1-$2');    // Coloca um hífen no meio do número
-
-    // Aplica a máscara correta no CPF
-    const cpfMascarado = cpf.replace(/\D/g, '')  // Remove tudo o que não for dígito
-        .replace(/(\d{3})(\d)/, '$1.$2')         // Coloca um ponto após os três primeiros dígitos
-        .replace(/(\d{3})(\d)/, '$1.$2')         // Outro ponto após os próximos três
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');  // Coloca um hífen no meio
-
-    // Atribui os valores mascarados aos campos do modal
-    document.getElementById('viewTelefoneFuncionario').innerText = telefoneMascarado;
-    document.getElementById('viewCpfFuncionario').innerText = cpfMascarado;
-}
-
-function fecharModalVisualizarFuncionario() {
-    document.getElementById('modalVisualizarFuncionario').style.display = 'none';
-}
-
-document.querySelectorAll('.employee-card').forEach((card, index) => {
-    const editIcon = card.querySelector('.fas.fa-edit');
-    const deleteIcon = card.querySelector('.fas.fa-times');
-
-    const nome = card.querySelector('.employee-name').innerText;
-    const cargo = card.querySelector('p').innerText;
-    const email = card.dataset.email;
-    const telefone = card.dataset.telefone;  // Verifique que está pegando o telefone
-    const cpf = card.dataset.cpf;            // Verifique que está pegando o CPF
-    const endereco = card.dataset.endereco;
-
-    card.addEventListener('click', function(event) {
-        if (event.target !== editIcon && event.target !== deleteIcon) {
-            abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco);
+    
+    // Máscara para telefone usando jQuery Mask
+    $(document).ready(function() {
+        $('#telefone').mask('(00) 00000-0000'); // Aplica a máscara para telefone
+        $('#telefoneEdicao').mask('(00) 00000-0000'); // Aplica a máscara para telefone
+        $('#viewTelefoneFuncionario').mask('(00) 00000-0000'); // Aplica a máscara para telefone na visualização
+    });
+    
+    // Máscara para CPF usando jQuery Mask
+    $(document).ready(function() {
+        $('#cpf').mask('000.000.000-00'); // Aplica a máscara para CPF
+        $('#cpfEdicao').mask('000.000.000-00'); // Aplica a máscara para CPF
+        $('#viewCpfFuncionario').mask('000.000.000-00'); // Aplica a máscara para CPF na visualização
+    });
+    
+    // Máscara para data de nascimento usando jQuery Mask
+    $(document).ready(function() {
+        $('#dataNascimentoEdicao').mask('00/00/0000'); // Aplica a máscara para data de nascimento
+    });
+    
+    // Alternar visualização de senha
+    $('#toggleSenha').on('click', function() {
+        const senhaInput = $('#senha');
+        if (senhaInput.attr('type') === 'password') {
+            senhaInput.attr('type', 'text');
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            senhaInput.attr('type', 'password');
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
         }
     });
-});
 
-</script>
-
+    $('#toggleSenhaEdicao').on('click', function() {
+        const senhaInput = $('#senhaEdicao');
+        if (senhaInput.attr('type') === 'password') {
+            senhaInput.attr('type', 'text');
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            senhaInput.attr('type', 'password');
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+     
+    function abrirModalEdicao(funcionario) {
+        $('#nomeEdicao').val(funcionario.Nome);
+        $('#cpfEdicao').val(funcionario.Cpf);
+        $('#emailEdicao').val(funcionario.Email);
+        $('#dataNascEdicao').val(funcionario.DataNasc);
+        $('#telefoneEdicao').val(funcionario.Telefone);
+        $('#senhaEdicao').val(funcionario.Senha);
+        $('#enderecoEdicao').val(funcionario.Endereco);
+        $('#idEdicao').val(funcionario.ID); // Coloque o ID do funcionário no campo oculto
+        $('#modalEdicao').css('display', 'flex'); // Abre o modal
+    }
+        
+    // Função para fechar modais
+    function fecharModal(modalId) {
+        $('#' + modalId).css('display', 'none');
+    }
+    
+    // Fechar o modal ao clicar fora do conteúdo
+    $(window).on('click', function(event) {
+        const modalEdicao = $('#modalEdicao');
+        const modalVisualizacao = $('#modalVisualizarFuncionario');
+    
+        if (event.target === modalEdicao[0] || event.target === modalVisualizacao[0]) {
+            fecharModal(event.target.id);
+        }
+    });
+    
+    // Fechar o modal ao pressionar a tecla "ESC"
+    $(document).on('keydown', function(event) {
+        if (event.key === "Escape") {
+            fecharModal('modalEdicao');
+            fecharModal('modalVisualizarFuncionario');
+            fecharModal('modalConfirmacaoExclusao');
+        }
+    });
+    
+    // Confirmar exclusão
+    function abrirModalConfirmacaoExclusao(element, nomeFuncionario) {
+        const modal = $('#modalConfirmacaoExclusao');
+        modal.css('display', 'block');
+        $('#nomeFuncionario').text(nomeFuncionario);
+    
+        const cardFuncionario = $(element).closest('.employee-card');
+        const cardId = cardFuncionario.data('cardId'); // Armazena o ID no modal
+        modal.data('cardId', cardId);
+    }
+    
+    function confirmarExclusao() {
+        const modal = $('#modalConfirmacaoExclusao');
+        const cardId = modal.data('cardId');
+    
+        const form = $(`.employee-card[data-card-id="${cardId}"] form`);
+    
+        if (form.length) {
+            form.submit(); // Submete o formulário para excluir no backend
+        }
+    
+        fecharModal('modalConfirmacaoExclusao');
+    }
+    
+    // Visualizar dados do funcionário
+    function abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco) {
+        $('#modalVisualizarFuncionario').css('display', 'flex');
+    
+        $('#viewNomeFuncionario').text(nome);
+        $('#viewCargoFuncionario').text(cargo);
+        $('#viewEmailFuncionario').text(email);
+        $('#viewEnderecoFuncionario').text(endereco);
+    
+        // Atribui os valores mascarados aos campos do modal
+        $('#viewTelefoneFuncionario').text(telefone);
+        $('#viewCpfFuncionario').text(cpf);
+    }
+    
+    function fecharModalVisualizarFuncionario() {
+        $('#modalVisualizarFuncionario').css('display', 'none');
+    }
+    
+    $('.employee-card').each(function(index, card) {
+        const editIcon = $(card).find('.fas.fa-edit');
+        const deleteIcon = $(card).find('.fas.fa-times');
+    
+        const nome = $(card).find('.employee-name').text();
+        const cargo = $(card).find('p').text();
+        const email = $(card).data('email');
+        const telefone = $(card).data('telefone');
+        const cpf = $(card).data('cpf');
+        const endereco = $(card).data('endereco');
+    
+        $(card).on('click', function(event) {
+            if (event.target !== editIcon[0] && event.target !== deleteIcon[0]) {
+                abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco);
+            }
+        });
+    });
+    </script>
+        
 @endsection

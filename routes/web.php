@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FuncionariosController;
 use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\ClientesController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Funcionario;
 
@@ -24,6 +25,7 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/dashboard/funcionarios', 'funcionarios')->name('dashboard.funcionarios');
     Route::get('/dashboard/marcas', 'marcas')->name('dashboard.marcas');
     Route::get('/dashboard/categorias', 'categorias')->name('dashboard.categorias');
+    Route::get('/dashboard/clientes', 'clientes')->name('dashboard.clientes');
 });
 
 Route::controller(FuncionariosController::class)->group(function(){
@@ -45,4 +47,11 @@ Route::controller(CategoriasController::class)->group(function(){
     Route::post('/dashboard/categorias/create', 'create')->name('categorias.create');
     Route::put('/dashboard/categorias/update/{id}', 'update')->name('categorias.update');
     Route::delete('/dashboard/categorias/delete/{id}', 'delete')->name('categorias.delete');
+});
+
+Route::controller(ClientesController::class)->group(function(){
+    Route::get('/dashboard/clientes/edit/{id}', 'edit')->name('clientes.edit');
+    Route::post('/dashboard/clientes/create', 'create')->name('clientes.create');
+    Route::put('/dashboard/clientes/update/{id}', 'update')->name('clientes.update');
+    Route::delete('/dashboard/clientes/delete/{id}', 'delete')->name('clientes.delete');
 });

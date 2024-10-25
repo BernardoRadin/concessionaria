@@ -22,7 +22,7 @@
                     <li><a href="{{ route('dashboard.funcionarios') }}">Funcionarios</a></li>
                     <li><a href="{{ route('dashboard.marcas') }}">Marcas</a></li>
                     <li><a href="{{ route('dashboard.categorias') }}">Categorias</a></li>
-                    <li><a href="{{ route('dashboard.funcionarios') }}">Clientes</a></li>
+                    <li><a href="{{ route('dashboard.clientes') }}">Clientes</a></li>
                     <li><a href="{{ route('dashboard.funcionarios') }}">Vericulos</a></li>
                     <li><a href="dashboard_vendas.html">Vendas</a></li>
                     <li><a href="#">Gestao</a></li>

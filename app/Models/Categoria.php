@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cargo extends Model
+class Categoria extends Model
 {
     use HasFactory;
-    
-    protected $table = 'cargos';
+
+    protected $table = 'categorias';
+
+    protected $primaryKey = 'ID';
+
     protected $fillable = ['Nome'];
-    
-    public function funcionarios()
-    {
-        return $this->belongsTo(Funcionario::class, 'ID_Cargo');
-    }
+
+    public $timestamps = false; 
+
 }

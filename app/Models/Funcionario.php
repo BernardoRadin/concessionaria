@@ -3,22 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Funcionario extends Model
+class Funcionario extends Authenticatable
 {
-    use HasFactory;
-    
     protected $table = 'funcionarios';
-    protected $fillable = [
-        'Nome', 'Senha', 'CPF', 'Email', 'Sexo', 'DataNasc', 'Telefone', 'ID_Cargo'
-    ];
     
+    protected $primaryKey = 'ID';
+
+    protected $fillable = ['Nome',
+    'Senha',
+    'CPF',
+    'Email',
+    'Sexo',
+    'DataNasc',
+    'Telefone',
+    'Endereco',
+    'ID_Cargo'];
+
     public function cargo()
     {
-        return $this->belongsTo(Cargo::class, 'ID_Cargo', 'ID');
+        return $this->hasOne(Cargo::class, 'ID', "ID_Cargo");
     }
-    
+
     protected $hidden = ['Senha'];
-    public $timestamps = false; // Se a tabela não tiver colunas created_at/updated_at
+
+    public $timestamps = false; 
 }

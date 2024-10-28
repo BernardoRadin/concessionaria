@@ -241,16 +241,16 @@ h2 {
     justify-content: space-between;
     gap: 20px;
 }
-
+/*
 .photo-section {
-    flex: 1.2; /* Deixei essa seção maior */
+    flex: 1.2;  Deixei essa seção maior 
 }
 
 .photo-upload {
     background-color: #f0f0f0;
     border: 2px dashed #ccc;
     border-radius: 10px;
-    padding: 50px; /* Aumentei o padding para um layout mais espaçado */
+    padding: 50px;  Aumentei o padding para um layout mais espaçado 
     text-align: center;
     cursor: pointer;
     color: #666;
@@ -258,7 +258,7 @@ h2 {
 }
 
 .photo-upload i {
-    font-size: 50px; /* Aumentei o ícone */
+    font-size: 50px;  Aumentei o ícone 
     color: #999;
 }
 
@@ -267,7 +267,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
 }
-
+*/
 .thumbnail {
     width: 70px; /* Aumentei o tamanho das miniaturas */
     height: 70px;
@@ -359,35 +359,84 @@ h2 {
 }
 
 /* Modal de Detalhes da Venda */
-.modal {
-    display: none; /* Inicialmente oculto */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+.modal-venda {
+    display: none !important; 
+    position: fixed !important;
+    z-index: 1 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-.modal-content {
-    background-color: #fff;
-    margin: auto;
+/* Conteúdo do modal */
+.modal-conteudo-venda {
+    background-color: #fefefe;
+    margin: 10% auto; /* Centralizado verticalmente */
     padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px; /* Define uma largura máxima para o modal */
-    position: relative;
+    border: 1px solid #888;
+    width: 80%; /* Largura do modal */
+    max-width: 500px; /* Largura máxima */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
+/* Botão de fechar */
+.fechar-venda {
+    color: #aaa;
+    float: right;
     font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
+}
+
+.fechar-venda:hover,
+.fechar-venda:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Campo do formulário */
+.campo-formulario-venda {
+    margin-bottom: 15px; /* Espaço entre os campos */
+}
+
+.campo-formulario-venda label {
+    display: block; /* Label em bloco */
+    margin-bottom: 5px; /* Espaço abaixo do label */
+}
+
+.campo-formulario-venda input,
+.campo-formulario-venda textarea {
+    width: 100%; /* Largura total */
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Bordas arredondadas */
+}
+
+/* Estilo do botão salvar */
+.botao-salvar {
+    display: block; /* Garante que o botão seja tratado como bloco */
+    margin: 20px auto; /* Centraliza o botão com margem */
+    background-color: #0a0a23; /* Cor do botão */
+    color: white; /* Texto branco */
+    padding: 10px 15px; /* Espaçamento interno */
+    border: none; /* Sem borda */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Mão ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+.botao-salvar:hover {
+    background-color: #3c3c7a; /* Cor ao passar o mouse */
+}
+
+/* Estilo específico do textarea */
+.campo-formulario-venda textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    height: 80px; /* Altura inicial */
 }
 
 /* Funcionario */
@@ -476,6 +525,52 @@ h2 {
     align-items: center;
 }
 
+#modalEdicao{
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding-bottom: 40px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#employeeModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
 #employeeModal .modal-content {
     background-color: #f4f4f4;
     margin: auto;
@@ -511,23 +606,136 @@ h2 {
 }
 
 /* Seção de Foto */
-.photo-section {
-    flex: 1; /* Ocupa uma parte do espaço disponível */
+.modal-body .form-wrapper .photo-section {
+    padding: 10px;
+    border-radius: 10px;
 }
 
-.photo-upload {
-    padding: 20px; /* Ajustado para permitir espaço para a imagem */
+.modal-body .form-wrapper .photo-upload {
+    background-color: #f0f0f0;
+    padding: 20px;
     text-align: center;
-    margin-top: 10px;
-    position: relative; /* Permite que a imagem fique dentro do container */
-    overflow: hidden; /* Garante que nada saia do container */
-    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-right: 0;
 }
 
-.uploaded-image {
-    width: 220px; /* Largura fixa */
-    height: 220px; /* Altura fixa */
+.modal-body .form-wrapper .uploaded-image {
+    border-radius: 10px;
+    border: 5px solid #0a0a23;
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.photo-upload-marca {
+    background-color: #f0f0f0;
+    padding: 20px; /* Mantive o padding espaçoso */
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.uploaded-image-marca {
+    border-radius: 10px;
+    border: 5px solid #0a0a23;
+    width: 180px; /* Largura fixa */
+    height: 180px; /* Altura fixa */
     object-fit: cover; /* Para manter a imagem proporcional */
+}
+
+.uploaded-image-marca {
+    width: 180px; /* Largura fixa */
+    object-fit: cover; /* Para manter a imagem proporcional */
+}
+
+#cadastrarBtn-marca {
+    position: absolute !important;
+    background-color: #0a0a23 !important;
+    color: white !important;
+    border: none !important;
+    text-align: center;
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    width: auto !important;
+    right: 0px !important;
+    margin-top: 20px !important;
+    transition: background-color 0.3s ease !important;
+}
+
+#cadastrarBtn-marca:hover {
+    background-color: #3c3c7a !important; /* Cor de fundo ao passar o mouse */
+}
+
+.botao-salvar-marca {
+    position: absolute !important;
+    background-color: #0a0a23 !important;
+    color: white !important;
+    border: none !important;
+    text-align: center;
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    width: auto !important;
+    right: 0px !important;
+    margin-top: 20px !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.botao-salvar-marca:hover {
+    background-color: #3c3c7a !important; /* Cor de fundo ao passar o mouse */
+}
+
+.photo-section-marca {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Contêiner de pré-visualização da imagem */
+.image-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    margin-left: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+
+/* Estilo da imagem de pré-visualização */
+.image-preview__image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Texto padrão */
+.image-preview__default-text {
+    color: #aaa;
+    font-size: 14px;
+    position: absolute;
+}
+
+/* Estilo do campo de input para upload */
+.marca-logo {
+    padding: 8px;
+    font-size: 14px;
+    color: #666;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 /* Detalhes do Funcionário */
@@ -540,16 +748,24 @@ h2 {
     padding-bottom: 40px;
 }
 
-.employee-details input,
-.employee-details select {
+.employee-details-marcas{
+    grid-template-columns: repeat(2, 1fr); /* Mantém duas colunas */
+    gap: 15px; /* Espaço entre os inputs */
+    position: relative; /* Para que o botão seja posicionado em relação a este contêiner */
+    padding-bottom: 40px;
+    width: 80%;
+    margin-left: 40px;
+}
+
+input, select {
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 100%
 }
 
-.employee-details input:focus,
-.employee-details select:focus {
+input:focus, select:focus {
     border-color: #0a0a23;
     outline: none;
 }
@@ -587,8 +803,8 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     width: auto; /* Ajuste a largura como preferir */
-    right: 30px; /* Mova o botão para a direita */
-    bottom: 20px; /* Ajusta a posição vertical em relação aos inputs */
+    right: 0px; /* Mova o botão para a direita */
+    margin-top: 300px; /* Ajusta a posição vertical em relação aos inputs */
     transition: background-color 0.3s ease;
 }
 
@@ -660,15 +876,19 @@ h2 {
 }
 
 .botao-salvar {
-    display: block; /* Garante que o botão seja tratado como bloco */
-    margin: 20px auto; /* Centraliza o botão com margem */
-    background-color: #0a0a23; /* Cor do botão */
-    color: white; /* Texto branco */
-    padding: 10px 15px; /* Espaçamento interno */
-    border: none; /* Sem borda */
-    border-radius: 4px; /* Bordas arredondadas */
-    cursor: pointer; /* Mão ao passar o mouse */
-    font-size: 16px; /* Tamanho da fonte */
+    position: absolute; /* Permite o posicionamento absoluto */
+    background-color: #0a0a23;
+    color: white;
+    border: none;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+    right: 0px;
+    margin-top: 300px;
+    transition: background-color 0.3s ease;
 }
 
 .botao-salvar:hover {
@@ -767,7 +987,7 @@ h2 {
 }
 
 /* Modal de Visualização */
-.modal-view-funcionario {
+.modal-view-funcionario,  .modal-view-cliente{
     display: none; /* Escondido por padrão */
     position: fixed;
     top: 0;
@@ -826,7 +1046,7 @@ h2 {
 /* Corpo do modal */
 .modal-body-view {
     display: flex;
-    gap: 30px;
+    gap: 20px;
 }
 
 /* Estilo da foto */
@@ -842,7 +1062,7 @@ h2 {
     font-weight: bold;
 }
 
-.view-funcionario {
+.view-funcionario, .view-cliente{
     width: 100%;
     height: 100%;
     object-fit: cover; /* A imagem irá cobrir o quadrado sem distorção */
@@ -873,4 +1093,244 @@ h2 {
 
 .detalhes-view span {
     color: #555;
+}
+
+/* Cliente */
+.description-title {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+}
+
+.description-field {
+    width: 100%;
+    height: 200px;
+    grid-column: span 2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-top: 0;
+    color: #333;
+}
+
+.description-field-view {
+    width: 100%; /* Ocupa toda a largura do modal */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 0; /* Remove qualquer margem superior do campo */
+}
+
+.foto-view-cliente {
+    background-color: white;
+    border: 3px solid #0a0a23;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-top: 35px;
+}
+
+.modal-body-view-cliente {
+    display: flex;
+    gap: 30px;
+}
+
+.descricao-view {
+    width: 100%;
+    margin-top: 0px;
+    color: #333;
+}
+
+.detalhes-view-cliente {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.detalhes-view-cliente p {
+    margin: 10px 0;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+
+.detalhes-view-cliente strong {
+    color: #333;
+}
+
+.detalhes-view-cliente span {
+    color: #555;
+}
+
+#cadastrarBtn-cliente {
+    position: absolute; /* Permite o posicionamento absoluto */
+    background-color: #0a0a23;
+    color: white;
+    border: none;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto; /* Ajuste a largura como preferir */
+    right: 0px; /* Mova o botão para a direita */
+    margin-top: 460px; /* Ajusta a posição vertical em relação aos inputs */
+    transition: background-color 0.3s ease;
+}
+
+#cadastrarBtn-cliente:hover {
+    background-color: #3c3c7a; /* Cor de fundo ao passar o mouse */
+}
+
+.modal-veiculo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-veiculo {
+    width: 70%;
+    max-height: 90%;
+    background-color: #dcdcdc;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.fechar-modal-veiculo {
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.formulario-veiculo {
+    display: flex;
+    gap: 20px;
+}
+
+.foto-secao-veiculo {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-foto-veiculo {
+    width: 100%;
+    height: 200px;
+    background-color: #ffffff;
+    border: 2px dashed #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.upload-foto-veiculo i {
+    font-size: 2rem;
+    color: #333;
+}
+
+.preview-foto-veiculo {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.seta-veiculo {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.miniatura-veiculo {
+    width: 60px;
+    height: 60px;
+    background-color: #ffffff;
+    border: 2px solid #333;
+}
+
+.detalhes-veiculo {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: calc(100vh - 250px);
+}
+
+.detalhes-veiculo input,
+.detalhes-veiculo textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.detalhes-veiculo textarea {
+    resize: none;
+    height: 80px;
+}
+
+.botao-salvar-categorias {
+    margin: 20px auto;
+    background-color: #0a0a23;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    right: 0px;
+    position: absolute;
+}
+
+.botao-salvar-categorias:hover {
+    background-color: #3c3c7a;
+}
+
+#cadastrarBtn-categorias {
+    position: absolute; /* Permite o posicionamento absoluto */
+    background-color: #0a0a23;
+    color: white;
+    border: none;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+    right: 0px;
+    margin-top: 0px;
+    transition: background-color 0.3s ease;
+}
+
+#cadastrarBtn-categorias:hover {
+    background-color: #3c3c7a;
 }

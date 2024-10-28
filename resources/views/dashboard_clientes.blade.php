@@ -3,31 +3,31 @@
 @section('content_dashboard')
 
 <section class="main-content">
-    <h2>Funcionários</h2>
+    <h2>Clientes</h2>
     <div class="employee-section">
         <div class="add-employee">
             <i class="fas fa-plus-circle" onclick="openEmployeeModal()"></i>
-            <p>Cadastrar Funcionário</p>
+            <p>Cadastrar Cliente</p>
         </div>
-        <!-- Cards de Funcionário -->
-    @foreach($funcionarios as $funcionario)
+        <!-- Cards de Clientes -->
+    @foreach($clientes as $cliente)
         <div class="employee-card" 
-            data-card-id="{{ $funcionario->ID }}"
-            data-telefone="{{ $funcionario->Telefone }}" 
-            data-email="{{ $funcionario->Email }}" 
-            data-cpf="{{$funcionario->CPF}}"
-            data-endereco="{{ $funcionario->Endereco }}">
+            data-card-id="{{ $cliente->ID }}"
+            data-telefone="{{ $cliente->Telefone }}" 
+            data-email="{{ $cliente->Email }}" 
+            data-cpf="{{$cliente->CPF}}"
+            data-endereco="{{ $cliente->Endereco }}"
+            data-descricao="{{ $cliente->Descricao }}">
             <div class="employee-photo" style="cursor: pointer;">
-                    <img src="{{ asset('imagens/carteira-de-identidade.png') }}" alt="Imagem Funcionário">
+                <img src="{{ asset('imagens/homem.png') }}" alt="Imagem Cliente">
             </div>
             <div class="employee-info">
-                <h3 class="employee-name">{{ $funcionario->Nome }}</h3>
-                <p> {{ $funcionario->cargo->Nome }}</p>
+                <h3 class="employee-name">{{ $cliente->Nome }}</h3>
             </div>
             <div class="employee-actions">
-                <a href='{{ route('funcionarios.edit', ['id' => $funcionario->ID]) }}'><i class="fas fa-edit" ></i></a>
-                <i class="fas fa-times" data-nome="{{ $funcionario->Nome }}" onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
-                <form action="{{ route('funcionarios.delete', $funcionario->ID) }}" method="POST" style="display:none;">
+                <a href='{{ route('clientes.edit', ['id' => $cliente->ID]) }}'><i class="fas fa-edit" ></i></a>
+                <i class="fas fa-times" data-nome="{{ $cliente->Nome }}" onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
+                <form action="{{ route('clientes.delete', $cliente->ID) }}" method="POST" style="display:none;">
                     @csrf
                     @method('DELETE')
                 </form>
@@ -48,17 +48,19 @@
 <div id="employeeModal" class="modal">
         <div class="modal-content">
         <span class="close" onclick="closeEmployeeModal()">&times;</span>
-        <h2>Cadastrar Funcionário</h2>
+        <h2>Cadastrar Cliente</h2>
         <div class="modal-body">
             <div class="form-wrapper"> <!-- Wrapper para organizar o layout -->
                 <div class="photo-section">
                     <div class="photo-upload">
-                        <img src="{{ asset('imagens/funcionario.png') }}" alt="Funcionario" class="uploaded-image">
+                        <img src="{{ asset('imagens/homem.png') }}" alt="Funcionario" class="uploaded-image">
                     </div>
                 </div>
-                <form action="{{ route('funcionarios.create') }}" method="POST" class="employee-details">
+                <form action="{{ route('clientes.create') }}" method="POST" class="employee-details">
                     @csrf
                     <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
+                    <input type="email" name='email' id="email" placeholder="Email" />
+                    <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
                     <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
                     <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" />
                     <select id='sexo' name='sexo'>
@@ -66,18 +68,9 @@
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                     </select>
-                    <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
-                    <select id='cargo' name='id_cargo'>
-                        <option value="" disabled selected>Selecione o cargo</option>
-                        <option value="1">Chefe</option>
-                    </select>
-                    <input type="email" name='email' id="email" placeholder="Email" />
-                    <div class="password-field">
-                        <input type="password" placeholder="Senha" name='senha' id="senha" />
-                        <i class="fas fa-eye" id="toggleSenha"></i>
-                    </div>
                     <input type="text" name='endereco' placeholder="Endereço" class="address-full-width" />
-                    <button id="cadastrarBtn" type="submit">Cadastrar</button>
+                    <textarea name="descricao" placeholder="Descrição do Cliente" class="description-field"></textarea>
+                    <button id="cadastrarBtn-cliente" type="submit">Cadastrar</button>
             </div> <!-- Fim do wrapper -->
             <!-- Botão fora do form e do wrapper -->
             </form>
@@ -85,24 +78,27 @@
     </div>
 </div>
 
-<!-- Visualizar as informações do Funcionário -->
-<div class="modal-view-funcionario" id="modalVisualizarFuncionario">
+<!-- Visualizar as informações do Cliente -->
+<div class="modal-view-cliente" id="modalVisualizarCliente">
     <div class="modal-content-view">
-        <span class="close-view" onclick="fecharModalVisualizarFuncionario()">&times;</span>
+        <span class="close-view" onclick="fecharModalVisualizarCliente()">&times;</span>
         <div class="modal-header-view">
-            <h2 id="viewNomeFuncionario">Nome do Funcionário</h2>
-            <h3 id="viewCargoFuncionario">Cargo do Funcionário</h3>
+            <h2 id="viewNomeCliente">Nome do Cliente</h2>
         </div>
-        <div class="modal-body-view">
-            <div class="foto-view">
-                <img src="{{ asset('imagens/funcionario.png') }}" alt="View Funcionário" class="view-funcionario">
+        <div class="modal-body-view-cliente">
+            <div class="foto-view-cliente">
+                <img src="{{ asset('imagens/homem.png') }}" alt="View Cliente" class="view-cliente">
             </div>
-            <div class="detalhes-view">
-                <p><strong>Telefone:</strong> <span id="viewTelefoneFuncionario">123-456-7890</span></p>
-                <p><strong>Email:</strong> <span id="viewEmailFuncionario">exemplo@email.com</span></p>
-                <p><strong>CPF:</strong> <span id="viewCpfFuncionario">123.456.789-00</span></p>
-                <p><strong>Endereço:</strong> <span id="viewEnderecoFuncionario">Rua Exemplo, 123</span></p>
+            <div class="detalhes-view-cliente">
+                <p><strong>Telefone:</strong> <span id="viewTelefoneCliente">123-456-7890</span></p>
+                <p><strong>Email:</strong> <span id="viewEmailCliente">exemplo@email.com</span></p>
+                <p><strong>CPF:</strong> <span id="viewCpfCliente">123.456.789-00</span></p>
+                <p><strong>Endereço:</strong> <span id="viewEnderecoCliente">Rua Exemplo, 123</span></p>
             </div>
+        </div>
+        <label for="viewDescricaoCliente" class="description-title">Descrição do Cliente:</label>
+        <div class="description-field">
+            <span id="viewDescricaoCliente"></span>
         </div>
     </div>
 </div>
@@ -112,7 +108,7 @@
     <div class="modal-content-confirmacao">
         <span class="fechar" onclick="fecharModal('modalConfirmacaoExclusao')">&times;</span>
         <h2>Confirmação de Exclusão</h2>
-        <p id="mensagemConfirmacao">Tem certeza de que deseja excluir o funcionário <span id="nomeFuncionario"></span>?</p>
+        <p id="mensagemConfirmacao">Tem certeza de que deseja excluir o cliente <span id="nomeFuncionario"></span>?</p>
         <div class="botoes-confirmacao">
             <button class="btn-sim" onclick="confirmarExclusao()">Sim</button>
             <button class="btn-nao" onclick="fecharModal('modalConfirmacaoExclusao')">Não</button>
@@ -122,12 +118,12 @@
 
 
 <script>
-    // Abrir o modal de funcionário
+    // Abrir o modal de cliente
     function openEmployeeModal() {
         $('#employeeModal').css('display', 'flex');
     }
     
-    // Fechar o modal de funcionário
+    // Fechar o modal de cliente
     function closeEmployeeModal() {
         $('#employeeModal').css('display', 'none');
     }
@@ -173,7 +169,7 @@
             $(this).removeClass('fa-eye-slash').addClass('fa-eye');
         }
     });
-        
+     
     // Função para fechar modais
     function fecharModal(modalId) {
         $('#' + modalId).css('display', 'none');
@@ -182,7 +178,7 @@
     // Fechar o modal ao clicar fora do conteúdo
     $(window).on('click', function(event) {
         const modalEdicao = $('#modalEdicao');
-        const modalVisualizacao = $('#modalVisualizarFuncionario');
+        const modalVisualizacao = $('#modalVisualizarCliente');
     
         if (event.target === modalEdicao[0] || event.target === modalVisualizacao[0]) {
             fecharModal(event.target.id);
@@ -193,7 +189,7 @@
     $(document).on('keydown', function(event) {
         if (event.key === "Escape") {
             fecharModal('modalEdicao');
-            fecharModal('modalVisualizarFuncionario');
+            fecharModal('modalVisualizarCliente');
             fecharModal('modalConfirmacaoExclusao');
         }
     });
@@ -222,22 +218,22 @@
         fecharModal('modalConfirmacaoExclusao');
     }
     
-    // Visualizar dados do funcionário
-    function abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco) {
-        $('#modalVisualizarFuncionario').css('display', 'flex');
+    // Visualizar dados do cliente
+    function abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco, descricao) {
+        $('#modalVisualizarCliente').css('display', 'flex');
     
-        $('#viewNomeFuncionario').text(nome);
-        $('#viewCargoFuncionario').text(cargo);
-        $('#viewEmailFuncionario').text(email);
-        $('#viewEnderecoFuncionario').text(endereco);
+        $('#viewNomeCliente').text(nome);
+        $('#viewEmailCliente').text(email);
+        $('#viewEnderecoCliente').text(endereco);
     
         // Atribui os valores mascarados aos campos do modal
-        $('#viewTelefoneFuncionario').text(telefone);
-        $('#viewCpfFuncionario').text(cpf);
+        $('#viewTelefoneCliente').text(telefone);
+        $('#viewCpfCliente').text(cpf);
+        $('#viewDescricaoCliente').text(descricao)
     }
     
-    function fecharModalVisualizarFuncionario() {
-        $('#modalVisualizarFuncionario').css('display', 'none');
+    function fecharModalVisualizarCliente() {
+        $('#modalVisualizarCliente').css('display', 'none');
     }
     
     $('.employee-card').each(function(index, card) {
@@ -250,10 +246,11 @@
         const telefone = $(card).data('telefone');
         const cpf = $(card).data('cpf');
         const endereco = $(card).data('endereco');
-    
+        const descricao = $(card).data('descricao');
+
         $(card).on('click', function(event) {
             if (event.target !== editIcon[0] && event.target !== deleteIcon[0]) {
-                abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco);
+                abrirModalVisualizacao(nome, cargo, email, telefone, cpf, endereco, descricao);
             }
         });
     });

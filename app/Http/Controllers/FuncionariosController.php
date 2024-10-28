@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Funcionario;
 use App\Models\Cargo;
+use Illuminate\Support\Facades\DB;
 
 class FuncionariosController extends Controller
 {
     public function index()
     {
-        // Carrega todos os funcionários com os cargos
         $funcionarios = Funcionario::with('cargo')->get();
         
-        // Retorna a view passando os funcionários
         return view('funcionarios.index', compact('funcionarios'));
     }
 
@@ -29,6 +28,7 @@ class FuncionariosController extends Controller
             'DataNasc' => $dataFormatada,
             'Telefone' => $request->telefone,
             'ID_Cargo' => $request->id_cargo,
+            'Endereco' => $request->endereco,
         ]);
         
         return redirect()->back()->with('success', 'Funcionário cadastrado com sucesso!');
@@ -45,26 +45,21 @@ class FuncionariosController extends Controller
         }
     }
 
+
     public function edit($id)
     {
-        // Carrega o funcionário com o cargo
-        $funcionario = Funcionario::with('cargo')->findOrFail($id);
+        $funcionarios = Funcionario::with('cargo')->get();
+        $funcionario = Funcionario::findOrFail($id);
 
-
-        return view('funcionarios.edit', compact('funcionario', 'cargos')); // Retorna a view de edição
+        return view('dashboard_funcionarios_edit', compact('funcionario'), compact('funcionarios'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|email',
-            'telefone' => 'required|string|max:15',
-        ]);
 
         $funcionario = Funcionario::findOrFail($id);
-        $funcionario->update($request->all()); // Atualiza todos os campos
-
-        return redirect()->route('funcionarios.index')->with('success', 'Funcionário atualizado com sucesso!');
+        $funcionario->update($request->all());
+    
+        return redirect()->route('dashboard.funcionarios');
     }
 }

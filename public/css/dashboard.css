@@ -875,7 +875,7 @@ input:focus, select:focus {
     border-radius: 4px; /* Bordas arredondadas */
 }
 
-.botao-salvar {
+.botao-salvar-clientes {
     position: absolute; /* Permite o posicionamento absoluto */
     background-color: #0a0a23;
     color: white;
@@ -885,9 +885,9 @@ input:focus, select:focus {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    width: auto;
-    right: 0px;
-    margin-top: 300px;
+    width: auto; /* Ajuste a largura como preferir */
+    right: 0px; /* Mova o botão para a direita */
+    margin-top: 460px; /* Ajusta a posição vertical em relação aos inputs */
     transition: background-color 0.3s ease;
 }
 

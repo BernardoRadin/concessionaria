@@ -38,10 +38,8 @@
     <a href="?page=1">1</a>
     <a href="?page=2">2</a>
     <a href="?page=3">3</a>
-    <!-- Mais páginas podem ser adicionadas dinamicamente -->
 </div>
 
-<!-- Editar as informações do Marca -->
 <div id="modalEdicao" class="modal" style='display: flex'>
     <div class="modal-content">
         <a href='{{ route('dashboard.marcas') }}'><span class="fechar">&times;</span></a>
@@ -72,4 +70,27 @@
     </div>
 </div>
 
+<script>
+        function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImage = imagePreview.querySelector('.image-preview__image');
+        const previewDefaultText = imagePreview.querySelector('.image-preview__default-text');
+        const file = event.target.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImage.setAttribute('src', e.target.result);
+                previewImage.style.display = 'block';
+                previewDefaultText.style.display = 'none';
+            };
+            
+            reader.readAsDataURL(file);
+        } else {
+            previewImage.style.display = 'none';
+            previewDefaultText.style.display = 'block';
+        }
+    }
+</script>
 @endsection

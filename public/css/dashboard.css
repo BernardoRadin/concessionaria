@@ -301,73 +301,209 @@ h2 {
 
 /* Vendas */
 .sales-section {
-    padding: 20px;
+    padding: 10px 20px 20px; /* Aproxime o topo */
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #0a0a23;
 }
 
 .sales-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    justify-content: flex-end;
+    margin-bottom: 15px;
 }
 
 .sales-header .search-bar input {
-    padding: 10px;
+    padding: 8px;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    width: 300px; /* Largura do campo de busca */
+    border: 1px solid #ccc;
+    width: 250px;
+    font-size: 14px;
 }
 
 .sales-list {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaçamento entre os cartões de venda */
+    gap: 20px;
 }
 
+/* Cards de Vendas */
 .sale-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    align-items: center; /* Centraliza os ícones verticalmente */
+    max-height: 120px;
 }
 
 .sale-card:hover {
-    background-color: #f0f0f0; /* Muda a cor de fundo ao passar o mouse */
+    transform: scale(1.01);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-.sale-info {
-    flex: 1; /* Para que a seção de informações ocupe o espaço disponível */
+.sale-info h3 {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    color: #0a0a23;
 }
 
+.sale-info p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    color: #666;
+    line-height: 1.2;
+}
+
+/* Ícones de Ação */
 .sale-actions {
+    justify-content: flex-end;
+    align-items: center;
     display: flex;
-    gap: 10px; /* Espaçamento entre os ícones de ação */
+    gap: 12px;
 }
 
 .sale-actions i {
     cursor: pointer;
-    color: #007BFF; /* Cor dos ícones */
+    color: #666;
+    font-size: 18px; 
+    transition: color 0.3s;
 }
 
 .sale-actions i:hover {
-    color: #0056b3; /* Cor ao passar o mouse */
+    color: #0a0a23;
 }
 
 /* Modal de Detalhes da Venda */
+.sales-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    justify-content: center;
+    align-items: center;
+}
+
+.sales-modal-content {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px 40px;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    position: relative; /* Adicionado para posicionar o ícone de fechar */
+}
+
+/* Ícone de fechar */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #000; /* Cor ao passar o mouse */
+}
+
+/* Título centralizado */
+.sales-modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center; /* Centraliza o título */
+}
+
+/* Informações principais */
+.sales-modal-content p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Negrito para as labels das informações */
+.sales-modal-content p strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Linha de separação */
+.sales-modal-content p + p {
+    border-top: 1px solid #e0e0e0; /* Linha de separação */
+    padding-top: 15px; /* Espaço acima da linha */
+    margin-top: 15px; /* Espaço abaixo da linha */
+}
+
+/* Texto de observações com estilo */
+#detailNotes {
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #444;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid #e5e5e5;
+    line-height: 1.4;
+    margin-top: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo do botão salvar */
+.botao-salvar {
+    display: block; /* Garante que o botão seja tratado como bloco */
+    margin: 20px auto; /* Centraliza o botão com margem */
+    background-color: #0a0a23; /* Cor do botão */
+    color: white; /* Texto branco */
+    padding: 10px 15px; /* Espaçamento interno */
+    border: none; /* Sem borda */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Mão ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+.botao-salvar:hover {
+    background-color: #3c3c7a; /* Cor ao passar o mouse */
+}
+
+/* Estilo específico do textarea */
+.campo-formulario-venda textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    height: 80px; /* Altura inicial */
+}
+
+/* Estilos do Modal de Edição de Venda */
+/* Modal principal */
 .modal-venda {
-    display: none !important; 
-    position: fixed !important;
-    z-index: 1 !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica no lugar */
+    z-index: 1; /* Fica na frente */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo com transparência */
 }
 
 /* Conteúdo do modal */
@@ -377,7 +513,7 @@ h2 {
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Largura do modal */
-    max-width: 500px; /* Largura máxima */
+    max-width: 600px; /* Largura máxima */
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
 }
@@ -398,8 +534,16 @@ h2 {
     cursor: pointer;
 }
 
+/* Estilo geral do formulário */
+.formulario-edicao {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os campos se movam para a linha de baixo */
+    gap: 15px; /* Espaço entre os campos */
+}
+
 /* Campo do formulário */
 .campo-formulario-venda {
+    flex: 1 1 45%; /* Dois campos por linha com um espaço fixo */
     margin-bottom: 15px; /* Espaço entre os campos */
 }
 
@@ -1194,108 +1338,6 @@ input:focus, select:focus {
 
 #cadastrarBtn-cliente:hover {
     background-color: #3c3c7a; /* Cor de fundo ao passar o mouse */
-}
-
-.modal-veiculo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content-veiculo {
-    width: 70%;
-    max-height: 90%;
-    background-color: #dcdcdc;
-    padding: 20px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
-.fechar-modal-veiculo {
-    font-size: 1.5rem;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.formulario-veiculo {
-    display: flex;
-    gap: 20px;
-}
-
-.foto-secao-veiculo {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.upload-foto-veiculo {
-    width: 100%;
-    height: 200px;
-    background-color: #ffffff;
-    border: 2px dashed #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
-.upload-foto-veiculo i {
-    font-size: 2rem;
-    color: #333;
-}
-
-.preview-foto-veiculo {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.seta-veiculo {
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.miniatura-veiculo {
-    width: 60px;
-    height: 60px;
-    background-color: #ffffff;
-    border: 2px solid #333;
-}
-
-.detalhes-veiculo {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-    max-height: calc(100vh - 250px);
-}
-
-.detalhes-veiculo input,
-.detalhes-veiculo textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #333;
-    border-radius: 4px;
-}
-
-.detalhes-veiculo textarea {
-    resize: none;
-    height: 80px;
 }
 
 .botao-salvar-categorias {

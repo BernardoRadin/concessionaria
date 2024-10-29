@@ -13,7 +13,7 @@
 
     <div class="sales-list">
         <!-- Card 1 -->
-        <div class="sale-card" onclick="abrirModalDetalhes('Nissan KICKS', '01/10/2024', 'R$ 99.000,00', 'João Silva', 'Nenhuma observação.')">
+        <div class="sale-card" onclick="openDetailModal('Nissan KICKS', '01/10/2024', 'R$ 99.000,00', 'João Silva', 'Veículo em excelente estado. Foi vendido com todos os documentos e garantia.')">
             <div class="sale-info">
                 <h3>Nissan KICKS</h3>
                 <p>Vendido em: 01/10/2024</p>
@@ -21,15 +21,13 @@
                 <p>Comprador: João Silva</p>
             </div>
             <div class="sale-actions">
-                <!-- Abre o modal de edição de venda -->
-                <i class="fas fa-edit" onclick="event.stopPropagation(); abrirModal('modalEdicaoVenda')"></i>
-                <!-- Abre o modal de confirmação de exclusão -->
-                <i class="fas fa-times" onclick="event.stopPropagation(); abrirModal('modalConfirmacaoExclusao')"></i>
+                <i class="fas fa-pencil-alt" title="Editar"></i>
+                <i class="fas fa-trash" title="Excluir"></i>
             </div>
         </div>
 
         <!-- Card 2 -->
-        <div class="sale-card" onclick="abrirModalDetalhes('Ford Fiesta', '15/09/2024', 'R$ 45.000,00', 'Maria Oliveira', 'Nenhuma observação.')">
+        <div class="sale-card" onclick="openDetailModal('Ford Fiesta', '15/09/2024', 'R$ 45.000,00', 'Maria Oliveira', 'Veículo em ótimo estado, com revisão recente.')">
             <div class="sale-info">
                 <h3>Ford Fiesta</h3>
                 <p>Vendido em: 15/09/2024</p>
@@ -37,30 +35,15 @@
                 <p>Comprador: Maria Oliveira</p>
             </div>
             <div class="sale-actions">
-                <i class="fas fa-edit" onclick="event.stopPropagation(); abrirModal('modalEdicaoVenda')"></i>
-                <i class="fas fa-times" onclick="event.stopPropagation(); abrirModal('modalConfirmacaoExclusao')"></i>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="sale-card" onclick="abrirModalDetalhes('Volkswagen Fusca', '24/10/2024', 'R$ 9.000,00', 'Gustavo Kissel', 'Nenhuma observação.')">
-            <div class="sale-info">
-                <h3>Volkswagen Fusca</h3>
-                <p>Vendido em: 24/10/2024</p>
-                <p>Preço: R$ 9.000,00</p>
-                <p>Comprador: Gustavo Kissel</p>
-            </div>
-            <div class="sale-actions">
-                <i class="fas fa-edit" onclick="event.stopPropagation(); abrirModal('modalEdicaoVenda')"></i>
-                <i class="fas fa-times" onclick="event.stopPropagation(); abrirModal('modalConfirmacaoExclusao')"></i>
+                <i class="fas fa-pencil-alt" title="Editar"></i>
+                <i class="fas fa-trash" title="Excluir"></i>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Detalhes da Venda -->
     <div id="detailModal" class="sales-modal">
         <div class="sales-modal-content">
-            <span class="close" onclick="fecharModal('detailModal')">&times;</span>
+            <span class="close" onclick="closeDetailModal()">&times;</span>
             <h2>Detalhes da Venda</h2>
             <p><strong>Veículo:</strong> <span id="detailVehicle"></span></p>
             <p><strong>Data da Venda:</strong> <span id="detailDate"></span></p>
@@ -71,12 +54,12 @@
         </div>
     </div>
 
-    <!-- Modal de Edição de Venda -->
-    <div id="modalEdicaoVenda" class="modal-venda">
-        <div class="modal-conteudo-venda">
-            <span class="fechar-venda" onclick="fecharModal('modalEdicaoVenda')">&times;</span>
-            <h2>Editar Venda</h2>
-            <form id="formEditarVenda" onsubmit="enviarFormularioVenda(event)">
+<div id="modalEdicaoVenda" class="modal-venda">
+    <div class="modal-conteudo-venda">
+        <span class="fechar-venda" onclick="fecharModal('modalEdicaoVenda')">&times;</span>
+        <h2>Editar Venda</h2>
+        <form id="formEditarVenda" onsubmit="enviarFormularioVenda(event)">
+            <div class="formulario-edicao">
                 <div class="campo-formulario-venda">
                     <label for="veiculoEdicao">Veículo:</label>
                     <input type="text" id="veiculoEdicao" name="veiculo" required>
@@ -101,71 +84,39 @@
                     <label for="observacaoEdicao">Observação:</label>
                     <textarea id="observacaoEdicao" name="observacao" required></textarea>
                 </div>
-                <button type="submit" class="botao-salvar">Salvar Alterações</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal de Confirmação de Exclusão -->
-    <div id="modalConfirmacaoExclusao" class="modal-confirmacao">
-        <div class="modal-content-confirmacao">
-            <span class="fechar" onclick="fecharModal('modalConfirmacaoExclusao')">&times;</span>
-            <h2>Confirmação de Exclusão</h2>
-            <p id="mensagemConfirmacao">Tem certeza de que deseja excluir essa venda?</p>
-            <div class="botoes-confirmacao">
-                <button class="btn-sim" onclick="confirmarExclusao()">Sim</button>
-                <button class="btn-nao" onclick="fecharModal('modalConfirmacaoExclusao')">Não</button>
             </div>
-        </div>
+            <button type="submit" class="botao-salvar">Salvar Alterações</button>
+        </form>
     </div>
+</div>
 
 </section>
 
-<!-- Script -->
+<div class="pagination">
+    <a href="?page=1">1</a>
+    <a href="?page=2">2</a>
+    <a href="?page=3">3</a>
+</div>
+
 <script>
-    // Função para abrir modal de detalhes
-    function abrirModalDetalhes(veiculo, data, preco, comprador, observacoes) {
-        document.getElementById('detailVehicle').innerText = veiculo;
-        document.getElementById('detailDate').innerText = data;
-        document.getElementById('detailPrice').innerText = preco;
-        document.getElementById('detailBuyer').innerText = comprador;
-        document.getElementById('detailNotes').innerText = observacoes;
-        abrirModal('detailModal');
+    function openDetailModal(vehicle, date, price, buyer, notes) {
+        document.getElementById('detailVehicle').innerText = vehicle;
+        document.getElementById('detailDate').innerText = date;
+        document.getElementById('detailPrice').innerText = price;
+        document.getElementById('detailBuyer').innerText = buyer;
+        document.getElementById('detailNotes').innerText = notes;
+        document.getElementById('detailModal').style.display = 'flex';
     }
 
-    // Função para abrir modal
-    function abrirModal(id) {
-        document.getElementById(id).style.display = 'flex';
+    function closeDetailModal() {
+        document.getElementById('detailModal').style.display = 'none';
     }
 
-    // Função para fechar modal
-    function fecharModal(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-
-    // Fecha modais ao clicar fora deles
     window.onclick = function(event) {
-        var modais = ['detailModal', 'modalEdicaoVenda', 'modalConfirmacaoExclusao'];
-        modais.forEach(function(modalId) {
-            var modal = document.getElementById(modalId);
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    }
-
-    // Envio de formulário de edição de venda
-    function enviarFormularioVenda(event) {
-        event.preventDefault();
-        // Lógica para salvar alterações aqui...
-        fecharModal('modalEdicaoVenda');
-    }
-
-    // Função de confirmação de exclusão
-    function confirmarExclusao() {
-        // Lógica para excluir venda...
-        fecharModal('modalConfirmacaoExclusao');
+        var modal = document.getElementById('detailModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
     }
 </script>
-
 @endsection

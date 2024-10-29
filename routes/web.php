@@ -28,6 +28,8 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/dashboard/marcas', 'marcas')->name('dashboard.marcas');
     Route::get('/dashboard/categorias', 'categorias')->name('dashboard.categorias');
     Route::get('/dashboard/clientes', 'clientes')->name('dashboard.clientes');
+    Route::get('/dashboard/vendas', 'vendas')->name('dashboard.vendas');
+    Route::get('/dashboard/veiculos', 'veiculos')->name('dashboard.veiculos');
 });
 
 Route::controller(FuncionariosController::class)->group(function(){
@@ -58,6 +60,3 @@ Route::controller(ClientesController::class)->group(function(){
     Route::delete('/dashboard/clientes/delete/{id}', 'delete')->name('clientes.delete');
 });
 
-Route::get('/dashboard/vendas', [VendasController::class, 'index'])->name('dashboard.vendas');
-
-Route::get('/dashboard/veiculos', [VeiculosController::class, 'index'])->name('dashboard.veiculos');

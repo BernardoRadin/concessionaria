@@ -44,4 +44,15 @@ class DashboardController extends Controller
         return view('dashboard_clientes', compact('clientes'));
     }
 
+    public function vendas()
+    {
+        return view('dashboard_vendas');
+    }
+        
+    public function veiculos()
+    {
+        return view('dashboard_veiculos');
+    }
+    
+
 }

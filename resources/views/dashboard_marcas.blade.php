@@ -127,26 +127,26 @@
     }
 
     function previewImage(event) {
-    const imagePreview = document.getElementById('imagePreview');
-    const previewImage = imagePreview.querySelector('.image-preview__image');
-    const previewDefaultText = imagePreview.querySelector('.image-preview__default-text');
-    const file = event.target.files[0];
-    
-    if (file) {
-        const reader = new FileReader();
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImage = imagePreview.querySelector('.image-preview__image');
+        const previewDefaultText = imagePreview.querySelector('.image-preview__default-text');
+        const file = event.target.files[0];
         
-        reader.onload = function(e) {
-            previewImage.setAttribute('src', e.target.result);
-            previewImage.style.display = 'block';
-            previewDefaultText.style.display = 'none';
-        };
-        
-        reader.readAsDataURL(file);
-    } else {
-        previewImage.style.display = 'none';
-        previewDefaultText.style.display = 'block';
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImage.setAttribute('src', e.target.result);
+                previewImage.style.display = 'block';
+                previewDefaultText.style.display = 'none';
+            };
+            
+            reader.readAsDataURL(file);
+        } else {
+            previewImage.style.display = 'none';
+            previewDefaultText.style.display = 'block';
+        }
     }
-}
     
     </script>
         

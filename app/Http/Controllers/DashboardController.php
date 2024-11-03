@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Funcionario;
 use App\Models\Marca;
 use App\Models\Categoria;
-use App\Models\Cliente;
+use App\Models\Cliente; 
+use App\Models\Veiculo;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index(){
+    
         return view('dashboard');
     }
     
@@ -51,7 +53,15 @@ class DashboardController extends Controller
         
     public function veiculos()
     {
-        return view('dashboard_veiculos');
+
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->get();
+
+        $categorias = Categoria::all();
+        $marcas = Marca::all();
+        $clientes = Cliente::all();
+
+        return view('dashboard_veiculos', compact('veiculos', 'categorias', 'marcas', 'clientes'));
+
     }
     
 

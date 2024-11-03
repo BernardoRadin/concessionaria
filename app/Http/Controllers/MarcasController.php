@@ -36,7 +36,8 @@ class MarcasController extends Controller
         $marca = Marca::where('ID', $id)->first();
         $pathImage = $marca->Logo;
         $deleted = Marca::where('ID', $id)->delete();
-        
+        // $deleted = $marca->delete();
+
         if ($deleted && unlink($pathImage)) {
             return redirect()->back()->with('success', 'Funcionário deletado com sucesso!');
         } else {

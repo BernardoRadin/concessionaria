@@ -3,30 +3,29 @@
 @section('content_dashboard')
 
 <section class="main-content">
-    <h2>Seus Veículos</h2>
+    <h2>Veículos</h2>
     <div class="vehicle-section">
         <div class="add-vehicle" onclick="openModal()">
             <i class="fas fa-plus-circle"></i>
-            <p>Cadastre um veículo</p>
+            <p>Cadastrar Veículo</p>
         </div>
-
-        <div class="vehicle-card">
-            <img src="carro.jpg" alt="Nissan KICKS 2020">
-            <div class="vehicle-info">
-                <h3>Nissan/KICKS</h3>
-                <p>2020</p>
-                <p class="price">R$ 99.000,00</p>
+        @foreach($veiculos as $veiculo)
+            <div class="vehicle-card">
+                <img src="{{ asset($veiculo->fotoprincipal->Foto) }}" alt="{{$veiculo->Nome}}">
+                <div class="vehicle-info">
+                    <h3>{{$veiculo->Nome}}</h3>
+                    <p>{{$veiculo->Ano}}</p>
+                    <p class="price">R$ {{$veiculo->PrecoVenda}}</p>
+                </div>
+                <div class="vehicle-actions">
+                    <i class="fas fa-times"></i>
+                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-star"></i>
+                    <a href='{{ route('veiculos.edit', ['id' => $veiculo->ID]) }}'><i class="fas fa-pencil-alt"></i></a>
+                </div>
             </div>
-            <div class="vehicle-actions">
-                <i class="fas fa-times"></i>
-                <i class="fas fa-eye"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-pencil-alt"></i>
-            </div>
-        </div>
-
+        @endforeach
         <!-- Outras vehicle-cards podem ser adicionadas aqui -->
-
     </div>
 </section>
 
@@ -34,34 +33,62 @@
 <div id="vehicleModal" class="vehicle-modal">
     <div class="vehicle-modal-content">
         <span class="vehicle-close" onclick="closeModal()">&times;</span>
-        <h2>Cadastre o veículo</h2>
-        
-        <div class="vehicle-form-container">
-            <div class="photo-section">
-                <h2>Envie Fotos do Veículo</h2>
-                <input type="file" class="file-input" id="file-input" accept="image/*" multiple>
-                <button class="upload-btn" id="select-btn">Selecionar Imagens</button>
-                <div id="thumbnails"></div>
+        <h2>Cadastrar Veículo</h2>
+        <form action="{{ route('veiculos.create') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+            <div class="vehicle-form-container">
+                <div class="photo-section">
+                    <h2>Envie Fotos do Veículo</h2>
+                    <input type="file" class="file-input" id="file-input"  name="images[]" accept="image/*" multiple>
+                    <button class="upload-btn" id="select-btn" type='button'>Selecionar Imagens</button>
+                    <div id="thumbnails"></div>
+                </div>
+                <div class="vehicle-details">
+                    <input type="text" name="nome" placeholder="Nome">
+                    <input type="text" name="ano" placeholder="Ano" maxlength="4">
+                    {{-- <input type="text" placeholder="Modelo"> --}}
+                    <input type="text" name="portas" placeholder="Portas">
+                    <input type="text" name="cambio" placeholder="Câmbio">
+                    <input type="text" name="motor" placeholder="Motor">
+                    <input type="text" name="quilometragem" placeholder="Quilometragem">
+                    <select name="combustivel" placeholder="Combustível">
+                        <option value=''>Selecione o Combustível</option>
+                        <option value='A'>Alcool</option>
+                        <option value='G'>Gasolina</option>
+                        <option value='E'>Elétrico</option>
+                        <option value='F'>Alcool e Gasolina</option>
+                    </select>
+                    <select name="categoria" placeholder="Categoria">
+                        <option value=''>Selecione a Categoria</option>
+                        @foreach($categorias as $categoria)
+                            <option value='{{ $categoria->ID }}'>{{ $categoria->Nome }}</option>
+                        @endforeach
+                    </select>
+                    <select name="marca" placeholder="Marca">
+                        <option value=''>Selecione a Marca</option>
+                        @foreach($marcas as $marca)
+                            <option value='{{ $marca->ID }}'>{{ $marca->Nome }}</option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="cor" placeholder="Cor">
+                    <input type="text" name="precocusto" placeholder="Preço Custo">
+                    <input type="text" name="precovenda" placeholder="Preço Venda">
+                    <input type="text" name="estoque" placeholder="Estoque">
+                    {{-- <input type="text" name="antigodono" placeholder="Antigo Dono"> --}}
+                    <select name="antigodono" placeholder="Antigo Dono">
+                        <option value=''>Selecione o Antigo Dono</option>
+                        @foreach($clientes as $cliente)
+                            <option value='{{ $cliente->ID }}'>{{ $cliente->Nome }}</option>
+                        @endforeach
+                    </select>
+                    <textarea name="descricao" placeholder="Descrição do Veículo"></textarea>
+                    <div class='align-button-veiculos'>
+                    <button id="cadastrarBtn-veiculos" type="submit">Cadastrar</button>
+                    <div>
+                </div>
             </div>
-            <div class="vehicle-details">
-                <input type="text" placeholder="Nome">
-                <input type="text" placeholder="Ano">
-                <input type="text" placeholder="Modelo">
-                <input type="text" placeholder="Portas">
-                <input type="text" placeholder="Câmbio">
-                <input type="text" placeholder="Motor">
-                <input type="text" placeholder="Quilometragem">
-                <input type="text" placeholder="Combustível">
-                <input type="text" placeholder="Categoria">
-                <input type="text" placeholder="Marca">
-                <input type="text" placeholder="Cor">
-                <input type="text" placeholder="Preço Custo">
-                <input type="text" placeholder="Preço Venda">
-                <input type="text" placeholder="Estoque">
-                <input type="text" placeholder="Antigo Dono">
-                <textarea placeholder="Descrição do Veículo"></textarea>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -119,41 +146,6 @@
             });
         });
 
-        $('#submit-btn').click(function() {
-            const files = $('#file-input')[0].files;
-            const formData = new FormData();
-            const principalImageIndex = $('input[name="principal"]:checked').val();
-
-            if (files.length === 0) {
-                alert('Por favor, selecione imagens para enviar.');
-                return;
-            }
-
-            // Adiciona as imagens ao FormData
-            $.each(files, function(i, file) {
-                formData.append('images[]', file);
-            });
-
-            // Adiciona a imagem principal ao FormData
-            formData.append('principal', principalImageIndex);
-
-            // Envia os dados via AJAX
-            $.ajax({
-                url: 'seu_endpoint_aqui', // Substitua pelo seu endpoint
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    alert('Imagens enviadas com sucesso!');
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    alert('Ocorreu um erro ao enviar as imagens.');
-                    console.error(error);
-                }
-            });
-        });
     });
 </script>
 

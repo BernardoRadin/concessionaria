@@ -36,11 +36,12 @@ class LoginController extends Controller
             return redirect()->route('dashboard.index');
         }else{
             return redirect()->route('login.index')->withErrors(['error' => 'Senha inválida!']);
-        }   
+        }
     }
 
     public function destroy(){
-        var_dump('logout');
+        Auth::logout();
+        return redirect()->route('home');
     }
 
 }

@@ -15,6 +15,11 @@ class Categoria extends Model
 
     protected $fillable = ['Nome'];
 
+    public function veiculos()
+    {
+        return $this->belongsTo(Veiculo::class, 'ID_Categoria');
+    }
+
     public $timestamps = false; 
 
 }

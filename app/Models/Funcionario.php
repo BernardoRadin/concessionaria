@@ -27,6 +27,11 @@ class Funcionario extends Authenticatable
         return $this->hasOne(Cargo::class, 'ID', "ID_Cargo");
     }
 
+    public function funcionarios()
+    {
+        return $this->belongsTo(Funcionario::class, 'ID_Funcionario');
+    }
+
     protected $hidden = ['Senha'];
 
     public $timestamps = false; 

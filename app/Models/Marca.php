@@ -17,4 +17,9 @@ class Marca extends Model
 
     public $timestamps = false; 
 
+    public function veiculos()
+    {
+        return $this->belongsTo(Funcionario::class, 'ID_Marca');
+    }
+
 }

@@ -20,5 +20,11 @@ class Cliente extends Model
     'Endereco',
     'Descricao'];
 
-    public $timestamps = false; 
+    public $timestamps = false;
+    
+    public function antigodono()
+    {
+        return $this->belongsTo(Cliente::class, 'ID_AntigoDono');
+    }
+
 }

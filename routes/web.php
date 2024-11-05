@@ -63,9 +63,24 @@ Route::controller(LoginController::class)->group(function(){
     });
 
     Route::controller(VeiculosController::class)->group(function(){
+        Route::get('/dashboard/veiculos/view/{id}', 'view')->name('veiculos.view');
         Route::get('/dashboard/veiculos/edit/{id}', 'edit')->name('veiculos.edit');
         Route::post('/dashboard/veiculos/create', 'create')->name('veiculos.create');
         Route::put('/dashboard/veiculos/update/{id}', 'update')->name('veiculos.update');
+        Route::delete('/dashboard/veiculos/delete/{id}', 'delete')->name('veiculos.delete');
+    });
+
+    Route::controller(VeiculosController::class)->group(function(){
+        Route::get('/dashboard/veiculos/view/{id}', 'view')->name('veiculos.view');
+        Route::get('/dashboard/veiculos/edit/{id}', 'edit')->name('veiculos.edit');
+        Route::post('/dashboard/veiculos/create', 'create')->name('veiculos.create');
+        Route::put('/dashboard/veiculos/update/{id}', 'update')->name('veiculos.update');
+        Route::delete('/dashboard/veiculos/delete/{id}', 'delete')->name('veiculos.delete');
+    });
+
+    Route::controller(VendasController::class)->group(function(){
+        Route::get('/dashboard/vendas/view/{idcarro}', 'view')->name('vendas.view');
+        Route::post('/dashboard/vendas/create', 'create')->name('vendas.create');
     });
 
 });

@@ -18,6 +18,14 @@ class VeiculosController extends Controller
         return view('dashboard_veiculos');
     }
 
+    public function view($id){
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->get();
+        $veiculo = Veiculo::with('fotos')->find($id);
+
+        return view('dashboard_veiculos_view', compact('veiculo','veiculos'));
+
+    }
+
     public function create(Request $request)
     {
 
@@ -101,7 +109,7 @@ class VeiculosController extends Controller
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'ano' => 'required|integer',
-            'portas' => 'required|integer',
+            'porta' => 'required|integer',  
             'cambio' => 'required|string',
             'motor' => 'required|string',
             'quilometragem' => 'required|numeric',
@@ -136,7 +144,7 @@ class VeiculosController extends Controller
         $veiculo->update([
             'Nome' => $validatedData['nome'],
             'Ano' => $validatedData['ano'],
-            'Porta' => $validatedData['portas'],
+            'Porta' => $validatedData['porta'],
             'Cambio' => $validatedData['cambio'],
             'Motor' => $validatedData['motor'],
             'Quilometragem' => $validatedData['quilometragem'],
@@ -162,21 +170,43 @@ class VeiculosController extends Controller
                 $path = 'imagens/veiculos/'.$nomenovaimagem;
                 $request->file($imageInputName)->move(public_path('imagens/veiculos/'), $nomenovaimagem);
                 
-                $deleted = Fotos::where('ID', $foto->ID)->delete();
+                $foto = Fotos::find($foto->ID);
                 $pathImageDelete = $foto->Foto;
-                if ($deleted && unlink($pathImageDelete)) {
+                if (unlink(public_path($pathImageDelete))) {
                     // Criação da entrada na tabela Fotos
-                    $foto = new Fotos(); // Certifique-se de que você importou o modelo Foto
                     $foto->Foto = $path; // Define o caminho da foto
                 }
             }
+        
+            if($foto->ID == $validatedData['principal']){
+                $principal = 1;
+            }else{
+                $principal = 0;
+            }
 
-            $foto->Principal = ($index + 1 == $validatedData['principal']); 
+            $foto->Principal = $principal; 
             $foto->save(); // Salva as alterações
 
         }
 
+        return redirect()->route('dashboard.veiculos')->with('success', 'Veículo cadastrado com sucesso!');
 
+    }
+
+    public function delete($id){
+        $veiculo = Veiculo::with('fotos')->find($id);
+
+        foreach($veiculo->fotos as $foto){
+            $fotoPath = public_path($foto->Foto);
+            if (file_exists($fotoPath) && unlink($fotoPath)) {
+                $foto->delete(); 
+            } else {
+                return redirect()->route('dashboard.veiculos')->with('error', 'Ocorreu um erro ao remover o veiculo!');
+            }
+        }
+
+        $veiculo->delete();
+        return redirect()->route('dashboard.veiculos')->with('success', 'Exclusão realizada com sucesso!');
     }
 
 }

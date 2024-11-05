@@ -9,20 +9,20 @@
             <i class="fas fa-plus-circle"></i>
             <p>Cadastrar Veículo</p>
         </div>
-        @foreach($veiculos as $veiculo)
-            <a href='{{route('veiculos.view', ['id' => $veiculo->ID]) }}'>
-                <div class="vehicle-card" data-card-id="{{ $veiculo->ID }}">
-                    <img src="{{ asset($veiculo->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculo->Nome}}">
+        @foreach($veiculos as $veiculov)
+            <a href='{{route('veiculos.view', ['id' => $veiculov->ID]) }}'>
+                <div class="vehicle-card" data-card-id="{{ $veiculov->ID }}">
+                    <img src="{{ asset($veiculov->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculov->Nome}}">
                     <div class="vehicle-info">
-                        <h3>{{$veiculo->Nome}}</h3>
-                        <p>{{$veiculo->Ano}}</p>
-                        <p class="price">R$ {{$veiculo->PrecoVenda}}</p>
+                        <h3>{{$veiculov->Nome}}</h3>
+                        <p>{{$veiculov->Ano}}</p>
+                        <p class="price">R$ {{$veiculov->PrecoVenda}}</p>
                     </div>
                     <div class="vehicle-actions">
-                        <a href='{{ route('veiculos.edit', ['id' => $veiculo->ID]) }}'><i class="fas fa-edit"></i></a>
-                        <a href='{{ route('vendas.view', ['idcarro' => $veiculo->ID]) }}'><i class="fas fa-dollar-sign"></i></a>
-                        <i class="fas fa-times" data-nome="{{ $veiculo->Nome }}"  onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
-                        <form action="{{ route('veiculos.delete', $veiculo->ID) }}" method="POST" style="display:none;">
+                        <a href='{{ route('veiculos.edit', ['id' => $veiculov->ID]) }}'><i class="fas fa-edit"></i></a>
+                        <i class="fas fa-dollar-sign" onclick="openModalVendido(event)"></i>
+                        <i class="fas fa-times" data-nome="{{ $veiculov->Nome }}"  onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
+                        <form action="{{ route('veiculos.delete', $veiculov->ID) }}" method="POST" style="display:none;">
                             @csrf
                             @method('DELETE')
                         </form>
@@ -33,83 +33,36 @@
     </div>
 </section>
 
-<!-- Modal de Cadastro de Veículo -->
-<div id="vehicleModal" class="vehicle-modal">
-    <div class="vehicle-modal-content">
-        <span class="vehicle-close" onclick="closeModal()">&times;</span>
-        <h2>Cadastrar Veículo</h2>
-        <form action="{{ route('veiculos.create') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('POST')
-            <div class="vehicle-form-container">
-                <div class="photo-section">
-                    <h2>Envie Fotos do Veículo</h2>
-                    <input type="file" class="file-input" id="file-input" name="images[]" accept="image/*" multiple>
-                    <button class="upload-btn" id="select-btn" type='button'>Selecionar Imagens</button>
-                    <div id="thumbnails"></div>
-                </div>
-                <div class="vehicle-details">
-                    <input type="text" name="nome" placeholder="Nome">
-                    <input type="text" name="ano" placeholder="Ano" maxlength="4">
-                    <input type="text" name="portas" placeholder="Portas">
-                    <input type="text" name="cambio" placeholder="Câmbio">
-                    <input type="text" name="motor" placeholder="Motor">
-                    <input type="text" name="quilometragem" placeholder="Quilometragem">
-                    <select name="combustivel">
-                        <option value=''>Selecione o Combustível</option>
-                        <option value='A'>Álcool</option>
-                        <option value='G'>Gasolina</option>
-                        <option value='E'>Elétrico</option>
-                        <option value='F'>Álcool e Gasolina</option>
-                    </select>
-                    <select name="categoria">
-                        <option value=''>Selecione a Categoria</option>
-                        @foreach($categorias as $categoria)
-                            <option value='{{ $categoria->ID }}'>{{ $categoria->Nome }}</option>
-                        @endforeach
-                    </select>
-                    <select name="marca">
-                        <option value=''>Selecione a Marca</option>
-                        @foreach($marcas as $marca)
-                            <option value='{{ $marca->ID }}'>{{ $marca->Nome }}</option>
-                        @endforeach
-                    </select>
-                    <input type="text" name="cor" placeholder="Cor">
-                    <input type="text" name="precocusto" placeholder="Preço Custo">
-                    <input type="text" name="precovenda" placeholder="Preço Venda">
-                    <select name="estoque">
-                        <option value=''>Seleciona estoque</option>
-                        <option value='1'>Sim</option>
-                        <option value='0'>Não</option>
-                    </select>
-                    <select name="antigodono">
-                        <option value=''>Selecione o Antigo Dono</option>
-                        @foreach($clientes as $cliente)
-                            <option value='{{ $cliente->ID }}'>{{ $cliente->Nome }}</option>
-                        @endforeach
-                    </select>
-                    <textarea name="descricao" placeholder="Descrição do Veículo"></textarea>
-                    <div class='align-button-veiculos'>
-                        <button id="cadastrarBtn-veiculos" type="submit">Cadastrar</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
 <div id="modalConfirmacaoVenda" class="modal-confirmacao-venda">
     <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModal('modalConfirmacaoVenda')">&times;</span>
+        <a href='{{ route('dashboard.veiculos') }}'><span class="fechar">&times;</span></a>
         <h2 class="titulo-modal">Confirmação de Venda</h2>
-        <form id="formConfirmacaoVenda" onsubmit="enviarFormularioVenda(event)">
+        <form id="formVenda" method="POST">
+            @csrf
+            @method('POST')
+            <div class="campo-form">
+                <label class="label-campo">Veículo:</label>
+                <input type="text" id="veiculo" name="veiculo" class="input-campo" value='{{ $veiculo->Nome}}' disabled>
+            </div>
+            <div class="campo-form">
+                <label class="label-campo">Cliente:</label>
+                <select class='input-campo' name='cliente'>
+                    @foreach($clientes as $cliente)
+                        <option value='{{ $cliente->ID }}'>{{$cliente->Nome}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="campo-form">
+                <label class="label-campo">Funcionário Responsável:</label>
+                <select class='input-campo' name='funcionario'>
+                    @foreach($funcionarios as $funcionario)
+                        <option value='{{ $funcionario->ID }}'>{{$funcionario->Nome}}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="campo-form">
                 <label for="dataVenda" class="label-campo">Data da Venda:</label>
                 <input type="date" id="dataVenda" name="data" class="input-campo" required>
-            </div>
-            <div class="campo-form">
-                <label for="funcionarioVenda" class="label-campo">Funcionário Responsável:</label>
-                <input type="text" id="funcionarioVenda" name="funcionario" class="input-campo" required>
             </div>
             <div class="campo-form">
                 <label for="descricaoVenda" class="label-campo">Descrição:</label>
@@ -133,111 +86,48 @@
     </div>
 </div>
 
-
     <script>
-    // Abre o modal de cadastro de veículo
-    function openModal() {
-        document.getElementById('vehicleModal').style.display = 'block';
-    }
 
-    // Fecha o modal de cadastro de veículo
-    function closeModal() {
-        document.getElementById('vehicleModal').style.display = 'none';
-    }
-
-    // Exibe o modal com as informações do veículo selecionado
-    function exibirModalVeiculo(idVeiculo) {
-        // Aqui você deve buscar os dados reais do veículo. 
-        // Para este exemplo, estamos apenas definindo valores fictícios.
-        document.getElementById('modal-veiculo-nome').innerText = "Nome do Veículo " + idVeiculo;
-        document.getElementById('modal-veiculo-ano').innerText = "2021"; // Exemplo fictício
-
-        // Exibir o modal
-        document.getElementById('modal-veiculo').style.display = 'block';
-    }
-
-    // Fecha o modal de informações do veículo
-    function fecharModalVeiculo() {
-        document.getElementById('modal-veiculo').style.display = 'none';
-    }
-
-    // Abre o modal de confirmação de venda
-    function openModalVendido(event) {
-        event.stopPropagation(); // Para evitar que o evento de click propague para o card do veículo
-        document.getElementById('modalConfirmacaoVenda').style.display = 'block';
-    }
-
-    // Fecha o modal passando o ID do modal
-    function fecharModal(idModal) {
-        document.getElementById(idModal).style.display = 'none';
-    }
-
-    // Confirmar exclusão
-    function abrirModalConfirmacaoExclusao(element, nomeVeiculo) {
-        const modal = $('#modalConfirmacaoExclusao');
-        modal.css('display', 'block');
-        $('#nomeVeiculo').text(nomeVeiculo);
-    
-        const cardMarca = $(element).closest('.vehicle-card');
-        const cardId = cardMarca.data('cardId'); // Armazena o ID no modal
-        modal.data('cardId', cardId);
-    }
-    
-    function confirmarExclusao() {
-        const modal = $('#modalConfirmacaoExclusao');
-        const cardId = modal.data('cardId');
-    
-        const form = $(`.vehicle-card[data-card-id="${cardId}"] form`);
-
-        alert
-    
-        if (form.length) {
-            form.submit(); // Submete o formulário para excluir no backend
-        }
-    
-        fecharModal('modalConfirmacaoExclusao');
-    }
-
-    $(document).ready(function() {
-        $('#select-btn').click(function() {
-            $('#file-input').click();
-        });
-
-        $('#file-input').on('change', function(event) {
-            const files = event.target.files;
-            const $thumbnails = $('#thumbnails');
-            $thumbnails.empty();
-
-            if (files.length > 5) {
-                alert('Selecione no máximo 5 imagens.');
-                return;
-            }
-
-            $.each(files, function(i, file) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const $div = $('<div>').addClass('thumbnail');
-
-                    const $img = $('<img>').attr('src', e.target.result);
-                    $div.append($img);
-
-                    const $radio = $('<input type="radio">')
-                        .attr('name', 'principal')
-                        .val(i);
-                    if (i === 0) $radio.prop('checked', true); // Marca a primeira imagem como principal por padrão
-                    $div.append($radio);
-
-                    $thumbnails.append($div);
-                };
-
-                reader.readAsDataURL(file);
+        $(document).ready(function() {
+            $('#select-btn').click(function() {
+                $('#file-input').click();
             });
-        });
 
-    });
-    
-</script>
+            $('#file-input').on('change', function(event) {
+                const files = event.target.files;
+                const $thumbnails = $('#thumbnails');
+                $thumbnails.empty();
+
+                if (files.length > 5) {
+                    alert('Selecione no máximo 5 imagens.');
+                    return;
+                }
+
+                $.each(files, function(i, file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const $div = $('<div>').addClass('thumbnail');
+
+                        const $img = $('<img>').attr('src', e.target.result);
+                        $div.append($img);
+
+                        const $radio = $('<input type="radio">')
+                            .attr('name', 'principal')
+                            .val(i);
+                        if (i === 0) $radio.prop('checked', true); // Marca a primeira imagem como principal por padrão
+                        $div.append($radio);
+
+                        $thumbnails.append($div);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            });
+
+        });
+        
+    </script>
 
 <style>
     /* Estilos para o modal de veículo */
@@ -500,7 +390,7 @@
 }
 
 .modal-confirmacao-venda {
-    display: none; /* Oculto por padrão */
+    display: flex; /* Oculto por padrão */
     position: fixed; /* Fica fixo na tela */
     z-index: 1000; /* Coloca o modal acima de outros conteúdos */
     left: 0;

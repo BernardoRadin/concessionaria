@@ -10,18 +10,17 @@
             <p>Cadastrar Veículo</p>
         </div>
         @foreach($veiculos as $veiculov)
-            <div class="vehicle-card">
-                <img src="{{ asset($veiculov->fotoprincipal->Foto) }}" alt="{{$veiculov->Nome}}">
+            <div class="vehicle-card" onclick="exibirModalVeiculo()">
+                <img src="{{ asset($veiculov->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculov->Nome}}">
                 <div class="vehicle-info">
                     <h3>{{$veiculov->Nome}}</h3>
                     <p>{{$veiculov->Ano}}</p>
                     <p class="price">R$ {{$veiculov->PrecoVenda}}</p>
                 </div>
                 <div class="vehicle-actions">
+                    <a href='{{ route('veiculos.edit', ['id' => $veiculov->ID]) }}'><i class="fas fa-edit"></i></a>
+                    <i class="fas fa-dollar-sign" ></i>
                     <i class="fas fa-times"></i>
-                    <i class="fas fa-eye"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-pencil-alt"></i>
                 </div>
             </div>
         @endforeach
@@ -31,8 +30,8 @@
 <!-- Modal de Editar Veículo -->
 <div id="modalEdicao" class="modal" style='display: flex'>
     <div class="vehicle-modal-content">
-        <a href=' {{ route('dashboard.veiculos') }}'><span class="vehicle-close" onclick="closeModal()">&times;</span></a>
-        <h2>Cadastrar Veículo</h2>
+        <a href='{{ route('dashboard.veiculos') }}'><span class="vehicle-close">&times;</span></a>
+        <h2>Editar Veículo</h2>
         <form action="{{ route('veiculos.update', ['id' => $veiculo->ID]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -55,16 +54,16 @@
                         <input type="text" name="nome" placeholder="Nome" value='{{ $veiculo->Nome }}'>
                         <input type="text" name="ano" placeholder="Ano" maxlength="4" value='{{ $veiculo->Ano }}'>
                         {{-- <input type="text" placeholder="Modelo"> --}}
-                        <input type="text" name="portas" placeholder="Portas" value='{{ $veiculo->Porta }}'>
+                        <input type="text" name="porta" placeholder="Portas" value='{{ $veiculo->Porta }}'>
                         <input type="text" name="cambio" placeholder="Câmbio" value='{{ $veiculo->Cambio }}'>
                         <input type="text" name="motor" placeholder="Motor" value='{{ $veiculo->Motor }}'>
                         <input type="text" name="quilometragem" placeholder="Quilometragem" value='{{ $veiculo->Quilometragem }}'>
                         <select name="combustivel" placeholder="Combustível">
                             <option value=''>Selecione o Combustível</option>
-                            <option value='A' {{ $veiculo->Combustivel == 'A' ? 'selected' : ''}}>Alcool</option>
+                            <option value='A' {{ $veiculo->Combustivel == 'A' ? 'selected' : ''}}>Álcool</option>
                             <option value='G' {{ $veiculo->Combustivel == 'G' ? 'selected' : ''}}>Gasolina</option>
                             <option value='E' {{ $veiculo->Combustivel == 'E' ? 'selected' : ''}}>Elétrico</option>
-                            <option value='F' {{ $veiculo->Combustivel == 'F' ? 'selected' : ''}}>Alcool e Gasolina</option>
+                            <option value='F' {{ $veiculo->Combustivel == 'F' ? 'selected' : ''}}>Álcool e Gasolina</option>
                         </select>
                         <select name="categoria" placeholder="Categoria">
                             <option value=''>Selecione a Categoria</option>
@@ -91,7 +90,7 @@
                         </select>
                         <textarea name="descricao" placeholder="Descrição do Veículo">{{ $veiculo->Descricao }}</textarea>
                         <div class='align-button-veiculos'>
-                        <button id="cadastrarBtn-veiculos" type="submit">Cadastrar</button>
+                        <button id="cadastrarBtn-veiculos" type="submit">Editar</button>
                     <div>
                 </div>
             </div>

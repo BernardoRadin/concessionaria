@@ -37,12 +37,13 @@
     <div class="modal-conteudo">
         <a href='{{ route('dashboard.veiculos') }}'><span class="fechar">&times;</span></a>
         <h2 class="titulo-modal">Confirmação de Venda</h2>
-        <form id="formVenda" method="POST">
+        <form id="formVenda" action="{{ route('vendas.create') }}" method="POST">
             @csrf
             @method('POST')
             <div class="campo-form">
                 <label class="label-campo">Veículo:</label>
-                <input type="text" id="veiculo" name="veiculo" class="input-campo" value='{{ $veiculo->Nome}}' disabled>
+                <input type='hidden' name="veiculo" value="{{ $veiculo->ID }}"/>
+                <input type="text" id="veiculo" class="input-campo" value='{{ $veiculo->Nome}}' disabled>
             </div>
             <div class="campo-form">
                 <label class="label-campo">Cliente:</label>
@@ -63,6 +64,10 @@
             <div class="campo-form">
                 <label for="dataVenda" class="label-campo">Data da Venda:</label>
                 <input type="date" id="dataVenda" name="data" class="input-campo" required>
+            </div>
+            <div class="campo-form">
+                <label for="dataVenda" class="label-campo">Preço Venda:</label>
+                <input type="text" id="precoVenda" name="precoVenda" class="input-campo" placeholder="R$ 00,00" required>
             </div>
             <div class="campo-form">
                 <label for="descricaoVenda" class="label-campo">Descrição:</label>

@@ -79,8 +79,10 @@ Route::controller(LoginController::class)->group(function(){
     });
 
     Route::controller(VendasController::class)->group(function(){
+        Route::get('/dashboard/vendas/{idcarro}', 'viewcadastro')->name('vendas.viewcadastro');
         Route::get('/dashboard/vendas/view/{idcarro}', 'view')->name('vendas.view');
         Route::post('/dashboard/vendas/create', 'create')->name('vendas.create');
+        Route::delete('/dashboard/vendas/delete/{id}', 'delete')->name('vendas.delete');
     });
 
 });

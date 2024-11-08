@@ -78,29 +78,25 @@
 
 
 <script>
-    // Abrir o modal de categoria
     function openEmployeeModal() {
         $('#employeeModal').css('display', 'flex');
     }
     
-    // Fechar o modal de categoria
     function closeEmployeeModal() {
         $('#employeeModal').css('display', 'none');
     }
 
-    // Função para fechar modais
     function fecharModal(modalId) {
         $('#' + modalId).css('display', 'none');
     }
     
-    // Confirmar exclusão
     function abrirModalConfirmacaoExclusao(element, nomeCategoria) {
         const modal = $('#modalConfirmacaoExclusao');
         modal.css('display', 'block');
         $('#nomeCategoria').text(nomeCategoria);
     
         const cardMarca = $(element).closest('.employee-card');
-        const cardId = cardMarca.data('cardId'); // Armazena o ID no modal
+        const cardId = cardMarca.data('cardId');
         modal.data('cardId', cardId);
     }
     
@@ -111,7 +107,7 @@
         const form = $(`.employee-card[data-card-id="${cardId}"] form`);
     
         if (form.length) {
-            form.submit(); // Submete o formulário para excluir no backend
+            form.submit();
         }
     
         fecharModal('modalConfirmacaoExclusao');

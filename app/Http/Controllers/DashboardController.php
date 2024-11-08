@@ -9,6 +9,7 @@ use App\Models\Marca;
 use App\Models\Categoria;
 use App\Models\Cliente; 
 use App\Models\Veiculo;
+use App\Models\Venda;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -48,7 +49,10 @@ class DashboardController extends Controller
 
     public function vendas()
     {
-        return view('dashboard_vendas');
+
+        $vendas = Venda::with('veiculo','cliente','funcionario')->get();
+
+        return view('dashboard_vendas', compact('vendas'));
     }
         
     public function veiculos()

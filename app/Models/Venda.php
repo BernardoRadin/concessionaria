@@ -17,4 +17,20 @@ class Venda extends Model
 
     public $timestamps = false; 
 
+    public function veiculo()
+    {
+        return $this->hasOne(Veiculo::class, 'ID', "ID_Veiculo");
+    }
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class, 'ID', "ID_Cliente");
+    }
+
+    public function funcionario()
+    {
+        return $this->hasOne(Funcionario::class, 'ID', "ID_Funcionario");
+    }
+
+
 }

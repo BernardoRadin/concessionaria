@@ -18,19 +18,6 @@ class CategoriasController extends Controller
 
     }
 
-    public function delete($id)
-    {
-        
-        $deleted = Categoria::where('ID', $id)->delete();
-        
-        if ($deleted) {
-            return redirect()->back()->with('success', 'Categoria deletado com sucesso!');
-        } else {
-            return redirect()->back()->withErrors(['Categoria' => 'Categoria não encontrado.']);
-        }
-    }
-
-
     public function edit($id)
     {
         $categorias = Categoria::all();
@@ -47,4 +34,17 @@ class CategoriasController extends Controller
     
         return redirect()->route('dashboard.categorias');
     }
+
+    public function delete($id)
+    {
+        
+        $deleted = Categoria::where('ID', $id)->delete();
+        
+        if ($deleted) {
+            return redirect()->back()->with('success', 'Categoria deletado com sucesso!');
+        } else {
+            return redirect()->back()->withErrors(['Categoria' => 'Categoria não encontrado.']);
+        }
+    }
+
 }

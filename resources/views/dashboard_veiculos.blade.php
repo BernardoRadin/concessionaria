@@ -10,25 +10,26 @@
             <p>Cadastrar Veículo</p>
         </div>
         @foreach($veiculos as $veiculo)
-            <a href='{{route('veiculos.view', ['id' => $veiculo->ID]) }}'>
-                <div class="vehicle-card" data-card-id="{{ $veiculo->ID }}">
-                    <img src="{{ asset($veiculo->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculo->Nome}}">
-                    <div class="vehicle-info">
-                        <h3>{{$veiculo->Nome}}</h3>
-                        <p>{{$veiculo->Ano}}</p>
-                        <p class="price">R$ {{$veiculo->PrecoVenda}}</p>
-                    </div>
-                    <div class="vehicle-actions">
-                        <a href='{{ route('veiculos.edit', ['id' => $veiculo->ID]) }}'><i class="fas fa-edit"></i></a>
-                        <a href='{{ route('vendas.view', ['idcarro' => $veiculo->ID]) }}'><i class="fas fa-dollar-sign"></i></a>
-                        <i class="fas fa-times" data-nome="{{ $veiculo->Nome }}"  onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
-                        <form action="{{ route('veiculos.delete', $veiculo->ID) }}" method="POST" style="display:none;">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                    </div>
+        <a href='{{route('veiculos.view', ['id' => $veiculo->ID]) }}'>
+            <div class="vehicle-card" data-card-id="{{ $veiculo->ID }}">
+                <img src="{{ asset($veiculo->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculo->Nome}}">
+                <div class="vehicle-info">
+                    <h3>{{$veiculo->Nome}}</h3>
+                    <p>{{$veiculo->Ano}}</p>
+                    <p class="price">R$ {{$veiculo->PrecoVenda}}</p>
                 </div>
-            </a>
+                <div class="vehicle-actions">
+                    <a href='{{ route('veiculos.edit', ['id' => $veiculo->ID]) }}'><i class="fas fa-edit"></i></a>
+                    <a @if($veiculo->Em_Estoque == 1) href='{{ route('vendas.viewcadastro', ['idcarro' => $veiculo->ID]) }}' @endif>
+                    <i class="fas fa-dollar-sign {{ $veiculo->Em_Estoque == 0 ? 'disabled' : ''}}"></i></a>
+                    <i class="fas fa-times" data-nome="{{ $veiculo->Nome }}"  onclick="abrirModalConfirmacaoExclusao(this, this.dataset.nome)"></i>
+                    <form action="{{ route('veiculos.delete', $veiculo->ID) }}" method="POST" style="display:none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </div>
+            </div>
+        </a>
         @endforeach
     </div>
 </section>

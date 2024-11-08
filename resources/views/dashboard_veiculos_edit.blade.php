@@ -10,6 +10,7 @@
             <p>Cadastrar Veículo</p>
         </div>
         @foreach($veiculos as $veiculov)
+        <a>
             <div class="vehicle-card" onclick="exibirModalVeiculo()">
                 <img src="{{ asset($veiculov->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculov->Nome}}">
                 <div class="vehicle-info">
@@ -19,10 +20,11 @@
                 </div>
                 <div class="vehicle-actions">
                     <a href='{{ route('veiculos.edit', ['id' => $veiculov->ID]) }}'><i class="fas fa-edit"></i></a>
-                    <i class="fas fa-dollar-sign" ></i>
+                    <i class="fas fa-dollar-sign"></i>
                     <i class="fas fa-times"></i>
                 </div>
             </div>
+        </a>
         @endforeach
     </div>
 </section>
@@ -80,7 +82,11 @@
                         <input type="text" name="cor" placeholder="Cor" value='{{ $veiculo->Cor }}'>
                         <input type="text" name="precocusto" placeholder="Preço Custo" value='{{ $veiculo->PrecoCusto }}'>
                         <input type="text" name="precovenda" placeholder="Preço Venda" value='{{ $veiculo->PrecoVenda }}'>
-                        <input type="text" name="estoque" placeholder="Estoque" value='{{ $veiculo->Em_Estoque }}'>
+                        <select name="estoque">
+                            <option value=''>Seleciona estoque</option>
+                            <option value='1' {{ $veiculo->Em_Estoque == 1 ? 'selected' : ''}}>Sim</option>
+                            <option value='0' {{ $veiculo->Em_Estoque == 0 ? 'selected' : ''}}>Não</option>
+                        </select>    
                         {{-- <input type="text" name="antigodono" placeholder="Antigo Dono"> --}}
                         <select name="antigodono" placeholder="Antigo Dono">
                             <option value=''>Selecione o Antigo Dono</option>

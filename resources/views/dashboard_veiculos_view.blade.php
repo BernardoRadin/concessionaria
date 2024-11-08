@@ -10,6 +10,7 @@
             <p>Cadastrar Veículo</p>
         </div>
         @foreach($veiculos as $veiculov)
+        <a>
             <div class="vehicle-card" onclick="exibirModalVeiculo()">
                 <img src="{{ asset($veiculov->fotoprincipal->Foto ?? 'caminho/para/imagem/padrao.jpg') }}" alt="{{$veiculov->Nome}}">
                 <div class="vehicle-info">
@@ -19,10 +20,11 @@
                 </div>
                 <div class="vehicle-actions">
                     <a href='{{ route('veiculos.edit', ['id' => $veiculov->ID]) }}'><i class="fas fa-edit"></i></a>
-                    <i class="fas fa-dollar-sign" ></i>
+                    <i class="fas fa-dollar-sign"></i>
                     <i class="fas fa-times"></i>
                 </div>
             </div>
+        </a>
         @endforeach
     </div>
 </section>

@@ -2,6 +2,17 @@
 
 @section('content_dashboard')
 
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
 <section class="main-content">
     <h2>Marcas</h2>
     <div class="employee-section">
@@ -54,7 +65,7 @@
                 <form action="{{ route('marcas.update', ['id' => $marca->ID] ) }}" method="POST" enctype="multipart/form-data" class="employee-details-marcas">
                     @csrf
                     @method('PUT')
-                    <input type="text" name='Nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" value="{{ $marca->Nome }}"/></br></br>
+                    <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" value="{{ $marca->Nome }}"/></br></br>
                     <div class="marca-logo-container">
                     <label for="logo" class="marca-logo-label">Upload do Logo</label>
                     <div class="image-preview" id="imagePreview">

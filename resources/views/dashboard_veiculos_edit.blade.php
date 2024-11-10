@@ -2,6 +2,17 @@
 
 @section('content_dashboard')
 
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
 <section class="main-content">
     <h2>Veículos</h2>
     <div class="vehicle-section">
@@ -64,8 +75,9 @@
                             <option value=''>Selecione o Combustível</option>
                             <option value='A' {{ $veiculo->Combustivel == 'A' ? 'selected' : ''}}>Álcool</option>
                             <option value='G' {{ $veiculo->Combustivel == 'G' ? 'selected' : ''}}>Gasolina</option>
-                            <option value='E' {{ $veiculo->Combustivel == 'E' ? 'selected' : ''}}>Elétrico</option>
                             <option value='F' {{ $veiculo->Combustivel == 'F' ? 'selected' : ''}}>Álcool e Gasolina</option>
+                            <option value='D' {{ $veiculo->Combustivel == 'D' ? 'selected' : ''}}>Diesel</option>
+                            <option value='E' {{ $veiculo->Combustivel == 'E' ? 'selected' : ''}}>Elétrico</option>
                         </select>
                         <select name="categoria" placeholder="Categoria">
                             <option value=''>Selecione a Categoria</option>

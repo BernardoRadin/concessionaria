@@ -2,16 +2,45 @@
 
 @section('content_dashboard')
 
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
+@if(session('success'))
+    <script>
+        Toast.fire({
+            icon: "success",
+            title: "{{ session('success') }}"
+        });   
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        Toast.fire({
+            icon: "error",
+            title: "{{ session('error') }}"
+        });   
+    </script>
+@endif
+
 <section class="main-content">
     <h2>Site</h2>
     <div class="modal-body">
-        <form id="formSite" action="" method="POST" style='width: 100%'>
+        <form id="formSite" action="{{ route('site.update') }}" method="POST" enctype="multipart/form-data" style='width: 100%'>
             @csrf
             @method('PUT')
             <div class="marca-logo-container" style='width: 49.5%'>
                 <label for="logo" class="marca-logo-label">Upload da Logo</label>
                 <div class="image-preview" id="imagePreview">
-                    <img src="{{ asset('imagens/logo/sua-logo.png')}}" alt="Pré-visualização" class="image-preview__image-site-create" />
+                    <img src="{{ asset("$site->Logo")}}" alt="Pré-visualização" class="image-preview__image-site-create" />
                 </div>
                 <input type="file" name="logo" id="logo" class="marca-logo" accept="image/*" onchange="previewImage(event)" />
             </div></br>
@@ -38,7 +67,7 @@
                 </div>
                 <div class="field-group">
                     <label>Endereço: </label>
-                    <input type="text" id='endereco' name='Endereco' placeholder="Endereço" class="address-full-width" value="{{ $site->Endereco }}"/>
+                    <input type="text" id='endereco' name='endereco' placeholder="Endereço" class="address-full-width" value="{{ $site->Endereco }}"/>
                 </div>
                 <div class="field-group">
                     <label>Sobre Nós: </label>
@@ -50,6 +79,7 @@
     </div>
 </section>
 <script>
+
     $('#telefone').mask('(00) 00000-0000');
     $('#whatsapp').mask('(00) 0000-0000');
 

@@ -2,12 +2,23 @@
 
 @section('content_dashboard')
 
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
 <section class="main-content">
     <h2>Funcionários</h2>
     <div class="employee-section">
         <div class="add-employee">
             <i class="fas fa-plus-circle" onclick="openEmployeeModal()"></i>
-            <p>Cadastre um funcionário</p>
+            <p>Cadastrar Funcionário</p>
         </div>
         <!-- Cards de Funcionário -->
     @foreach($funcionarios as $funcionariov)
@@ -82,24 +93,21 @@
 <script>
     
     $(document).ready(function() {
-        $('#telefone').mask('(00) 00000-0000'); // Aplica a máscara para telefone
-        $('#telefoneEdicao').mask('(00) 00000-0000'); // Aplica a máscara para telefone
-        $('#viewTelefoneFuncionario').mask('(00) 00000-0000'); // Aplica a máscara para telefone na visualização
+        $('#telefone').mask('(00) 00000-0000');
+        $('#telefoneEdicao').mask('(00) 00000-0000');
+        $('#viewTelefoneFuncionario').mask('(00) 00000-0000');
     });
     
-    // Máscara para CPF usando jQuery Mask
     $(document).ready(function() {
-        $('#cpf').mask('000.000.000-00'); // Aplica a máscara para CPF
-        $('#cpfEdicao').mask('000.000.000-00'); // Aplica a máscara para CPF
-        $('#viewCpfFuncionario').mask('000.000.000-00'); // Aplica a máscara para CPF na visualização
+        $('#cpf').mask('000.000.000-00');
+        $('#cpfEdicao').mask('000.000.000-00');
+        $('#viewCpfFuncionario').mask('000.000.000-00');
     });
     
-    // Máscara para data de nascimento usando jQuery Mask
     $(document).ready(function() {
-        $('#dataNascimentoEdicao').mask('00/00/0000'); // Aplica a máscara para data de nascimento
+        $('#dataNascimentoEdicao').mask('00/00/0000');
     });
     
-    // Alternar visualização de senha
     $('#toggleSenha').on('click', function() {
         const senhaInput = $('#senha');
         if (senhaInput.attr('type') === 'password') {

@@ -11,15 +11,16 @@ use Illuminate\Http\Request;
 class VendasController extends Controller
 {
 
-    public function view($id){
-        
-    }
-
     public function viewcadastro($idcarro){
         $funcionarios = Funcionario::all();
         $clientes = Cliente::all();
         $veiculo = Veiculo::find($idcarro);
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->get();
+
+        if(!$veiculo){
+            return redirect()->route('dashboard.veiculos')->with('error', 'Veículo não encontrado!');
+        }
+
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
 
         return view('dashboard_vendas_cadastro', compact('veiculo','veiculos','clientes', 'funcionarios'));
     }
@@ -46,12 +47,12 @@ class VendasController extends Controller
 
         $veiculo = Veiculo::where('ID', $request->veiculo)->update(['Em_Estoque'=>0]);
 
-        return redirect()->route('dashboard.veiculos');
+        return redirect()->route('dashboard.veiculos')->with('success', 'Venda realizada com sucesso!');
 
     }
 
     public function delete($id){
-        $venda = Venda::where('ID', $id)->first();
+        $venda = Venda::find($id);
 
         $idveiculo = $venda->ID_Veiculo;
 
@@ -64,9 +65,9 @@ class VendasController extends Controller
         $deleted = $venda->delete();
         
         if ($deleted) {
-            return redirect()->back()->with('success', 'Venda deletado com sucesso!');
+            return redirect()->route('dashboard.veiculos')->with('success', 'Venda deletada com sucesso!');
         } else {
-            return redirect()->back()->withErrors(['Categoria' => 'Venda não encontrado.']);
+            return redirect()->route('dashboard.veiculos')->with('error', 'Ocorreu um erro ao deletar a venda.');
         }
     }
 

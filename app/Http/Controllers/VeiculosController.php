@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Auth;
 
 class VeiculosController extends Controller
 {
-    public function index()
-    {
-        return view('dashboard_veiculos');
-    }
 
     public function view($id){
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->get();
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
         $veiculo = Veiculo::with('fotos')->find($id);
+
+        if(!$veiculo){
+            return redirect()->route('dashboard.veiculos')->with('error', 'Veículo não encontrado!');
+        }
 
         return view('dashboard_veiculos_view', compact('veiculo','veiculos'));
 
@@ -29,13 +29,18 @@ class VeiculosController extends Controller
     public function create(Request $request)
     {
 
+        $precoVenda = str_replace('.', '', $request->input('precovenda'));
+        $precoCusto = str_replace('.', '', $request->input('precocusto'));
+
+        $request->merge(['precovenda' => $precoVenda, 'precocusto' => $precoCusto]);        
+
         $request->validate([
             'nome' => 'required|string|max:255',
             'ano' => 'required|integer',
             'portas' => 'required|integer',
             'cambio' => 'required|string',
             'motor' => 'required|string',
-            'quilometragem' => 'required|integer',
+            'quilometragem' => 'required|numeric',
             'combustivel' => 'required|string',
             'categoria' => 'required|integer',
             'marca' => 'required|integer',
@@ -45,7 +50,7 @@ class VeiculosController extends Controller
             'estoque' => 'required|integer',
             'antigodono' => 'nullable|integer',
             'descricao' => 'nullable|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para imagens
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'principal' => 'required|integer',
         ]);
 
@@ -61,8 +66,8 @@ class VeiculosController extends Controller
         $veiculo->Quilometragem = $request->quilometragem;
         $veiculo->Combustivel = $request->combustivel;
         $veiculo->Cor = $request->cor;
-        $veiculo->PrecoCusto = $request->precocusto;
-        $veiculo->PrecoVenda = $request->precovenda;
+        $veiculo->PrecoCusto = $precoCusto;
+        $veiculo->PrecoVenda = $precoVenda;
         $veiculo->Em_Estoque = $request->estoque;
         $veiculo->Descricao = $request->descricao;
         $veiculo->ID_Categoria = $request->categoria;
@@ -80,12 +85,11 @@ class VeiculosController extends Controller
                 $path = 'imagens/veiculos/'.$nomeimagem;
                 $image->move(public_path('imagens/veiculos/'), $nomeimagem);
 
-                // Criação da entrada na tabela Fotos
-                $foto = new Fotos(); // Certifique-se de que você importou o modelo Foto
-                $foto->Foto = $path; // Define o caminho da foto
-                $foto->Principal = ($index == $request->principal); // Define se é a foto principal
-                $foto->ID_Veiculo = $veiculo->ID; // Associa a foto ao veículo
-                $foto->save(); // Salva a foto
+                $foto = new Fotos();
+                $foto->Foto = $path;
+                $foto->Principal = ($index == $request->principal);
+                $foto->ID_Veiculo = $veiculo->ID;
+                $foto->save();
             }
         }
         return redirect()->route('dashboard.veiculos')->with('success', 'Veículo cadastrado com sucesso!');
@@ -93,8 +97,12 @@ class VeiculosController extends Controller
 
     public function edit($id)
     {
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->get();
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
         $veiculo = Veiculo::with('fotos')->find($id);
+
+        if(!$veiculo){
+            return redirect()->route('dashboard.veiculos')->with('error', 'Veículo não encontrado!');
+        }
 
         $categorias = Categoria::all();
         $marcas = Marca::all();
@@ -105,6 +113,12 @@ class VeiculosController extends Controller
     }
 
     public function update(Request $request, $id){
+
+
+        $precoVenda = str_replace('.', '', $request->input('precovenda'));
+        $precoCusto = str_replace('.', '', $request->input('precocusto'));
+
+        $request->merge(['precovenda' => $precoVenda, 'precocusto' => $precoCusto]);        
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
@@ -122,24 +136,25 @@ class VeiculosController extends Controller
             'estoque' => 'required|integer',
             'antigodono' => 'nullable|integer',
             'descricao' => 'nullable|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para imagens
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'principal' => 'required|integer',
         ]);
-    
-        // Encontre o veículo pelo ID
-    
+        
         foreach ($request->all() as $key => $value) {
-            // Verifica se o nome do input começa com 'image-' e se é um arquivo
             if (strpos($key, 'image-') === 0) {
                 $request->validate([
-                    $key => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
+                    $key => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 ]);
             }
         }
 
         $funcionariologin = Auth::user();
 
-        $veiculo = Veiculo::with('fotos')->findOrFail($id);
+        $veiculo = Veiculo::with('fotos')->find($id);
+
+        if(!$veiculo){
+            return redirect()->route('dashboard.veiculos')->with('error', 'Veículo não encontrado!');
+        }
 
         $veiculo->update([
             'Nome' => $validatedData['nome'],
@@ -173,8 +188,7 @@ class VeiculosController extends Controller
                 $foto = Fotos::find($foto->ID);
                 $pathImageDelete = $foto->Foto;
                 if (unlink(public_path($pathImageDelete))) {
-                    // Criação da entrada na tabela Fotos
-                    $foto->Foto = $path; // Define o caminho da foto
+                    $foto->Foto = $path;
                 }
             }
         
@@ -185,11 +199,11 @@ class VeiculosController extends Controller
             }
 
             $foto->Principal = $principal; 
-            $foto->save(); // Salva as alterações
+            $foto->save();
 
         }
 
-        return redirect()->route('dashboard.veiculos')->with('success', 'Veículo cadastrado com sucesso!');
+        return redirect()->route('dashboard.veiculos')->with('success', 'Veículo alterado com sucesso!');
 
     }
 
@@ -201,12 +215,16 @@ class VeiculosController extends Controller
             if (file_exists($fotoPath) && unlink($fotoPath)) {
                 $foto->delete(); 
             } else {
-                return redirect()->route('dashboard.veiculos')->with('error', 'Ocorreu um erro ao remover o veiculo!');
+                return redirect()->route('dashboard.veiculos')->with('error', 'Ocorreu um erro ao deletar o veículo!');
             }
         }
 
-        $veiculo->delete();
-        return redirect()->route('dashboard.veiculos')->with('success', 'Exclusão realizada com sucesso!');
+        if($veiculo->delete()){
+            return redirect()->route('dashboard.veiculos')->with('success', 'Veículo deletado com sucesso!');
+        }else{
+            return redirect()->route('dashboard.veiculos')->with('error', 'Ocorreu um erro ao deletar o veículo!');
+        
+        }
     }
 
 }

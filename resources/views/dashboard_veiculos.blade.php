@@ -2,6 +2,35 @@
 
 @section('content_dashboard')
 
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
+@if(session('success'))
+    <script>
+        Toast.fire({
+            icon: "success",
+            title: "{{ session('success') }}"
+        });   
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        Toast.fire({
+            icon: "error",
+            title: "{{ session('error') }}"
+        });   
+    </script>
+@endif
+
 <section class="main-content">
     <h2>Veículos</h2>
     <div class="vehicle-section">
@@ -32,6 +61,9 @@
         </a>
         @endforeach
     </div>
+    <div class="pagination">
+        {{ $veiculos->links('pagination::bootstrap-4', ['previous' => 'Anterior', 'next' => 'Próximo']) }}
+    </div>    
 </section>
 
 <!-- Modal de Cadastro de Veículo -->
@@ -45,45 +77,46 @@
             <div class="vehicle-form-container">
                 <div class="photo-section">
                     <h2>Envie Fotos do Veículo</h2>
-                    <input type="file" class="file-input" id="file-input" name="images[]" accept="image/*" multiple>
+                    <input type="file" class="file-input" id="file-input" name="images[]" accept="image/*" multiple required>
                     <button class="upload-btn" id="select-btn" type='button'>Selecionar Imagens</button>
                     <div id="thumbnails"></div>
                 </div>
                 <div class="vehicle-details">
-                    <input type="text" name="nome" placeholder="Nome">
-                    <input type="text" name="ano" placeholder="Ano" maxlength="4">
-                    <input type="text" name="portas" placeholder="Portas">
-                    <input type="text" name="cambio" placeholder="Câmbio">
-                    <input type="text" name="motor" placeholder="Motor">
-                    <input type="text" name="quilometragem" placeholder="Quilometragem">
-                    <select name="combustivel">
+                    <input type="text" name="nome" placeholder="Nome" required>
+                    <input type="text" name="ano" placeholder="Ano" maxlength="4" required>
+                    <input type="text" name="portas" placeholder="Portas" required>
+                    <input type="text" name="cambio" placeholder="Câmbio" required>
+                    <input type="text" name="motor" placeholder="Motor" required>
+                    <input type="text" name="quilometragem" placeholder="Quilometragem" required>
+                    <select name="combustivel" required>
                         <option value=''>Selecione o Combustível</option>
                         <option value='A'>Álcool</option>
                         <option value='G'>Gasolina</option>
-                        <option value='E'>Elétrico</option>
                         <option value='F'>Álcool e Gasolina</option>
+                        <option value='D'>Diesel</option>
+                        <option value='E'>Elétrico</option>
                     </select>
-                    <select name="categoria">
+                    <select name="categoria" required>
                         <option value=''>Selecione a Categoria</option>
                         @foreach($categorias as $categoria)
                             <option value='{{ $categoria->ID }}'>{{ $categoria->Nome }}</option>
                         @endforeach
                     </select>
-                    <select name="marca">
+                    <select name="marca" required>
                         <option value=''>Selecione a Marca</option>
                         @foreach($marcas as $marca)
                             <option value='{{ $marca->ID }}'>{{ $marca->Nome }}</option>
                         @endforeach
                     </select>
-                    <input type="text" name="cor" placeholder="Cor">
-                    <input type="text" name="precocusto" placeholder="Preço Custo">
-                    <input type="text" name="precovenda" placeholder="Preço Venda">
-                    <select name="estoque">
+                    <input type="text" name="cor" placeholder="Cor" required>
+                    <input type="text" name="precocusto" placeholder="Preço Custo" required>
+                    <input type="text" name="precovenda" placeholder="Preço Venda" required>
+                    <select name="estoque" required>
                         <option value=''>Seleciona estoque</option>
-                        <option value='1'>Sim</option>
+                        <option value='1' selected>Sim</option>
                         <option value='0'>Não</option>
                     </select>
-                    <select name="antigodono">
+                    <select name="antigodono" required>
                         <option value=''>Selecione o Antigo Dono</option>
                         @foreach($clientes as $cliente)
                             <option value='{{ $cliente->ID }}'>{{ $cliente->Nome }}</option>
@@ -133,7 +166,6 @@
         </div>
     </div>
 </div>
-
 
     <script>
     // Abre o modal de cadastro de veículo

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Site;
 
-class SiteContoller extends Controller
+class SiteController extends Controller
 {
-    public function update(){
+    public function update(Request $request){
 
         $site = Site::first();
 
@@ -20,8 +20,8 @@ class SiteContoller extends Controller
             'instagram' => 'nullable|string|url',
             'facebook' => 'nullable|string|url',
             'endereco' => 'required|string|max:255',
-            'logo' => 'image|mimes:jpeg,png,jpg',
             'sobre' => 'nullable|string|max:1000',
+            'logo' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         if ($request->hasFile('logo')) {
@@ -44,7 +44,6 @@ class SiteContoller extends Controller
         $site->Instagram = $request->instagram;
         $site->Facebook = $request->facebook;
         $site->Endereco = $request->endereco;
-        $site->Logo = $request->logo;
         $site->Sobre = $request->sobre;
 
         if($site->update($request->except('logo'))){

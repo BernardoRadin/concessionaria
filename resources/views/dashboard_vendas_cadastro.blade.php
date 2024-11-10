@@ -2,6 +2,18 @@
 
 @section('content_dashboard')
 
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
 <section class="main-content">
     <h2>Veículos</h2>
     <div class="vehicle-section">

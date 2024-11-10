@@ -2,6 +2,35 @@
 
 @section('content_dashboard')
 
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            Toast.fire({
+                icon: "warning",
+                title: "{{ $error }}"
+            });   
+        </script>
+    @endforeach    
+@endif
+
+@if(session('success'))
+    <script>
+        Toast.fire({
+            icon: "success",
+            title: "{{ session('success') }}"
+        });   
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        Toast.fire({
+            icon: "error",
+            title: "{{ session('error') }}"
+        });   
+    </script>
+@endif
+
 <section class="main-content">
     <h2>Categorias</h2>
     <div class="employee-section">

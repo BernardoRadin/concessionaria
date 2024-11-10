@@ -142,6 +142,8 @@ body {
     align-items: flex-start;
     justify-content: space-around;
     margin-top: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .add-vehicle {
@@ -165,7 +167,7 @@ body {
     width: 220px;
     padding: 15px;
     text-align: center;
-    margin-left: 20px;
+    margin-left: 0;
 }
 
 .vehicle-card img {
@@ -1402,4 +1404,38 @@ input:focus, select:focus {
 
 #cadastrarBtn-categorias:hover {
     background-color: #3c3c7a;
+}
+
+.pagination {
+    font-size: 14px;  /* Tamanho de fonte padrão */
+    margin: 10px auto;  /* Margens adequadas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li {
+    list-style: none;  /* Remover os marcadores da lista */
+    margin: 0 5px;  /* Espaçamento entre os itens de navegação */
+}
+
+.pagination a,
+.pagination span {
+    padding: 6px 12px;  /* Padding padrão */
+    font-size: 14px;  /* Tamanho de fonte padrão */
+    height: 30px;  /* Altura padrão */
+    line-height: 18px;  /* Alinhar o texto verticalmente */
+    border-radius: 4px;  /* Bordas arredondadas */
+    text-align: center;  /* Garantir que o texto fique centralizado */
+    display: inline-block;  /* Garantir que os itens de navegação fiquem em linha */
+}
+
+.pagination .active {
+    background-color: #007bff;  /* Cor de fundo do item ativo */
+    color: white;  /* Cor do texto ativo */
+}
+
+.pagination .disabled {
+    pointer-events: none;  /* Desabilitar interatividade nas setas de navegação inativas */
+    opacity: 0.5;  /* Opacidade das setas inativas */
 }

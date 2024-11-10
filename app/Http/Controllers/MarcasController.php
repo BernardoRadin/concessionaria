@@ -12,6 +12,7 @@ class MarcasController extends Controller
     {
 
         $request->validate([
+            'nome' => 'required|max:250',
             'logo' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
@@ -25,23 +26,21 @@ class MarcasController extends Controller
                 'Logo' => $path,
             ]);
 
-            return redirect()->back()->with('success', 'Marca cadastrado com sucesso!');
-
         }
-        
+
+        return redirect()->route('dashboard.marcas')->with('success', 'Marca cadastrado com sucesso!');
     }
 
     public function delete($id)
     {
-        $marca = Marca::where('ID', $id)->first();
+        $marca = Marca::find($id);
         $pathImage = $marca->Logo;
-        $deleted = Marca::where('ID', $id)->delete();
-        // $deleted = $marca->delete();
+        $deleted = $marca->delete();
 
         if ($deleted && unlink($pathImage)) {
-            return redirect()->back()->with('success', 'Funcionário deletado com sucesso!');
+            return redirect()->route('dashboard.marcas')->with('success', 'Marca deletada com sucesso!');
         } else {
-            return redirect()->back()->withErrors(['funcionario' => 'Funcionário não encontrado.']);
+            return redirect()->route('dashboard.marcas')->with('error', 'Ocorreu um erro ao deletar a Marca');
         }
     }
 
@@ -49,7 +48,11 @@ class MarcasController extends Controller
     public function edit($id)
     {
         $marcas = Marca::all();
-        $marca = Marca::findOrFail($id);
+        $marca = Marca::find($id);
+
+        if(!$marca){
+            return redirect()->route('dashboard.marcas')->with('error', 'Marca não encontrada');
+        }
 
         return view('dashboard_marcas_edit', compact('marca'), compact('marcas'));
     }
@@ -57,11 +60,17 @@ class MarcasController extends Controller
     public function update(Request $request, $id)
     {
 
+        $marca = Marca::find($id);
+
+        if(!$marca){
+            return redirect()->route('dashboard.marcas')->with('error', 'Marca não encontrada');
+        }
+
         $request->validate([
+            'nome' => 'required|max:250',
             'logo' => 'image|mimes:jpeg,png,jpg',
         ]);
 
-        $marca = Marca::findOrFail($id);
         
         $pathImagem = $marca->Logo;
 
@@ -83,6 +92,6 @@ class MarcasController extends Controller
 
         $marca->update($request->except('logo')); 
     
-        return redirect()->route('dashboard.marcas');
+        return redirect()->route('dashboard.marcas')->with('success', 'Marca alterada com sucesso');;
     }
 }

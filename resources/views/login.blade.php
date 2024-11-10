@@ -33,7 +33,7 @@
 </head>
 <body>
     <header>
-        <h1>TOP CAR CONCESSIONARIA</h1>
+        <img src="{{ asset($site->Logo)}}" class='logo'/>
     </header>
     {{-- <a href="{{ route('home') }}">Home</a> --}}
 

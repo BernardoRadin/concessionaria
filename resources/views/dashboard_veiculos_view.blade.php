@@ -57,7 +57,7 @@
                     <div><strong>Câmbio:</strong> <span id="modal-veiculo-cambio">{{$veiculo->Cambio}}</span></div>
                     <div><strong>Motor:</strong> <span id="modal-veiculo-motor">{{$veiculo->Motor}}</span></div>
                     <div><strong>Quilometragem:</strong> <span id="modal-veiculo-quilometragem">{{$veiculo->Quilometragem}} km</span></div>
-                    <div><strong>Combustível:</strong> <span id="modal-veiculo-combustivel">{{ $veiculo->Combustivel == 'A' ? 'Álcool' : ($veiculo->Combustivel == 'G' ? 'Gasolina' : ($veiculo->Combustivel == 'E' ? 'Elétrico' : ($veiculo->Combustivel == 'F' ? 'Álcool e Gasolina' : 'Desconhecido'))) }} </span></div>
+                    <div><strong>Combustível:</strong> <span id="modal-veiculo-combustivel">{{ $veiculo->Combustivel == 'A' ? 'Álcool' : ($veiculo->Combustivel == 'G' ? 'Gasolina' : ($veiculo->Combustivel == 'E' ? 'Elétrico' : ($veiculo->Combustivel == 'F' ? 'Álcool e Gasolina' : 'Diesel'))) }} </span></div>
                     <div><strong>Categoria:</strong> <span id="modal-veiculo-categoria">{{$veiculo->Categoria->Nome}}</span></div>
                     <div><strong>Marca:</strong> <span id="modal-veiculo-marca">{{$veiculo->Marca->Nome}}</span></div>
                     <div><strong>Cor:</strong> <span id="modal-veiculo-cor">{{$veiculo->Cor}}</span></div>

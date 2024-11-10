@@ -28,18 +28,21 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <div class="logo">
-                {{-- <img src="logo.png" alt="Logo da Empresa"> --}}
-            </div>
+            <a href="{{ route('dashboard.index') }}">
+                <div class="logo">
+                    <img src="{{ asset($logo)}}" class='logo'/>
+                </div>
+            </a>
             <nav class="menu">
                 <ul>
-                    <li><a href="{{ route('dashboard.index') }}">Inicio</a></li>
+                    <li style='text-align: center'><h4>Cadastros</h4></li>
                     <li><a href="{{ route('dashboard.funcionarios') }}">Funcionarios</a></li>
                     <li><a href="{{ route('dashboard.marcas') }}">Marcas</a></li>
                     <li><a href="{{ route('dashboard.categorias') }}">Categorias</a></li>
                     <li><a href="{{ route('dashboard.clientes') }}">Clientes</a></li>
                     <li><a href="{{ route('dashboard.veiculos') }}">Veiculos</a></li>
                     <li><a href="{{ route('dashboard.vendas') }}">Vendas</a></li>
+                    <li style='text-align: center'><h4>Site</h4></li>
                     <li><a href="{{ route('dashboard.site') }}">Gestão Site</a></li>
                     <li><a href="index.html">Voltar ao Site</a></li>
                 </ul>

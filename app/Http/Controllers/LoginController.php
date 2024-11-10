@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
+use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function index(){
-        return view('login');
+
+        $site = Site::first();
+
+        return view('login', compact('site'));
     }
 
     public function store(Request $request){

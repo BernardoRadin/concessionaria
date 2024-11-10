@@ -8,8 +8,13 @@
     <form action="#" method="get" class="filtro-formulario">
         <div class="filtro-campos">
             <div class="campo">
-                <label for="modelo">Modelo</label>
-                <input type="text" id="modelo" placeholder="Ex: Sedan" name="modelo" class="campo-modelo">
+                <label for="categoria">Modelo</label>
+                <select id="categoria" name="categoria" class="campo-categoria campo-menor">
+                    <option value="" disabled selected>Selecione um Modelo</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->ID }}">{{ $categoria->Nome }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="campo">
                 <label for="quilometragem">Quilometragem Máxima</label>
@@ -28,23 +33,18 @@
                 <input type="number" id="ano-ate" placeholder="Digite o Ano" name="ano-ate" class="campo-ano-ate campo-menor">
             </div>
             <div class="campo">
-                <label for="condicao">Condição</label>
-                <select id="condicao" name="condicao" class="campo-condicao campo-menor">
-                    <option value="" disabled selected></option>
-                    <option value="novo">Novo</option>
-                    <option value="usado">Usado</option>
+                <label for="cambio">Câmbio</label>
+                <select id="cambio" name="cambio" class="campo-condicao campo-menor">
+                    <option value="" disabled selected>Selecione o Câmbio</option>
+                    <option value="automatico">Automático</option>
+                    <option value="manual">Manual</option>
                 </select>
             </div>
         </div>        
         <div class="filtro-marcas">
-            <img src="{{ asset('imagens/site/logo-mitsubishi-512.png') }} " alt="Mitsubishi">
-            <img src="{{ asset('imagens/site/logo-volkswagen-512.png') }} " alt="Volkswagen">
-            <img src="{{ asset('imagens/site/logo-bmw-512.png') }}" alt="BMW">
-            <img src="{{ asset('imagens/site/logo-ford-512.png') }}" alt="Ford">
-            <img src="{{ asset('imagens/site/logo-porsche-512.png') }}" alt="Porsche">
-            <img src="{{ asset('imagens/site/chevrolet-512.png') }}" alt="Chevrolet">
-            <img src="{{ asset('imagens/site/logo-fiat-512.png') }}" alt="Fiat">
-            <img src="{{ asset('imagens/site/logo-peugeot-512.png') }}" alt="Pegeout">
+            @foreach($marcas as $marca)
+            <img src="{{ asset("$marca->Logo") }} " alt="{{ $marca->Nome }}">
+            @endforeach
         </div>
         <button type="submit" class="botao-buscar">Buscar</button>
     </form>

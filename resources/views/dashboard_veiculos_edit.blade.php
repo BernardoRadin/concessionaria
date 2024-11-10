@@ -40,7 +40,6 @@
     </div>
 </section>
 
-<!-- Modal de Editar Veículo -->
 <div id="modalEdicao" class="modal" style='display: flex'>
     <div class="vehicle-modal-content">
         <a href='{{ route('dashboard.veiculos') }}'><span class="vehicle-close">&times;</span></a>
@@ -99,7 +98,6 @@
                             <option value='1' {{ $veiculo->Em_Estoque == 1 ? 'selected' : ''}}>Sim</option>
                             <option value='0' {{ $veiculo->Em_Estoque == 0 ? 'selected' : ''}}>Não</option>
                         </select>    
-                        {{-- <input type="text" name="antigodono" placeholder="Antigo Dono"> --}}
                         <select name="antigodono" placeholder="Antigo Dono">
                             <option value=''>Selecione o Antigo Dono</option>
                             @foreach($clientes as $cliente)
@@ -125,7 +123,7 @@
             const reader = new FileReader();
             
             reader.onload = function(e) {
-                preview.src = e.target.result; // Atualiza o src da imagem de pré-visualização
+                preview.src = e.target.result;
             };
             
             reader.readAsDataURL(input.files[0]);
@@ -188,154 +186,148 @@
         justify-self: center;
     }
 
-    /* Estilos para o modal de veículo */
-.vehicle-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
+    .vehicle-modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 
-.vehicle-modal-content {
-    background-color: #fff;
-    margin: 5% auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%;
-    max-height: 90%;
-    overflow-y: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    .vehicle-modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-height: 90%;
+        overflow-y: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-/* Botão de fechar o modal */
-.vehicle-close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+    .vehicle-close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-.vehicle-close:hover,
-.vehicle-close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+    .vehicle-close:hover,
+    .vehicle-close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-/* Container principal para alinhar a photo-section e vehicle-details */
-.vehicle-form-container {
-    display: flex;
-    gap: 20px;
-    padding-top: 20px; /* Espaço superior */
-}
+    .vehicle-form-container {
+        display: flex;
+        gap: 20px;
+        padding-top: 20px;
+    }
 
-.photo-section {
-    flex: 1; /* Ocupa o espaço da esquerda */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
+    .photo-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-.vehicle-details {
-    flex: 2; /* Ocupa mais espaço à direita */
-}
+    .vehicle-details {
+        flex: 2;
+    }
 
-.vehicle-details input,
-.vehicle-details textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+    .vehicle-details input,
+    .vehicle-details textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
-/* Estilo para o upload de fotos */
-.upload-container {
-    width: 90%;
-    max-width: 600px;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    text-align: center;
-}
+    .upload-container {
+        width: 90%;
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        text-align: center;
+    }
 
-.upload-container h2 {
-    margin-bottom: 20px;
-    color: #333;
-}
+    .upload-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
 
-.file-input {
-    display: none;
-}
+    .file-input {
+        display: none;
+    }
 
-.thumbnail {
-    display: inline-block;
-    position: relative;
-    margin: 10px;
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
+    .thumbnail {
+        display: inline-block;
+        position: relative;
+        margin: 10px;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
-.thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-.thumbnail input[type="radio"] {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    transform: scale(1.5);
-    accent-color: #007bff;
-}
+    .thumbnail input[type="radio"] {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        transform: scale(1.5);
+        accent-color: #007bff;
+    }
 
-.upload-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-}
+    .upload-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+    }
 
-.upload-btn:hover {
-    background-color: #0056b3;
-}
+    .upload-btn:hover {
+        background-color: #0056b3;
+    }
 
-/* Thumbnails para as fotos do veículo */
-.vehicle-photo-preview {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
+    .vehicle-photo-preview {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
-.vehicle-thumbnail {
-    width: 60px;
-    height: 60px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-}
+    .vehicle-thumbnail {
+        width: 60px;
+        height: 60px;
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
 
-/* Estilo para a área de texto */
-.vehicle-details textarea {
-    height: 80px;
-    resize: vertical;
-}
-</style>
+    .vehicle-details textarea {
+        height: 80px;
+        resize: vertical;
+    }
+    </style>
 
 @endsection

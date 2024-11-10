@@ -51,7 +51,7 @@ body {
     color: #fff;
     width: 250px;
     padding: 20px;
-    height: 100vh;
+    height: auto;
     justify-content: space-between;
 }
 

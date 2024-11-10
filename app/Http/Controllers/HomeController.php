@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Site;
 use App\Models\Veiculo;
+use App\Models\Marca;
+use App\Models\Categoria;
 
 class HomeController extends Controller
 {
@@ -17,8 +19,11 @@ class HomeController extends Controller
 
     public function veiculos(){
         $site = Site::first();
+        $veiculos = Veiculo::with('fotoprincipal')->where('Em_Estoque', 1)->get();
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
 
-        return view('site_tela_veiculos',compact('site','veiculos'));
+        return view('site_tela_veiculos',compact('site','veiculos','marcas','categorias'));
     }
 
     public function sobre(){

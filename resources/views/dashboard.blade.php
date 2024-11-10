@@ -26,7 +26,7 @@
                     <li><a href="{{ route('dashboard.clientes') }}">Clientes</a></li>
                     <li><a href="{{ route('dashboard.veiculos') }}">Veiculos</a></li>
                     <li><a href="{{ route('dashboard.vendas') }}">Vendas</a></li>
-                    <li><a href="#">Gestao</a></li>
+                    <li><a href="{{ route('dashboard.site') }}">Gestão Site</a></li>
                     <li><a href="index.html">Voltar ao Site</a></li>
                 </ul>
             </nav>
@@ -35,13 +35,9 @@
         <main class="content">
             <header class="header">
                 <div class="search-bar">
-                    <input type="text" placeholder="Search...">
+                    {{-- <input type="text" placeholder="Search..."> --}}
                 </div>
                 <div class="user-profile">
-                    {{-- <div class="notification">
-                        <span>3</span>
-                        <i class="fas fa-bell"></i>
-                    </div> --}}
                     <div class="profile-picture">
                         {{-- <img src="profile.jpg" alt="Foto do Usuário"> --}}
                     </div>

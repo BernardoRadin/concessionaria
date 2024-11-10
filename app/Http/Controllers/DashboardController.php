@@ -10,6 +10,7 @@ use App\Models\Categoria;
 use App\Models\Cliente; 
 use App\Models\Veiculo;
 use App\Models\Venda;
+use App\Models\Site;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -68,5 +69,11 @@ class DashboardController extends Controller
 
     }
     
+    public function site(){
+
+        $site = Site::first();
+
+        return view('dashboard_site', compact('site'));
+    }
 
 }

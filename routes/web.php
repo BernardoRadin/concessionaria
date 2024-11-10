@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\VendasController;
 use App\Http\Controllers\VeiculosController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Funcionario;
 
@@ -32,6 +33,7 @@ Route::controller(LoginController::class)->group(function(){
         Route::get('/dashboard/clientes', 'clientes')->name('dashboard.clientes');
         Route::get('/dashboard/vendas', 'vendas')->name('dashboard.vendas');
         Route::get('/dashboard/veiculos', 'veiculos')->name('dashboard.veiculos');
+        Route::get('/dashboard/site', 'site')->name('dashboard.site');
     });
 
     Route::controller(FuncionariosController::class)->group(function(){
@@ -84,5 +86,8 @@ Route::controller(LoginController::class)->group(function(){
         Route::post('/dashboard/vendas/create', 'create')->name('vendas.create');
         Route::delete('/dashboard/vendas/delete/{id}', 'delete')->name('vendas.delete');
     });
+
+    Route::get('/dashboard/site/update', [SiteController::class, 'update'])->name('site.update');
+
 
 });

@@ -74,7 +74,69 @@
                 @yield('content_dashboard')
                 <div class='div-canva'>
                     @if (!View::hasSection('content_dashboard'))
+                        <h3>Gráfico Quantidade/Vendas/Data</h3></br>
                         <canvas id="burnUpChart"></canvas>
+                        <script>
+                            var ctx = document.getElementById('burnUpChart').getContext('2d');
+                            var graficoVendas = new Chart(ctx, {
+                                type: 'line', // ou 'bar' dependendo do estilo desejado
+                                data: {
+                                    labels: @json($datas), // Datas dos dias
+                                    datasets: [{
+                                        label: 'Quantidade de Vendas',
+                                        data: @json($quantidades), // Quantidade de vendas
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        fill: false,
+                                        yAxisID: 'y'
+                                    },
+                                    {
+                                        label: 'Valor Total',
+                                        data: @json($valores), // Valor total de vendas
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        fill: false,
+                                        yAxisID: 'y1'
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            position: 'left',
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        },
+                                        y1: {
+                                            beginAtZero: true,
+                                            position: 'right',
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        tooltip: {
+                                            callbacks: {
+                                                // Formatar o tooltip para mostrar o valor
+                                                label: function(tooltipItem) {
+                                                    let label = tooltipItem.dataset.label || '';
+                                                    if (label) {
+                                                        label += ': ';
+                                                    }
+                                                    // Aqui você pode formatar o valor exibido no tooltip
+                                                    if (tooltipItem.datasetIndex === 0) {
+                                                        label += tooltipItem.raw + ' vendas'; // Quantidade de vendas
+                                                    } else {
+                                                        label += 'R$ ' + tooltipItem.raw.toFixed(2); // Valor total
+                                                    }
+                                                    return label;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        </script>                        
                     @endif
                 </div>
             </section>
@@ -83,46 +145,3 @@
 
 </body>
 </html>
-<script>
-
-const ctx = document.getElementById('burnUpChart').getContext('2d');
-
-const burnUpChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5'],
-        datasets: [{
-            label: 'Trabalho Completo',
-            data: [0, 10, 30, 50, 70],
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            fill: true,
-        }, {
-            label: 'Objetivo Total',
-            data: [100, 100, 100, 100, 100],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            fill: false,
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Pontos'
-                }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: 'Semanas'
-                }
-            }
-        }
-    }
-});
-
-</script>

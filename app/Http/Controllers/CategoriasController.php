@@ -24,7 +24,7 @@ class CategoriasController extends Controller
 
     public function edit($id)
     {
-        $categorias = Categoria::all();
+        $categorias = Categoria::paginate(7);
 
         $categoria = Categoria::find($id);
 

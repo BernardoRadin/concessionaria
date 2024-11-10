@@ -19,7 +19,23 @@ class DashboardController extends Controller
     
         $site = Site::first();
 
-        return view('dashboard', compact('site'));
+        $vendas = DB::table('vendas')
+        ->select(DB::raw('DATE(Data) as data'), DB::raw('COUNT(*) as quantidade_vendas'), DB::raw('SUM(PrecoVenda) as valor_total'))
+        ->groupBy(DB::raw('DATE(Data)'))
+        ->orderBy('data')
+        ->get();
+
+        $datas = [];
+        $quantidades = [];
+        $valores = [];
+    
+        foreach ($vendas as $venda) {
+            $datas[] = $venda->data;
+            $quantidades[] = $venda->quantidade_vendas;
+            $valores[] = $venda->valor_total;
+        }
+
+        return view('dashboard', compact('site','datas', 'quantidades', 'valores'));
     }
     
     public function funcionarios(){
@@ -31,14 +47,14 @@ class DashboardController extends Controller
 
     public function marcas(){
 
-        $marcas = Marca::all();
+        $marcas = Marca::paginate(7);
 
         return view('dashboard_marcas', compact('marcas'));
     }
 
     public function categorias(){
 
-        $categorias = Categoria::all();
+        $categorias = Categoria::paginate(7);
 
         return view('dashboard_categorias', compact('categorias'));
     }

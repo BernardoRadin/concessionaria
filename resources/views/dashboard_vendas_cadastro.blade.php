@@ -79,11 +79,11 @@
             </div>
             <div class="campo-form">
                 <label for="dataVenda" class="label-campo">Preço Venda:</label>
-                <input type="text" id="precoVenda" name="precoVenda" class="input-campo" placeholder="R$ 00,00" required>
+                <input type="text" id="precoVenda" name="precoVenda" class="input-campo" placeholder="R$ 00,00" value='{{ number_format($veiculo->PrecoVenda,0, ',', '.') }}' required>
             </div>
             <div class="campo-form">
                 <label for="descricaoVenda" class="label-campo">Descrição:</label>
-                <textarea id="descricaoVenda" name="descricao" class="textarea-campo" required></textarea>
+                <textarea id="descricaoVenda" name="descricao" class="textarea-campo"></textarea>
             </div>
             <button type="submit" class="botao-confirmar">Confirmar Venda</button>
         </form>

@@ -27,6 +27,10 @@ class VendasController extends Controller
 
     public function create(Request $request){
 
+        $precoVenda = str_replace('.', '', $request->input('precoVenda'));
+
+        $request->merge(['precoVenda' => $precoVenda]);
+
         $request->validate([
             'veiculo' => 'required|integer',
             'cliente' => 'required|integer',

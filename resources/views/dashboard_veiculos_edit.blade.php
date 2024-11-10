@@ -91,8 +91,8 @@
                             @endforeach
                         </select>
                         <input type="text" name="cor" placeholder="Cor" value='{{ $veiculo->Cor }}'>
-                        <input type="text" name="precocusto" placeholder="Preço Custo" value='{{ $veiculo->PrecoCusto }}'>
-                        <input type="text" name="precovenda" placeholder="Preço Venda" value='{{ $veiculo->PrecoVenda }}'>
+                        <input type="text" name="precocusto" placeholder="Preço Custo" value='{{ number_format($veiculo->PrecoCusto,0, ',', '.') }}'>
+                        <input type="text" name="precovenda" placeholder="Preço Venda" value='{{ number_format($veiculo->PrecoVenda,0, ',', '.') }}'>
                         <select name="estoque">
                             <option value=''>Seleciona estoque</option>
                             <option value='1' {{ $veiculo->Em_Estoque == 1 ? 'selected' : ''}}>Sim</option>

@@ -47,7 +47,7 @@ class MarcasController extends Controller
 
     public function edit($id)
     {
-        $marcas = Marca::all();
+        $marcas = Marca::paginate(7);
         $marca = Marca::find($id);
 
         if(!$marca){

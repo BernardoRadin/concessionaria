@@ -63,12 +63,8 @@
 </section>
 
 <div class="pagination">
-    <a href="?page=1">1</a>
-    <a href="?page=2">2</a>
-    <a href="?page=3">3</a>
-    <!-- Mais páginas podem ser adicionadas dinamicamente -->
-</div>
-
+    {{ $categorias->links('pagination::bootstrap-4', ['previous' => 'Anterior', 'next' => 'Próximo']) }}
+</div>    
 <!-- Modal de Cadastro -->
 <div id="employeeModal" class="modal">
         <div class="modal-content">

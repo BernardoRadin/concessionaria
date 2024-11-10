@@ -42,11 +42,11 @@
 
     <div class="sales-list">
         @foreach($vendas as $venda)
-        <div class="sale-card" data-card-id="{{ $venda->ID }}" onclick="openDetailModal('{{ $venda->veiculo->Nome }}', '{{ date('d/m/Y', strtotime($venda->Data)) }}', 'R$ {{ $venda->PrecoVenda}}', '{{ $venda->Cliente->Nome}}', '{{ $venda->Funcionario->Nome}}', '{{ $venda->Descricao}}')">
+        <div class="sale-card" data-card-id="{{ $venda->ID }}" onclick="openDetailModal('{{ $venda->veiculo->Nome }}', '{{ date('d/m/Y', strtotime($venda->Data)) }}', 'R$ {{ number_format($venda->PrecoVenda,2, ',', '.') }}', '{{ $venda->Cliente->Nome}}', '{{ $venda->Funcionario->Nome}}', '{{ $venda->Descricao}}')">
             <div class="sale-info">
                 <h3>{{ $venda->veiculo->Nome }}</h3>
                 <p>Vendido em: {{ date('d/m/Y', strtotime($venda->Data)) }}</p>
-                <p>Preço: R$ {{ $venda->PrecoVenda}}</p>
+                <p>Preço: R$ {{ number_format($venda->PrecoVenda,2, ',', '.') }}</p>
                 <p>Comprador: {{ $venda->Cliente->Nome}}</p>
             </div>
             <div class="sale-actions">

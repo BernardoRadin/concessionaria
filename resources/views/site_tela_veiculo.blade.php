@@ -10,7 +10,7 @@
 
     <div class="car-content">
         <div class="car-image">
-            <img src="{{ asset($veiculo->fotoprincipal->Foto)}}" alt="Carro em Destaque">
+            <img src="{{ asset($veiculo->fotoprincipal->Foto)}}" alt="Carro em Destaque" id='carroPrincipal'>
         </div>
         <div class="car-info">
             <ul class="car-details">
@@ -22,7 +22,6 @@
                 <li><img src="{{ asset('imagens/site/porta-do-carro.png') }}" alt="Portas"> <strong>Portas: </strong> <span class="car-value">{{$veiculo->Porta}}</span></li>
                 <li><img src="{{ asset('imagens/site/quadro.png') }}" alt="Cor"> <strong>Cor: </strong> <span class="car-value">{{$veiculo->Cor}}</span></li>
                 <li><img src="{{ asset('imagens/site/carro.png') }}" alt="Modelo"> <strong>Modelo: </strong> <span class="car-value">{{$veiculo->categoria->Nome}}</span></li>
-
             </ul>
             <div class="preco">
                 R$ {{ number_format($veiculo->PrecoVenda, 2, ',', '.') }}
@@ -39,7 +38,7 @@
         <div class="car-gallery">
             @foreach($veiculo->fotos as $foto)
                 @if($foto->Principal == 0)
-                <img src="{{ asset("$foto->Foto")}}" alt="Carro">
+                <img src="{{ asset("$foto->Foto")}}" alt="Carro" onclick="trocarImagem(this)">
                 @endif
             @endforeach
         </div>
@@ -48,4 +47,15 @@
         </button>
     </div>
 </div>
+<script>
+    function trocarImagem(thumbnail) {
+        const imagemGrande = document.getElementById('carroPrincipal');
+
+        const imagemGrandeSrc = imagemGrande.src;
+        
+        imagemGrande.src = thumbnail.src;
+        
+        thumbnail.src = imagemGrandeSrc;
+    }
+</script>
 @endsection

@@ -69,9 +69,9 @@ class VendasController extends Controller
         $deleted = $venda->delete();
         
         if ($deleted) {
-            return redirect()->route('dashboard.veiculos')->with('success', 'Venda deletada com sucesso!');
+            return redirect()->route('dashboard.vendas')->with('success', 'Venda deletada com sucesso!');
         } else {
-            return redirect()->route('dashboard.veiculos')->with('error', 'Ocorreu um erro ao deletar a venda.');
+            return redirect()->route('dashboard.vendas')->with('error', 'Ocorreu um erro ao deletar a venda.');
         }
     }
 

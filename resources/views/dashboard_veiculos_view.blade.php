@@ -61,8 +61,8 @@
                     <div><strong>Categoria:</strong> <span id="modal-veiculo-categoria">{{$veiculo->Categoria->Nome}}</span></div>
                     <div><strong>Marca:</strong> <span id="modal-veiculo-marca">{{$veiculo->Marca->Nome}}</span></div>
                     <div><strong>Cor:</strong> <span id="modal-veiculo-cor">{{$veiculo->Cor}}</span></div>
-                    <div><strong>Preço Custo:</strong> <span id="modal-veiculo-precocusto">R$ {{ number_format($veiculo->PrecoCusto,2, ',', '.') }}</span></div>
-                    <div><strong>Preço Venda:</strong> <span id="modal-veiculo-precovenda">R$ {{ number_format($veiculo->PrecoVenda,2, ',', '.') }}</span></div>
+                    <div><strong>Valor Compra:</strong> <span id="modal-veiculo-precocusto">R$ {{ number_format($veiculo->PrecoCusto,2, ',', '.') }}</span></div>
+                    <div><strong>Valor Venda:</strong> <span id="modal-veiculo-precovenda">R$ {{ number_format($veiculo->PrecoVenda,2, ',', '.') }}</span></div>
                     <div><strong>Estoque:</strong> <span id="modal-veiculo-estoque">{{$veiculo->Estoque == 1 ? 'Sim' : 'Não'}}</span></div>
                     <div><strong>Antigo Dono:</strong> <span id="modal-veiculo-antigodono">{{$veiculo->AntigoDono->Nome}}</span></div>
                 </div>

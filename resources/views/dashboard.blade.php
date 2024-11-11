@@ -44,7 +44,7 @@
                     <li><a href="{{ route('dashboard.vendas') }}">Vendas</a></li>
                     <li style='text-align: center'><h4>Site</h4></li>
                     <li><a href="{{ route('dashboard.site') }}">Gestão Site</a></li>
-                    <li><a href="index.html">Voltar ao Site</a></li>
+                    <li><a href="{{ route('home') }}">Voltar ao Site</a></li>
                 </ul>
             </nav>
         </aside>
@@ -79,19 +79,19 @@
                         <script>
                             var ctx = document.getElementById('burnUpChart').getContext('2d');
                             var graficoVendas = new Chart(ctx, {
-                                type: 'line', // ou 'bar' dependendo do estilo desejado
+                                type: 'line',
                                 data: {
-                                    labels: @json($datas), // Datas dos dias
+                                    labels: @json($datas),
                                     datasets: [{
                                         label: 'Quantidade de Vendas',
-                                        data: @json($quantidades), // Quantidade de vendas
+                                        data: @json($quantidades),
                                         borderColor: 'rgba(75, 192, 192, 1)',
                                         fill: false,
                                         yAxisID: 'y'
                                     },
                                     {
                                         label: 'Valor Total',
-                                        data: @json($valores), // Valor total de vendas
+                                        data: @json($valores),
                                         borderColor: 'rgba(255, 99, 132, 1)',
                                         fill: false,
                                         yAxisID: 'y1'
@@ -117,17 +117,15 @@
                                     plugins: {
                                         tooltip: {
                                             callbacks: {
-                                                // Formatar o tooltip para mostrar o valor
                                                 label: function(tooltipItem) {
                                                     let label = tooltipItem.dataset.label || '';
                                                     if (label) {
                                                         label += ': ';
                                                     }
-                                                    // Aqui você pode formatar o valor exibido no tooltip
                                                     if (tooltipItem.datasetIndex === 0) {
-                                                        label += tooltipItem.raw + ' vendas'; // Quantidade de vendas
+                                                        label += tooltipItem.raw + ' vendas'; 
                                                     } else {
-                                                        label += 'R$ ' + tooltipItem.raw.toFixed(2); // Valor total
+                                                        label += 'R$ ' + tooltipItem.raw.toFixed(2);
                                                     }
                                                     return label;
                                                 }

@@ -15,7 +15,7 @@ class VeiculosController extends Controller
 {
 
     public function view($id){
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(3);
         $veiculo = Veiculo::with('fotos')->find($id);
 
         if(!$veiculo){
@@ -31,8 +31,9 @@ class VeiculosController extends Controller
 
         $precoVenda = str_replace('.', '', $request->input('precovenda'));
         $precoCusto = str_replace('.', '', $request->input('precocusto'));
+        $quilometragem = str_replace('.', '', $request->input('quilometragem'));
 
-        $request->merge(['precovenda' => $precoVenda, 'precocusto' => $precoCusto]);        
+        $request->merge(['precovenda' => $precoVenda, 'precocusto' => $precoCusto, 'quilometragem' => $quilometragem]);        
 
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -97,7 +98,7 @@ class VeiculosController extends Controller
 
     public function edit($id)
     {
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(3);
         $veiculo = Veiculo::with('fotos')->find($id);
 
         if(!$veiculo){
@@ -117,8 +118,9 @@ class VeiculosController extends Controller
 
         $precoVenda = str_replace('.', '', $request->input('precovenda'));
         $precoCusto = str_replace('.', '', $request->input('precocusto'));
+        $quilometragem = str_replace('.', '', $request->input('quilometragem'));
 
-        $request->merge(['precovenda' => $precoVenda, 'precocusto' => $precoCusto]);        
+        $request->merge(['precovenda' => $precoVenda, 'precocusto' => $precoCusto, 'quilometragem' => $quilometragem]);        
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',

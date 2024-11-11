@@ -34,6 +34,11 @@ class HomeController extends Controller
     public function veiculo($id){
         $site = Site::first();
         $veiculo = Veiculo::with('fotoprincipal','fotos','categoria')->find($id);
+
+        if(!$veiculo){
+            return redirect()->route('home');
+        }
+
         return view('site_tela_veiculo',compact('site', 'veiculo'));
     }
 

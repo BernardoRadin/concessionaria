@@ -109,8 +109,8 @@
                         @endforeach
                     </select>
                     <input type="text" name="cor" placeholder="Cor" required>
-                    <input type="text" name="precocusto" placeholder="Preço Custo" required>
-                    <input type="text" name="precovenda" placeholder="Preço Venda" required>
+                    <input type="text" name="precocusto" placeholder="Valor Compra" required>
+                    <input type="text" name="precovenda" placeholder="Valor Venda" required>
                     <select name="estoque" required>
                         <option value=''>Seleciona estoque</option>
                         <option value='1' selected>Sim</option>

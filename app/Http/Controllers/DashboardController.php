@@ -77,7 +77,7 @@ class DashboardController extends Controller
     public function veiculos()
     {
 
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(3);
 
         $categorias = Categoria::all();
         $marcas = Marca::all();

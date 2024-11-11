@@ -7,7 +7,7 @@
 </div>
 
 <div id="search-bar">
-    <input type="text" placeholder="Digite a marca ou o modelo para uma pesquisa mais afunilada...">
+    <input type="text" placeholder="Buscar veículo ...">
     <button>Buscar</button>
 </div>
 

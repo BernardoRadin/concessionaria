@@ -40,7 +40,7 @@ class SiteController extends Controller
 
         $site->Email = $request->email;
         $site->Telefone = $request->telefone;
-        $site->Whatsapp = $request->whatsapp;
+        $site->Whatsapp = preg_replace('/[\(\)\s-]+/', '', $request->whatsapp);
         $site->Instagram = $request->instagram;
         $site->Facebook = $request->facebook;
         $site->Endereco = $request->endereco;

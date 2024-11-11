@@ -21,7 +21,7 @@
     <p>O melhor carro está aqui!</p>
     <a href="{{ $site->Facebook}}" target="_blank"><img src="{{ asset('imagens/site/facebook.png') }}" alt="Icone Facebook"></a>
     <a href="{{ $site->Instagram}}" target="_blank"><img src="{{ asset('imagens/site/instagram.png') }}" alt="Icone Instagram"></a>
-    <a href="{{ $site->Whatsapp}}" target="_blank"><img src="{{ asset('imagens/site/whatsapp.png') }}" alt="Icone WhatsApp"></a>
+    <a href="https://wa.me/{{ $site->Whatsapp}}" target="_blank"><img src="{{ asset('imagens/site/whatsapp.png') }}" alt="Icone WhatsApp"></a>
 </footer>
 
 </body>

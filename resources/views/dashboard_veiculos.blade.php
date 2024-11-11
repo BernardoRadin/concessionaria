@@ -45,7 +45,7 @@
                 <div class="vehicle-info">
                     <h3>{{$veiculo->Nome}}</h3>
                     <p>{{$veiculo->Ano}}</p>
-                    <p class="price">R$ {{$veiculo->PrecoVenda}}</p>
+                    <p class="price">R$ {{ number_format($veiculo->PrecoVenda,2, ',', '.') }} </p>
                 </div>
                 <div class="vehicle-actions">
                     <a href='{{ route('veiculos.edit', ['id' => $veiculo->ID]) }}'><i class="fas fa-edit"></i></a>

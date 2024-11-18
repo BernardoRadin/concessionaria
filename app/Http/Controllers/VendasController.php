@@ -15,12 +15,11 @@ class VendasController extends Controller
         $funcionarios = Funcionario::all();
         $clientes = Cliente::all();
         $veiculo = Veiculo::find($idcarro);
+        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(3);
 
         if(!$veiculo){
             return redirect()->route('dashboard.veiculos')->with('error', 'Veículo não encontrado!');
         }
-
-        $veiculos = Veiculo::with('categoria','marca','antigodono','funcionario','fotos')->paginate(5);
 
         return view('dashboard_vendas_cadastro', compact('veiculo','veiculos','clientes', 'funcionarios'));
     }

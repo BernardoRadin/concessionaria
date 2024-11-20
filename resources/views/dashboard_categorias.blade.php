@@ -27,7 +27,7 @@
         Toast.fire({
             icon: "error",
             title: "{{ session('error') }}"
-        });   
+        });
     </script>
 @endif
 
@@ -67,7 +67,7 @@
 </div>    
 <!-- Modal de Cadastro -->
 <div id="employeeModal" class="modal">
-        <div class="modal-content">
+    <div class="modal-content">
         <span class="close" onclick="closeEmployeeModal()">&times;</span>
         <h2>Cadastrar uma Categoria</h2>
         <div class="modal-body">
@@ -79,11 +79,15 @@
                 </div>
                 <form action="{{ route('categorias.create') }}" method="POST" class="employee-details-marcas">
                     @csrf
-                    <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" /></br></br>
+                    <!-- Label e campo Nome -->
+                    <div class="field-group">
+                        <label for="nome" class="marca-logo-label">Nome</label>
+                        <input type="text" name="nome" id="nome" placeholder="Nome" 
+                            oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
+                    </div>
                     <button id="cadastrarBtn-categorias" type="submit">Cadastrar</button>
+                </form>
             </div> <!-- Fim do wrapper -->
-            <!-- Botão fora do form e do wrapper -->
-            </form>
         </div>
     </div>
 </div>
@@ -137,6 +141,19 @@
     
         fecharModal('modalConfirmacaoExclusao');
     }
+
+    function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
     
     </script>
         

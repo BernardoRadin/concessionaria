@@ -55,15 +55,19 @@
                 <input type="password" id="password" name="password" placeholder="Senha">
             </div>
             @error('email')
-                <span>{{ $message }}</span>
-            @enderror    
-            @error('password')
-                <span>{{ $message }}</span>
-            @enderror
-                <button type="submit">Acessar</button>
-            @if (session()->has('success'))
-                {{ session()->get('success') }}
-            @endif    
+        <span>{{ $message }}</span>
+        @enderror    
+        @error('password')
+        <span>{{ $message }}</span>
+        @enderror
+        @error('error')
+        <span style="color: red; display: block; text-align: center; margin-top: 10px;">{{ $message }}</span>
+        @enderror
+
+        <button type="submit">Acessar</button>
+        @if (session()->has('success'))
+        {{ session()->get('success') }}
+        @endif  
         </form>
     </div>
 </body>

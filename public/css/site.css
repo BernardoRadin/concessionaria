@@ -89,34 +89,75 @@ nav a {
 
 .carro {
     width: 300px;
+    max-height: 400px;
     margin: 10px;
     text-align: center;
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.carro p strong {
-    display: block;
-    background-color: #0a0a23;
-    color: #ddd;
-    padding: 15px;
-    border-radius: 15px;
-    font-size: 18px;
-    border: 1px solid #ddd;
+.carro:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.imagem-veiculo img {
+    width: 100%;
+    height: 180px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.info-veiculo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.nome-veiculo {
+    font-size: 16px;
+    color: #1c1c3c;
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+.ano-veiculo, .cambio-veiculo, .quilometragem-veiculo {
+    font-size: 16px;
+    color: #444;
+    margin: 5px 0;
+}
+
+.ano-veiculo b {
+    color: #0a0a23;
+    padding: 5px 10px;
+    background-color: #ddd;
+    border-radius: 8px;
+}
+
+.preco-veiculo {
+    margin-top: auto;
 }
 
 .botao-carro {
     background-color: #0a0a23;
     color: #fff;
-    padding: 15px 90px;
+    padding: 10px 20px;
     border: none;
     border-radius: 15px;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-bottom: 10px;
+    width: 250px;
 }
 
 .botao-carro:hover {
@@ -125,12 +166,6 @@ nav a {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.carro img {
-    width: 300px;
-    height: 200px;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-}
 
 footer {
     background: linear-gradient(90deg, #090923, #1e1d73, #1e1d73, #090923);

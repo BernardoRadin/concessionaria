@@ -67,7 +67,7 @@ class MarcasController extends Controller
         }
 
         $request->validate([
-            'nome' => 'required|max:250',
+            'Nome' => 'required|max:250',
             'logo' => 'image|mimes:jpeg,png,jpg',
         ]);
 

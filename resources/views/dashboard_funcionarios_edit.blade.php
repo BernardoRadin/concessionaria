@@ -64,25 +64,50 @@
                 <form id="formEditarFuncionario" class='employee-details' action="{{ route('funcionarios.update', ['id' => $funcionario->ID]) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <input type="text" name='Nome' id="nomeEdicao" placeholder="Nome" value="{{ $funcionario->Nome }}" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
-                    <input type="text" name='Telefone' id="telefoneEdicao" placeholder="Telefone" maxlength="15" value="{{ $funcionario->Telefone }}" />
-                    <input type="text" name='CPF' id="cpfEdicao" placeholder="CPF" maxlength="14" value="{{ $funcionario->CPF }}"/>
-                    <select id='sexoEdicao' name='Sexo'>
-                        <option value="" disabled selected>Sexo</option>
-                        <option value="M" {{ $funcionario->Sexo == 'M' ? "selected" : ""}}>Masculino</option>
-                        <option value="F" {{ $funcionario->Sexo == 'F' ? "selected" : ""}}>Feminino</option>
-                    </select>
-                    <input type="date" name='DataNasc' id="dataNascEdicao" placeholder="Data de Nascimento" maxlength="10" value="{{ $funcionario->DataNasc }}"/>
-                    <select id='cargoEdicao' name='ID_Cargo'>
-                        <option value="">Selecione o cargo</option>
-                        <option value="1" {{ $funcionario->ID_Cargo == '1' ? "selected" : ""}}>Chefe</option>
-                    </select>
-                    <input type="email" name='Email' id="emailEdicao" placeholder="Email" value="{{ $funcionario->Email }}"/>
-                    <div class="password-field">
+                    <div class="field-group">
+                        <label for="nomeEdicao" class="marca-logo-label">Nome</label>
+                        <input type="text" name='Nome' id="nomeEdicao" placeholder="Nome" value="{{ $funcionario->Nome }}" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
+                    </div>
+                    <div class="field-group">
+                        <label for="telefoneEdicao" class="marca-logo-label">Telefone</label>
+                        <input type="text" name='Telefone' id="telefoneEdicao" placeholder="Telefone" maxlength="15" value="{{ $funcionario->Telefone }}" />
+                    </div>
+                    <div class="field-group">
+                        <label for="cpfEdicao" class="marca-logo-label">CPF</label>
+                        <input type="text" name='CPF' id="cpfEdicao" placeholder="CPF" maxlength="14" value="{{ $funcionario->CPF }}"/>
+                    </div>
+                    <div class="field-group">
+                        <label for="sexoEdicao" class="marca-logo-label">Sexo</label>
+                        <select id='sexoEdicao' name='Sexo'>
+                            <option value="" disabled selected>Sexo</option>
+                            <option value="M" {{ $funcionario->Sexo == 'M' ? "selected" : ""}}>Masculino</option>
+                            <option value="F" {{ $funcionario->Sexo == 'F' ? "selected" : ""}}>Feminino</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="dataNascEdicao" class="marca-logo-label">Data de Nascimento</label>
+                        <input type="date" name='DataNasc' id="dataNascEdicao" placeholder="Data de Nascimento" maxlength="10" value="{{ $funcionario->DataNasc }}"/>
+                    </div>
+                    <div class="field-group">
+                        <label for="cargoEdicao" class="marca-logo-label">Cargo</label>
+                        <select id='cargoEdicao' name='ID_Cargo'>
+                            <option value="">Selecione o cargo</optio>
+                            <option value="1" {{ $funcionario->ID_Cargo == '1' ? "selected" : ""}}>Chefe</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="emailEdicao" class="marca-logo-label">Email</label>
+                        <input type="email" name='Email' id="emailEdicao" placeholder="Email" value="{{ $funcionario->Email }}"/>
+                    </div>
+                    <div class="field-group password-field">
+                        <label for="senhaEdicao" class="marca-logo-label">Senha</label>
                         <input type="password" placeholder="Senha" name='Senha' id="senhaEdicao" value="{{ $funcionario->Senha }}"/>
                         <i class="fas fa-eye" id="toggleSenhaEdicao"></i>
                     </div>
-                    <input type="text" id='enderecoEdicao' name='Endereco' placeholder="Endereço" class="address-full-width" value="{{ $funcionario->Endereco }}"/>
+                    <div class="field-group-address">
+                        <label for="enderecoEdicao" class="marca-logo-label">Endereço</label>
+                        <input type="text" id='enderecoEdicao' name='Endereco' placeholder="Endereço" class="address-full-width" value="{{ $funcionario->Endereco }}"/>
+                    </div>
                     <button type="submit" class="botao-salvar">Salvar Alterações</button>
                 </form>
             </div>

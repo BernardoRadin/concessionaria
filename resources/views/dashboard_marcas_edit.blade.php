@@ -63,7 +63,10 @@
                 <form action="{{ route('marcas.update', ['id' => $marca->ID] ) }}" method="POST" enctype="multipart/form-data" class="employee-details-marcas">
                     @csrf
                     @method('PUT')
-                    <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" value="{{ $marca->Nome }}"/></br></br>
+                    <div class="field-group">
+                        <label for="nome" class="marca-logo-label">Nome</label>
+                        <input type="text" name="Nome" id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" value="{{ $marca->Nome }}" />
+                    </div>
                     <div class="marca-logo-container">
                     <label for="logo" class="marca-logo-label">Upload do Logo</label>
                     <div class="image-preview" id="imagePreview">

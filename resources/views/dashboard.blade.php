@@ -34,15 +34,29 @@
                 </div>
             </a>
             <nav class="menu">
-                <ul>
-                    <li style='text-align: center'><h4>Cadastros</h4></li>
-                    <li><a href="{{ route('dashboard.funcionarios') }}">Funcionarios</a></li>
+            <ul>
+                <li class="toggle-section">
+                    <a href="javascript:void(0)" onclick="toggleDropdown('admin')">
+                    Administração
+                    <i class="fas fa-chevron-down toggle-icon" id="admin-icon"></i>
+                    </a>
+                <ul class="toggle-content" id="admin">
+                    <li><a href="{{ route('dashboard.funcionarios') }}">Funcionários</a></li>
                     <li><a href="{{ route('dashboard.marcas') }}">Marcas</a></li>
                     <li><a href="{{ route('dashboard.categorias') }}">Categorias</a></li>
                     <li><a href="{{ route('dashboard.clientes') }}">Clientes</a></li>
-                    <li><a href="{{ route('dashboard.veiculos') }}">Veiculos</a></li>
-                    <li><a href="{{ route('dashboard.vendas') }}">Vendas</a></li>
-                    <li style='text-align: center'><h4>Site</h4></li>
+                </ul>
+                </li>
+                <li class="toggle-section">
+                    <a href="javascript:void(0)" onclick="toggleDropdown('inventory')">
+                    Gestão de Estoque
+                    <i class="fas fa-chevron-down toggle-icon" id="inventory-icon"></i>
+                    </a>
+                <ul class="toggle-content" id="inventory">
+                 <li><a href="{{ route('dashboard.veiculos') }}">Veículos</a></li>
+                <li><a href="{{ route('dashboard.vendas') }}">Vendas</a></li>
+            </ul>
+        </li>
                     <li><a href="{{ route('dashboard.site') }}">Gestão Site</a></li>
                     <li><a href="{{ route('home') }}">Voltar ao Site</a></li>
                 </ul>
@@ -134,6 +148,20 @@
                                     }
                                 }
                             });
+
+                            function toggleDropdown(id) {
+                             const dropdown = document.getElementById(id);
+                            const icon = document.getElementById(id + '-icon');
+
+                            if (dropdown.style.display === 'block') {
+                            dropdown.style.display = 'none';
+                            icon.style.transform = 'rotate(0deg)';
+                            } else {
+                            dropdown.style.display = 'block';
+                            icon.style.transform = 'rotate(180deg)';
+                            }
+                        }
+
                         </script>                        
                     @endif
                 </div>

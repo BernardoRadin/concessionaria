@@ -125,24 +125,34 @@
         modal.css('display', 'block');
         $('#nomeVeiculo').text(nomeVeiculo);
     
-        const cardVenda = $(element).closest('.employee-card');
+        const cardVenda = $(element).closest('.sale-card');
         const cardId = cardVenda.data('cardId');
         modal.data('cardId', cardId);
     }
     
     function confirmarExclusao() {
 
-        const div = $('.sale-card');
-        const cardId = div.data('cardId');
-    
+        const modal = $('#modalConfirmacaoExclusao');
+        const cardId = modal.data('cardId');
         const form = $(`.sale-card[data-card-id="${cardId}"] form`);
-    
-        console.log(form);
 
         if (form.length) {
             form.submit();
         }
     }
+
+    function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
 
 </script>
 @endsection

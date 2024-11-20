@@ -56,7 +56,7 @@
         <a href='{{ route('dashboard.categorias') }}'><span class="fechar">&times;</span></a>
         <h2>Editar Categoria</h2>
         <div class="modal-body">
-            <div class="form-wrapper"> <!-- Wrapper para organizar o layout -->
+            <div class="form-wrapper">
                 <div class="photo-section">
                     <div class="photo-upload">
                         <img src="{{ asset('imagens/categoria.png') }}" alt="Categoria" class="uploaded-image-marca">
@@ -65,7 +65,13 @@
                 <form action="{{ route('categorias.update', ['id' => $categoria->ID] ) }}" method="POST" class="employee-details-marcas">
                     @csrf
                     @method('PUT')
-                    <input type="text" name='Nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" value="{{ $categoria->Nome }}"/></br></br>
+                    <div class="field-group">
+                        <label for="nome" class="marca-logo-label">Nome</label>
+                        <input type="text" name="Nome" id="nome" placeholder="Nome" 
+                            oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" 
+                            value="{{ $categoria->Nome }}"/>
+                    </div>
+
                     <button type="submit" class="botao-salvar-categorias">Salvar Alterações</button>
                 </form>
             </div>

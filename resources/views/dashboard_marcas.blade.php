@@ -81,7 +81,10 @@
                 </div>
                 <form action="{{ route('marcas.create') }}" method="POST" enctype="multipart/form-data" class="employee-details-marcas">
                     @csrf
+                    <div class="field-group">
+                    <label for="nome" class="marca-logo-label">Nome</label>
                     <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" /></br></br>
+                    </div>
                     <div class="marca-logo-container">
                     <label for="logo" class="marca-logo-label">Upload do Logo</label>
                     <div class="image-preview" id="imagePreview">
@@ -173,6 +176,19 @@
             previewDefaultText.style.display = 'block';
         }
     }
+
+    function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
     
     </script>
         

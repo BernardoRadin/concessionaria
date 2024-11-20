@@ -87,18 +87,42 @@
                 </div>
                 <form action="{{ route('clientes.create') }}" method="POST" class="employee-details">
                     @csrf
-                    <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
-                    <input type="email" name='email' id="email" placeholder="Email" />
-                    <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
-                    <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
-                    <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" />
-                    <select id='sexo' name='sexo'>
-                        <option value="" disabled selected>Sexo</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                    </select>
-                    <input type="text" name='endereco' placeholder="Endereço" class="address-full-width" />
-                    <textarea name="descricao" placeholder="Descrição do Cliente" class="description-field"></textarea>
+                    <div class="field-group">
+                        <label for="nome" class="marca-logo-label">Nome</label>
+                        <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
+                    </div>
+                    <div class="field-group">
+                        <label for="email" class="marca-logo-label">Email</label>
+                        <input type="email" name='email' id="email" placeholder="Email" />
+                    </div>
+                    <div class="field-group">
+                        <label for="dataNascimento" class="marca-logo-label">Data de Nascimento</label>
+                        <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
+                    </div>
+                    <div class="field-group">
+                        <label for="telefone" class="marca-logo-label">Telefone</label>
+                        <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
+                    </div>
+                    <div class="field-group">
+                        <label for="cpf" class="marca-logo-label">CPF</label>
+                        <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" />
+                    </div>
+                    <div class="field-group">
+                        <label for="sexo" class="marca-logo-label">Sexo</label>
+                        <select id='sexo' name='sexo'>
+                            <option value="" disabled selected>Sexo</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                        </select>
+                    </div>
+                    <div class="field-group-address">
+                        <label for="endereco" class="marca-logo-label">Endereço</label>
+                        <input type="text" name='endereco' id="endereco" placeholder="Endereço" class="address-full-width" />
+                    </div>
+                    <div class="field-group-desc">
+                        <label for="descricao" class="marca-logo-label">Descrição do Cliente</label>
+                        <textarea name="descricao" id="descricao" placeholder="Descrição do Cliente" class="description-field"></textarea>
+                    </div>
                     <button id="cadastrarBtn-cliente" type="submit">Cadastrar</button>
             </div> <!-- Fim do wrapper -->
             <!-- Botão fora do form e do wrapper -->
@@ -126,7 +150,7 @@
             </div>
         </div>
         <label for="viewDescricaoCliente" class="description-title">Descrição do Cliente:</label>
-        <div class="description-field">
+        <div class="description-field-a">
             <span id="viewDescricaoCliente"></span>
         </div>
     </div>
@@ -283,6 +307,19 @@
             }
         });
     });
+
+    function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
     </script>
         
 @endsection

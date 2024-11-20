@@ -16,10 +16,27 @@ body {
     display: flex;
 }
 
-.field-group label, .marca-logo-label{
-    font-weight: bold;
+.field-group-desc,.field-group-address {
+    grid-column: span 2;
 }
 
+.field-group label, .marca-logo-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.field-group input,
+.field-group select,
+.field-group textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 0px;
+}
 
 .pagination {
     display: flex;
@@ -66,6 +83,7 @@ body {
 
 .menu ul {
     list-style: none;
+    padding: 0;
 }
 
 .menu li {
@@ -76,6 +94,57 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.toggle-section > a {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    background-color: #0a0a23;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.toggle-section > a:hover {
+    background-color: #2c2c5f;
+}
+
+.toggle-content li {
+    margin-bottom: 10px;
+}
+
+.toggle-content a {
+    background-color: #2c2c5f;
+    padding: 8px;
+    border-radius: 3px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.toggle-content a:hover {
+    background-color: #4e4e91;
+}
+
+.toggle-icon {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-content {
+    display: none;
+}
+
+.toggle-content.show {
+    display: block;
+}
+
+.toggle-content.show + .toggle-section > a > .toggle-icon {
+    transform: rotate(180deg);
 }
 
 .content {
@@ -135,45 +204,6 @@ body {
 
 .username i {
     margin-left: 5px;
-}
-
-.vehicle-section {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
-    margin-top: 40px;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.add-vehicle {
-    text-align: center;
-    font-size: 18px;
-    color: #0a0a23;
-}
-
-.add-vehicle i {
-    font-size: 50px;
-    color: #0a0a23;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.vehicle-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 220px;
-    padding: 15px;
-    text-align: center;
-    margin-left: 0;
-}
-
-.vehicle-card img {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 15px;
 }
 
 .vehicle-info h3 {
@@ -734,7 +764,7 @@ canvas{
     max-width: 800px;
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding-bottom: 40px;
+    padding-bottom: 60px;
 }
 
 #employeeModal .close {
@@ -898,7 +928,7 @@ canvas{
     grid-template-columns: repeat(2, 1fr); /* Mantém duas colunas */
     gap: 15px; /* Espaço entre os inputs */
     position: relative; /* Para que o botão seja posicionado em relação a este contêiner */
-    padding-bottom: 40px;
+    padding-bottom: 0px;
 }
 
 .employee-details-marcas{
@@ -939,7 +969,7 @@ input:focus, select:focus {
 .password-field i {
     position: absolute;
     right: 10px;
-    top: 50%;
+    top: 75%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #0a0a23; /* Cor do ícone */
@@ -957,7 +987,7 @@ input:focus, select:focus {
     cursor: pointer;
     width: auto; /* Ajuste a largura como preferir */
     right: 0px; /* Mova o botão para a direita */
-    margin-top: 300px; /* Ajusta a posição vertical em relação aos inputs */
+    margin-top: 430px; /* Ajusta a posição vertical em relação aos inputs */
     transition: background-color 0.3s ease;
 }
 
@@ -1029,18 +1059,15 @@ input:focus, select:focus {
 }
 
 .botao-salvar-clientes {
-    position: absolute; /* Permite o posicionamento absoluto */
     background-color: #0a0a23;
     color: white;
     border: none;
     text-align: center;
-    padding: 12px 24px;
+    padding: 10px 15px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
     width: auto; /* Ajuste a largura como preferir */
-    right: 0px; /* Mova o botão para a direita */
-    margin-top: 460px; /* Ajusta a posição vertical em relação aos inputs */
     transition: background-color 0.3s ease;
 }
 
@@ -1258,7 +1285,20 @@ input:focus, select:focus {
 
 .description-field {
     width: 100%;
-    height: 200px;
+    height: 100px;
+    grid-column: span 2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-top: 0;
+    color: #333;
+}
+
+.description-field-a {
+    width: 100%;
+    min-height: 150px;
+    max-height: 200px;
     grid-column: span 2;
     padding: 10px;
     border: 1px solid #ccc;
@@ -1341,7 +1381,7 @@ input:focus, select:focus {
     cursor: pointer;
     width: auto; /* Ajuste a largura como preferir */
     right: 0px; /* Mova o botão para a direita */
-    margin-top: 460px; /* Ajusta a posição vertical em relação aos inputs */
+    margin-top: 500px; /* Ajusta a posição vertical em relação aos inputs */
     transition: background-color 0.3s ease;
 }
 
@@ -1400,7 +1440,7 @@ input:focus, select:focus {
     cursor: pointer;
     width: auto;
     right: 0px;
-    margin-top: 0px;
+    margin-top: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -1440,4 +1480,417 @@ input:focus, select:focus {
 .pagination .disabled {
     pointer-events: none;  /* Desabilitar interatividade nas setas de navegação inativas */
     opacity: 0.5;  /* Opacidade das setas inativas */
+}
+
+.vehicle-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.vehicle-modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.vehicle-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.vehicle-close:hover,
+.vehicle-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.vehicle-form-container {
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.photo-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.vehicle-details {
+    flex: 2;
+}
+
+.vehicle-details input,
+.vehicle-details textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.upload-container {
+    width: 90%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.upload-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.file-input {
+    display: none;
+}
+
+.thumbnail {
+    display: inline-block;
+    position: relative;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail input[type="radio"] {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    transform: scale(1.5);
+    accent-color: #007bff;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.upload-btn:hover {
+    background-color: #0056b3;
+}
+
+.vehicle-photo-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.vehicle-thumbnail {
+    width: 60px;
+    height: 60px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.vehicle-details textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.modal-veiculo {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.vehicle-name-year strong {
+    margin-right: 5px;
+}
+
+.vehicle-name-year span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.close {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+}
+
+.vehicle-images {
+    flex: 1;
+}
+
+.vehicle-images h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-gallery .large-image {
+    width: calc(100% - 10px);
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.image-gallery img:not(.large-image) {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.vehicle-info {
+    flex: 2;
+}
+
+.vehicle-info h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.info-grid div {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.info-grid strong {
+    color: #555;
+}
+
+.modal-confirmacao-venda {
+    display: none;
+    position: fixed; 
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-conteudo {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-modal {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #0a0a23;
+    text-align: center;
+}
+
+.campo-form {
+    margin-bottom: 15px;
+}
+
+.label-campo {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.input-campo, .textarea-campo {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #444;
+    background-color: #f9f9f9;
+}
+
+.textarea-campo {
+    height: 100px;
+    resize: none;
+}
+
+.botao-confirmar {
+    display: block;
+    background-color: #0a0a23;
+    color: white; 
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.botao-confirmar:hover {
+    background-color: #3c3c7a;
+}
+
+.fechar {
+    cursor: pointer;
+    font-size: 24px;
+    color: #aaa;
+    float: right;
+}
+
+.vehicle-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.add-vehicle {
+    text-align: center;
+    font-size: 18px;
+    color: #0a0a23;
+}
+
+.add-vehicle i {
+    font-size: 50px;
+    color: #0a0a23;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.vehicle-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    max-height: 360px;
+    min-height: 360px;
+    padding: 15px;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.vehicle-card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.vehicle-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.vehicle-info p {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #666;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #0a0a23;
+}
+
+.vehicle-actions {
+    margin-top: 10px;
+}
+
+.vehicle-actions i {
+    font-size: 18px;
+    margin: 0 5px;
+    color: #666;
+    cursor: pointer;
+}
+
+.vehicle-actions i:hover {
+    color: #0a0a23;
+}
+
+.vehicle-details {
+    flex: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.vehicle-details input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.vehicle-details input:focus {
+    border-color: #007BFF;
+    outline: none;
 }

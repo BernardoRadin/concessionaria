@@ -87,25 +87,58 @@
                 </div>
                 <form action="{{ route('funcionarios.create') }}" method="POST" class="employee-details">
                     @csrf
-                    <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
-                    <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
-                    <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" />
-                    <select id='sexo' name='sexo'>
-                        <option value="" disabled selected>Sexo</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                    </select>
-                    <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
-                    <select id='cargo' name='id_cargo'>
-                        <option value="" disabled selected>Selecione o cargo</option>
-                        <option value="1">Chefe</option>
-                    </select>
-                    <input type="email" name='email' id="email" placeholder="Email" />
-                    <div class="password-field">
-                        <input type="password" placeholder="Senha" name='senha' id="senha" />
-                        <i class="fas fa-eye" id="toggleSenha"></i>
-                    </div>
-                    <input type="text" name='endereco' placeholder="Endereço" class="address-full-width" />
+                    <div class="field-group">
+    <label for="nome" class="marca-logo-label">Nome</label>
+    <input type="text" name='nome' id="nome" placeholder="Nome" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" />
+</div>
+
+<div class="field-group">
+    <label for="telefone" class="marca-logo-label">Telefone</label>
+    <input type="text" name='telefone' id="telefone" placeholder="Telefone" maxlength="15" />
+</div>
+
+<div class="field-group">
+    <label for="cpf" class="marca-logo-label">CPF</label>
+    <input type="text" name='cpf' id="cpf" placeholder="CPF" maxlength="14" />
+</div>
+
+<div class="field-group">
+    <label for="sexo" class="marca-logo-label">Sexo</label>
+    <select id='sexo' name='sexo'>
+        <option value="" disabled selected>Sexo</option>
+        <option value="M">Masculino</option>
+        <option value="F">Feminino</option>
+    </select>
+</div>
+
+<div class="field-group">
+    <label for="dataNascimento" class="marca-logo-label">Data de Nascimento</label>
+    <input type="date" name='dataNasc' id="dataNascimento" placeholder="Data de Nascimento" maxlength="10" />
+</div>
+
+<div class="field-group">
+    <label for="cargo" class="marca-logo-label">Cargo</label>
+    <select id='cargo' name='id_cargo'>
+        <option value="" disabled selected>Selecione o cargo</option>
+        <option value="1">Chefe</option>
+    </select>
+</div>
+
+<div class="field-group">
+    <label for="email" class="marca-logo-label">Email</label>
+    <input type="email" name='email' id="email" placeholder="Email" />
+</div>
+
+<div class="field-group password-field">
+    <label for="senha" class="marca-logo-label">Senha</label>
+    <input type="password" placeholder="Senha" name='senha' id="senha" />
+    <i class="fas fa-eye" id="toggleSenha"></i>
+</div>
+
+<div class="field-group-address">
+    <label for="endereco" class="marca-logo-label">Endereço</label>
+    <input type="text" name='endereco' placeholder="Endereço" class="address-full-width" />
+</div>
                     <button id="cadastrarBtn" type="submit">Cadastrar</button>
             </div> <!-- Fim do wrapper -->
             <!-- Botão fora do form e do wrapper -->
@@ -286,6 +319,19 @@
             }
         });
     });
+
+    function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
     </script>
         
 @endsection

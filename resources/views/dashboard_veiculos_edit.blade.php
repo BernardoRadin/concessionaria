@@ -62,52 +62,52 @@
                         @endforeach
                     </div>
                 </div>
-                    <div class="vehicle-details">
-                        <input type="text" name="nome" placeholder="Nome" value='{{ $veiculo->Nome }}'>
-                        <input type="text" name="ano" placeholder="Ano" maxlength="4" value='{{ $veiculo->Ano }}'>
-                        {{-- <input type="text" placeholder="Modelo"> --}}
-                        <input type="text" name="porta" placeholder="Portas" value='{{ $veiculo->Porta }}'>
-                        <input type="text" name="cambio" placeholder="Câmbio" value='{{ $veiculo->Cambio }}'>
-                        <input type="text" name="motor" placeholder="Motor" value='{{ $veiculo->Motor }}'>
-                        <input type="text" name="quilometragem" placeholder="Quilometragem" value='{{ $veiculo->Quilometragem }}'>
-                        <select name="combustivel" placeholder="Combustível">
-                            <option value=''>Selecione o Combustível</option>
-                            <option value='A' {{ $veiculo->Combustivel == 'A' ? 'selected' : ''}}>Álcool</option>
-                            <option value='G' {{ $veiculo->Combustivel == 'G' ? 'selected' : ''}}>Gasolina</option>
-                            <option value='F' {{ $veiculo->Combustivel == 'F' ? 'selected' : ''}}>Álcool e Gasolina</option>
-                            <option value='D' {{ $veiculo->Combustivel == 'D' ? 'selected' : ''}}>Diesel</option>
-                            <option value='E' {{ $veiculo->Combustivel == 'E' ? 'selected' : ''}}>Elétrico</option>
-                        </select>
-                        <select name="categoria" placeholder="Categoria">
-                            <option value=''>Selecione a Categoria</option>
-                            @foreach($categorias as $categoria)
-                                <option value='{{ $categoria->ID }}' {{ $veiculo->ID_Categoria == $categoria->ID ? 'selected' : ''}}>{{ $categoria->Nome }}</option>
-                            @endforeach
-                        </select>
-                        <select name="marca" placeholder="Marca">
-                            <option value=''>Selecione a Marca</option>
-                            @foreach($marcas as $marca)
-                                <option value='{{ $marca->ID }}' {{ $veiculo->ID_Marca == $marca->ID ? 'selected' : ''}}>{{ $marca->Nome }}</option>
-                            @endforeach
-                        </select>
-                        <input type="text" name="cor" placeholder="Cor" value='{{ $veiculo->Cor }}'>
-                        <input type="text" name="precocusto" placeholder="Valor Compra" value='{{ number_format($veiculo->PrecoCusto,0, ',', '.') }}'>
-                        <input type="text" name="precovenda" placeholder="Valor Venda" value='{{ number_format($veiculo->PrecoVenda,0, ',', '.') }}'>
-                        <select name="estoque">
-                            <option value=''>Seleciona estoque</option>
-                            <option value='1' {{ $veiculo->Em_Estoque == 1 ? 'selected' : ''}}>Sim</option>
-                            <option value='0' {{ $veiculo->Em_Estoque == 0 ? 'selected' : ''}}>Não</option>
-                        </select>    
-                        <select name="antigodono" placeholder="Antigo Dono">
-                            <option value=''>Selecione o Antigo Dono</option>
-                            @foreach($clientes as $cliente)
-                                <option value='{{ $cliente->ID }}' {{ $veiculo->ID_AntigoDono == $cliente->ID ? 'selected' : ''}}>{{ $cliente->Nome }}</option>
-                            @endforeach
-                        </select>
-                        <textarea name="descricao" placeholder="Descrição do Veículo">{{ $veiculo->Descricao }}</textarea>
-                        <div class='align-button-veiculos'>
+                <div class="vehicle-details">
+                    <input type="text" name="nome" placeholder="Nome" value='{{ $veiculo->Nome }}'>
+                    <input type="text" name="ano" placeholder="Ano" maxlength="4" value='{{ $veiculo->Ano }}'>
+                    {{-- <input type="text" placeholder="Modelo"> --}}
+                    <input type="text" name="porta" placeholder="Portas" value='{{ $veiculo->Porta }}'>
+                    <input type="text" name="cambio" placeholder="Câmbio" value='{{ $veiculo->Cambio }}'>
+                    <input type="text" name="motor" placeholder="Motor" value='{{ $veiculo->Motor }}'>
+                    <input type="text" name="quilometragem" placeholder="Quilometragem" value='{{ $veiculo->Quilometragem }}'>
+                    <select name="combustivel" placeholder="Combustível">
+                        <option value=''>Selecione o Combustível</option>
+                        <option value='A' {{ $veiculo->Combustivel == 'A' ? 'selected' : ''}}>Álcool</option>
+                        <option value='G' {{ $veiculo->Combustivel == 'G' ? 'selected' : ''}}>Gasolina</option>
+                        <option value='F' {{ $veiculo->Combustivel == 'F' ? 'selected' : ''}}>Álcool e Gasolina</option>
+                        <option value='D' {{ $veiculo->Combustivel == 'D' ? 'selected' : ''}}>Diesel</option>
+                        <option value='E' {{ $veiculo->Combustivel == 'E' ? 'selected' : ''}}>Elétrico</option>
+                    </select>
+                    <select name="categoria" placeholder="Categoria">
+                        <option value=''>Selecione a Categoria</option>
+                        @foreach($categorias as $categoria)
+                            <option value='{{ $categoria->ID }}' {{ $veiculo->ID_Categoria == $categoria->ID ? 'selected' : ''}}>{{ $categoria->Nome }}</option>
+                        @endforeach
+                    </select>
+                    <select name="marca" placeholder="Marca">
+                        <option value=''>Selecione a Marca</option>
+                        @foreach($marcas as $marca)
+                            <option value='{{ $marca->ID }}' {{ $veiculo->ID_Marca == $marca->ID ? 'selected' : ''}}>{{ $marca->Nome }}</option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="cor" placeholder="Cor" value='{{ $veiculo->Cor }}'>
+                    <input type="text" name="precocusto" placeholder="Valor Compra" value='{{ number_format($veiculo->PrecoCusto,0, ',', '.') }}'>
+                    <input type="text" name="precovenda" placeholder="Valor Venda" value='{{ number_format($veiculo->PrecoVenda,0, ',', '.') }}'>
+                    <select name="estoque">
+                        <option value=''>Seleciona estoque</option>
+                        <option value='1' {{ $veiculo->Em_Estoque == 1 ? 'selected' : ''}}>Sim</option>
+                        <option value='0' {{ $veiculo->Em_Estoque == 0 ? 'selected' : ''}}>Não</option>
+                    </select>    
+                    <select name="antigodono" placeholder="Antigo Dono">
+                        <option value=''>Selecione o Antigo Dono</option>
+                        @foreach($clientes as $cliente)
+                            <option value='{{ $cliente->ID }}' {{ $veiculo->ID_AntigoDono == $cliente->ID ? 'selected' : ''}}>{{ $cliente->Nome }}</option>
+                        @endforeach
+                    </select>
+                    <textarea name="descricao" placeholder="Descrição do Veículo">{{ $veiculo->Descricao }}</textarea>
+                    <div class='align-button-veiculos'>
                         <button id="cadastrarBtn-veiculos" type="submit">Editar</button>
-                    <div>
+                    </div>
                 </div>
             </div>
         </form>

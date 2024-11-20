@@ -16,12 +16,20 @@
 <div class="destaques">
     @foreach($veiculos as $veiculo)
         <div class="carro">
-            <img src="{{ asset($veiculo->fotoprincipal->Foto ?? 'caminho/para/imagem_padrao.jpg') }}" alt="Nissan KICKS">
-            <h2>{{$veiculo->Nome}}</h2>
-            <b><p>{{$veiculo->Ano}}</p></b>
-            <p>{{$veiculo->Cambio}}</p>
-            <p>{{ number_format($veiculo->Quilometragem, 0, ',', '.') }} KM</p>
-            <a href="{{ route('home.veiculo', ['id'=> $veiculo->ID])}}"><button type="button" class="botao-carro">R$ {{ number_format($veiculo->PrecoVenda,2, ',', '.') }}</button></a>
+            <div class="imagem-veiculo">
+                <img src="{{ asset($veiculo->fotoprincipal->Foto ?? 'caminho/para/imagem_padrao.jpg') }}" alt="{{ $veiculo->Nome }}">
+            </div>
+            <div class="info-veiculo">
+                <h2 class="nome-veiculo">{{ $veiculo->Nome }}</h2>
+                <p class="ano-veiculo"><b>{{ $veiculo->Ano }}</b></p>
+                <p class="cambio-veiculo">{{ $veiculo->Cambio }}</p>
+                <p class="quilometragem-veiculo">{{ number_format($veiculo->Quilometragem, 0, ',', '.') }} KM</p>
+                <div class="preco-veiculo">
+                    <a href="{{ route('home.veiculo', ['id'=> $veiculo->ID])}}">
+                        <button type="button" class="botao-carro">R$ {{ number_format($veiculo->PrecoVenda, 2, ',', '.') }}</button>
+                    </a>
+                </div>
+            </div>
         </div>
     @endforeach
 </div>
